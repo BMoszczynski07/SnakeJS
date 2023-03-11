@@ -49,6 +49,29 @@ body {
   background: #f3f3f3;
 }
 
+.sound--muted::before {
+  content: "";
+  display: block;
+  width: 110%;
+  height: 4px;
+  border-radius: 7px;
+  background: rgb(255, 0, 0);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(-45deg);
+}
+
+/* .sound--muted::before {
+  content: "";
+  width: 50px;
+  height: 4px;
+  color: #f00;
+  position: absolute;
+  top: 0;
+  left: 0;
+} */
+
 .game-box {
   height: 350px;
   margin: 35px auto;
@@ -60,9 +83,11 @@ body {
 }
 
 .gameboard {
-  background: #efefef;
-  width: 750px;
-  height: 100%;
+  /* background: #efefef; */
+  width: 375px;
+  height: 375px;
+  display: flex;
+  flex-wrap: wrap;
 }
 
 .themes {
@@ -126,4 +151,13 @@ body {
   position: absolute;
   bottom: 0;
   left: 0;
+}
+
+.control--pressed {
+  background: #000;
+  color: #fff;
+}
+
+.tile {
+  background: #f00;
 }

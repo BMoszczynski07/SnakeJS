@@ -10,36 +10,38 @@
   </head>
   <body>
     <div class="parameters">
-      <h5 class="parameter">Prędkość: 1.00</h5>
-      <h5 class="parameter">Punkty: 0</h5>
-      <h5 class="parameter">Rozmiar planszy: 25x25</h5>
-      <h5 class="parameter">Czas: 00:00:00</h5>
+      <h5 class="parameter" data-parameter="speed">Prędkość: 1.00</h5>
+      <h5 class="parameter" data-parameter="length">Długość: 0</h5>
+      <h5 class="parameter" data-parameter="board-size">
+        Rozmiar planszy: 25x25
+      </h5>
+      <h5 class="parameter" data-parameter="time">Czas gry: 00:00:00</h5>
     </div>
 
     <div class="game-box">
       <div class="themes">
         <span class="theme" data-theme="#2f2f2f" style="--i: #2f2f2f"></span>
         <span class="theme" data-theme="#efefef" style="--i: #efefef"></span>
-        <span class="theme" data-theme="blue" style="--i: blue"></span>
-        <span class="theme" data-theme="green" style="--i: green"></span>
-        <span class="theme" data-theme="yellow" style="--i: yellow"></span>
-        <span class="theme" data-theme="red" style="--i: red"></span>
+        <span class="theme" data-theme="#9090ec" style="--i: #9090ec"></span>
+        <span class="theme" data-theme="#50e150" style="--i: #50e150"></span>
+        <span class="theme" data-theme="#fff58c" style="--i: #fff58c"></span>
+        <span class="theme" data-theme="#e53030" style="--i: #e53030"></span>
       </div>
 
       <div class="gameboard"></div>
     </div>
 
     <div class="controls">
-      <div class="control control--top">
+      <div class="control control--top" data-direction="top">
         <i class="fa-solid fa-arrow-up"></i>
       </div>
-      <div class="control control--bottom">
+      <div class="control control--bottom" data-direction="bottom">
         <i class="fa-solid fa-arrow-up"></i>
       </div>
-      <div class="control control--left">
+      <div class="control control--left" data-direction="left">
         <i class="fa-solid fa-arrow-up"></i>
       </div>
-      <div class="control control--right">
+      <div class="control control--right" data-direction="right">
         <i class="fa-solid fa-arrow-up"></i>
       </div>
     </div>
