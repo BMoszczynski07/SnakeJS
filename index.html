@@ -1,11 +1,49 @@
-!
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>SnakeJS</title>
+    <link rel="stylesheet" href="./style.css" />
+    <link rel="icon" href="./assets/snake.png" />
   </head>
-  <body></body>
+  <body>
+    <div class="parameters">
+      <h5 class="parameter">Prędkość: 1.00</h5>
+      <h5 class="parameter">Punkty: 0</h5>
+      <h5 class="parameter">Rozmiar planszy: 25x25</h5>
+      <h5 class="parameter">Czas: 00:00:00</h5>
+    </div>
+
+    <div class="game-box">
+      <div class="themes">
+        <span class="theme" data-theme="black"></span>
+        <span class="theme" data-theme="white"></span>
+        <span class="theme" data-theme="blue"></span>
+        <span class="theme" data-theme="green"></span>
+        <span class="theme" data-theme="yellow"></span>
+        <span class="theme" data-theme="red"></span>
+      </div>
+
+      <div class="gameboard"></div>
+    </div>
+
+    <div class="controls">
+      <span class="control--top"><i class="fa-solid fa-arrow-up"></i></span>
+      <span class="control--bottom"><i class="fa-solid fa-arrow-up"></i></span>
+      <span class="control--left"><i class="fa-solid fa-arrow-up"></i></span>
+      <span class="control--right"><i class="fa-solid fa-arrow-up"></i></span>
+    </div>
+
+    <span class="sound">
+      <i class="fa-solid fa-volume-high"></i>
+    </span>
+
+    <script
+      src="https://kit.fontawesome.com/f4c4b4acfc.js"
+      crossorigin="anonymous"
+    ></script>
+    <script src="./script.js"></script>
+  </body>
 </html>
