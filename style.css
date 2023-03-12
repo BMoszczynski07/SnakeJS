@@ -160,5 +160,40 @@ body {
 }
 
 .tile {
-  background: #f00;
+  /* margin: 1px; */
+  background: #efefef;
+}
+
+.tile--snake {
+  background: #444444;
+}
+
+.tile--food {
+  background: #c4c40a;
+}
+
+.parameter-speed--acceleration {
+  animation: speed-acceleration 1s;
+  animation-timing-function: step-start;
+}
+
+@keyframes speed-acceleration {
+  0% {
+    color: #41d734;
+  }
+  20% {
+    color: #000000;
+  }
+  40% {
+    color: #41d734;
+  }
+  60% {
+    color: #000000;
+  }
+  80% {
+    color: #41d734;
+  }
+  100% {
+    color: #000000;
+  }
 }

@@ -7,35 +7,82 @@ class Snake {
     this.y = y;
   }
 
-  //   handleChangePosition() {}
+  handleUpdateSnake() {
+    handleCheckSnake();
 
-  //   handleIncreaseSpeed() {}
+    const { snakeX: x, snakeY: y, snakeLen: length } = this;
+  }
+
+  handleJump() {
+    if (!mute) {
+      jump.src = "./assets/jump.wav";
+      jump.play();
+    }
+
+    jumps++;
+
+    this.handleUpdateSnake();
+
+    if (jumps % (Math.floor(boardSize / 10) * 9) === 0) {
+      this.speed = this.speed + 0.1;
+      if (!mute) {
+        snakespeed.src = "./assets/speed_acceleration.wav";
+        snakespeed.play();
+      }
+
+      parameterSpeed.classList.add("parameter-speed--acceleration");
+      parameterSpeed.textContent = `${this.speed.toFixed(2)}`;
+
+      setTimeout(() => {
+        parameterSpeed.classList.remove("parameter-speed--acceleration");
+      }, 1000);
+
+      clearInterval(gameInterval);
+      gameInterval = setInterval(this.handleJump, (1 / snake.speed) * 1000);
+    }
+  }
 }
 
-class Food {
+class Boost {
   constructor(x, y) {
     this.x = x;
     this.y = y;
   }
 
-  //   handleFoodEaten() {}
+  handleIsEaten() {}
+}
+
+class Food extends Boost {}
+
+class Bonus extends Boost {
+  constructor(name) {
+    this.name = name;
+  }
+
+  handleTransformBonus() {}
 }
 
 let board;
 let boardSize;
-let sizeRange = { min: 10, max: 60 };
+let sizeRange = { min: 5, max: 60 };
 
 let snake;
 let food;
+let bonus;
 
 let timer = 0;
 let mute = false;
 
 let gameInterval;
+let timerInterval;
+
+let jumps = 0;
 
 let theme = "black";
 
-const audio = document.querySelector("audio");
+const start = new Audio();
+const jump = new Audio();
+const snakespeed = new Audio();
 
 const time = document.querySelector(".parameter[data-parameter=time]");
 const size = document.querySelector(".parameter[data-parameter=board-size]");
@@ -50,50 +97,110 @@ const gameBoard = document.querySelector(".gameboard");
 
 const sound = document.querySelector(".sound");
 
+const parameterSpeed = document.querySelector(".parameter-speed");
+
 while (!boardSize || boardSize < sizeRange.min || boardSize > sizeRange.max) {
   boardSize = prompt(
     "Podaj wielkość planszy (minimalna - 10, maksymalna - 60)"
   );
 }
 
+const RandInt = ({ min, max }) => {
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+};
+
 const handleGenerateBoard = () => {
   // TODO: generowanie planszy
-  board = Array.from({ length: boardSize }, () =>
-    Array.from({ length: boardSize }, () => document.createElement("div"))
-  );
+  let snakePos = {
+    x: RandInt({
+      min: Math.floor(boardSize / 2) - 3,
+      max: Math.floor(boardSize / 2) + 3,
+    }),
+    y: RandInt({
+      min: Math.floor(boardSize / 2) - 1,
+      max: Math.floor(boardSize / 2) + 1,
+    }),
+  };
+
+  snake = new Snake("top", 3, 1, snakePos.x, snakePos.y);
+  timer = 0;
+
+  size.textContent = `Rozmiar planszy: ${boardSize}x${boardSize}`;
+  parameterSpeed.textContent = `${snake.speed.toFixed(2)}`;
+
+  board = [];
 
   let tileCSS = {
     width: gameBoard.clientWidth / boardSize,
     height: gameBoard.clientHeight / boardSize,
   };
 
-  for (let i = 0; i < boardSize * boardSize; i++) {
-    let tile = document.createElement("div");
+  for (let i = 0; i < boardSize; i++) {
+    let row = [];
+    for (let j = 0; j < boardSize; j++) {
+      let tile = document.createElement("div");
 
-    tile.classList.add("tile");
-    tile.style.width = `${tileCSS.width}px`;
-    tile.style.height = `${tileCSS.height}px`;
+      tile.classList.add("tile");
+      tile.style.width = `${tileCSS.width}px`;
+      tile.style.height = `${tileCSS.height}px`;
 
-    board.push(tile);
-    gameBoard.appendChild(tile);
+      gameBoard.appendChild(tile);
+      const tileQuery = document.querySelectorAll(".tile");
+
+      row.push(tileQuery[tileQuery.length - 1]);
+    }
+    board.push(row);
   }
+
+  for (i = 0; i < snake.length; i++) {
+    let snakeEl = board[snake.y + i][snake.x];
+    snakeEl.classList.add("tile--snake");
+  }
+
+  const tiles = document.querySelectorAll(".tile");
+  const freeTiles = document.querySelectorAll(".tile:not(.tile--snake)");
+
+  const randTileId = RandInt({ min: 0, max: freeTiles.length - 1 });
+
+  const indexOfFreeTile = Array.from(tiles).indexOf(freeTiles[randTileId]);
+  const tileCoordinates = {
+    x: indexOfFreeTile % boardSize,
+    y: Math.floor(indexOfFreeTile / boardSize),
+  };
+  const { x, y } = tileCoordinates;
+
+  // mark food on the board
+  food = new Food(x, y);
+
+  board[food.x][food.y].classList.add("tile--food");
+};
+
+const GameOver = () => {
+  const payload = {
+    score: snake.length,
+    jumps,
+    time: {
+      hours: Math.floor(timer / 60 / 60),
+      minutes: Math.floor(timer / 60) % 60,
+      seconds: timer % 60,
+    },
+  };
 };
 
 const handleStartGame = () => {
-  snake = new Snake("top", 3, 1);
-  timer = 0;
+  start.src = "./assets/start.wav";
 
-  size.textContent = `Rozmiar planszy: ${boardSize}x${boardSize}`;
-  speed.textContent = `Prędkość: ${snake.speed.toFixed(2)}`;
+  start.volume = 0.07;
+  jump.volume = 0.1;
+  snakespeed.volume = 0.3;
 
-  handleGenerateBoard();
+  if (!mute) start.play();
 
-  if (!mute) {
-    audio.src = "./assets/start.wav";
-    audio.play();
-  }
+  gameInterval = setInterval(snake.handleJump, 1000);
 
-  gameInterval = setInterval(() => {
+  timerInterval = setInterval(() => {
     timer++;
     time.textContent = `Czas gry: 
     ${
@@ -108,8 +215,6 @@ const handleStartGame = () => {
     `;
   }, 1000);
 };
-
-document.addEventListener("DOMContentLoaded", handleStartGame);
 
 const handleKeyPress = ({ e, action }) => {
   const { keyCode } = e;
@@ -155,6 +260,8 @@ const handleKeyPress = ({ e, action }) => {
   )
     return;
 
+  if (timer === 0) handleStartGame();
+
   switch (keyCode) {
     case W:
     case top:
@@ -194,3 +301,5 @@ document.addEventListener("keydown", (e) => {
 document.addEventListener("keyup", (e) => {
   handleKeyPress({ e, action: "up" });
 });
+
+document.addEventListener("DOMContentLoaded", handleGenerateBoard);
