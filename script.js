@@ -35,6 +35,8 @@ let gameInterval;
 
 let theme = "black";
 
+const audio = document.querySelector("audio");
+
 const time = document.querySelector(".parameter[data-parameter=time]");
 const size = document.querySelector(".parameter[data-parameter=board-size]");
 const speed = document.querySelector(".parameter[data-parameter=speed]");
@@ -65,8 +67,6 @@ const handleGenerateBoard = () => {
     height: gameBoard.clientHeight / boardSize,
   };
 
-  console.log(tileCSS);
-
   for (let i = 0; i < boardSize * boardSize; i++) {
     let tile = document.createElement("div");
 
@@ -87,6 +87,11 @@ const handleStartGame = () => {
   speed.textContent = `Prędkość: ${snake.speed.toFixed(2)}`;
 
   handleGenerateBoard();
+
+  if (!mute) {
+    audio.src = "./assets/start.wav";
+    audio.play();
+  }
 
   gameInterval = setInterval(() => {
     timer++;

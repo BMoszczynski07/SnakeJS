@@ -118,6 +118,7 @@ body {
   align-items: center;
   justify-content: center;
   border-radius: 3px;
+  cursor: pointer;
 }
 
 .control--top {
