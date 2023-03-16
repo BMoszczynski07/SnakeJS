@@ -1,74 +1,40 @@
 class Snake {
-  constructor(direction, length, speed, x, y) {
+  constructor(direction, length, speed, x, y, jumps = 0) {
     this.direction = direction;
     this.length = length;
     this.speed = speed;
     this.x = x;
     this.y = y;
-  }
-
-  handleUpdateSnake() {
-    handleCheckSnake();
-
-    const { snakeX: x, snakeY: y, snakeLen: length } = this;
-  }
-
-  handleJump() {
-    if (!mute) {
-      jump.src = "./assets/jump.wav";
-      jump.play();
-    }
-
-    jumps++;
-
-    this.handleUpdateSnake();
-
-    if (jumps % (Math.floor(boardSize / 10) * 9) === 0) {
-      this.speed = this.speed + 0.1;
-      if (!mute) {
-        snakespeed.src = "./assets/speed_acceleration.wav";
-        snakespeed.play();
-      }
-
-      parameterSpeed.classList.add("parameter-speed--acceleration");
-      parameterSpeed.textContent = `${this.speed.toFixed(2)}`;
-
-      setTimeout(() => {
-        parameterSpeed.classList.remove("parameter-speed--acceleration");
-      }, 1000);
-
-      clearInterval(gameInterval);
-      gameInterval = setInterval(this.handleJump, (1 / snake.speed) * 1000);
-    }
+    this.jumps = jumps;
+    this.endOfSnake = this.y + this.length - 1;
   }
 }
 
 class Boost {
-  constructor(x, y) {
+  constructor(x, y, name = "") {
+    this.name = name;
     this.x = x;
     this.y = y;
   }
 
-  handleIsEaten() {}
+  handleIsEaten = () => {};
 }
 
 class Food extends Boost {}
 
 class Bonus extends Boost {
-  constructor(name) {
-    this.name = name;
-  }
-
-  handleTransformBonus() {}
+  handleTransformBonus = () => {};
 }
 
 let board;
 let boardSize;
-let sizeRange = { min: 5, max: 60 };
+let sizeRange = { min: 10, max: 60 };
 
 let snake;
 let food;
-let bonus;
+let bonuses = [];
+
+let isGameStarted = false;
 
 let timer = 0;
 let mute = false;
@@ -76,9 +42,10 @@ let mute = false;
 let gameInterval;
 let timerInterval;
 
-let jumps = 0;
-
-let theme = "black";
+let preferences = {
+  bgTheme: "black",
+  snakeColor: "white",
+};
 
 const start = new Audio();
 const jump = new Audio();
@@ -105,10 +72,116 @@ while (!boardSize || boardSize < sizeRange.min || boardSize > sizeRange.max) {
   );
 }
 
+handleUpdateSnake = () => {
+  if (snake.jumps === 0 && snake.direction === "bottom") {
+    let end = snake.endOfSnake;
+    snake.endOfSnake = snake.y;
+    snake.y = end;
+  }
+
+  switch (snake.direction) {
+    case "top":
+      snake.y = snake.y === 0 ? boardSize - 1 : snake.y - 1;
+
+      board[snake.endOfSnake][snake.x].classList.remove("tile--snake");
+      board[snake.y][snake.x].classList.add("tile--snake");
+
+      snake.endOfSnake =
+        snake.endOfSnake === 0 ? boardSize - 1 : snake.endOfSnake - 1;
+      break;
+    case "bottom":
+      snake.y = snake.y === boardSize - 1 ? 0 : snake.y + 1;
+
+      board[snake.endOfSnake][snake.x].classList.remove("tile--snake");
+      board[snake.y][snake.x].classList.add("tile--snake");
+
+      snake.endOfSnake =
+        snake.endOfSnake === boardSize - 1 ? 0 : snake.endOfSnake + 1;
+      break;
+    case "left":
+      break;
+    case "right":
+      snake.x = snake.x === boardSize - 1 ? 0 : snake.x + 1;
+
+      board[snake.endOfSnake][snake.x].classList.remove("tile--snake");
+      board[snake.y][snake.x].classList.add("tile--snake");
+
+      snake.endOfSnake =
+        snake.endOfSnake === 0 ? boardSize - 1 : snake.endOfSnake - 1;
+      break;
+    case "default":
+      console.error("#ERR: Nieprawidłowy kierunek!");
+      break;
+  }
+};
+
+handleJump = () => {
+  if (!mute) {
+    jump.src = "./assets/jump.wav";
+    jump.play();
+  }
+
+  handleUpdateSnake();
+
+  snake.jumps++;
+
+  for (const bonus of bonuses) bonus.handleTransformBonus();
+
+  if (snake.jumps % (Math.floor(boardSize / 10) * 9) === 0) {
+    snake.speed = snake.speed + 0.1;
+    if (!mute) {
+      snakespeed.src = "./assets/speed_acceleration.wav";
+      snakespeed.play();
+    }
+
+    parameterSpeed.classList.add("parameter-speed--acceleration");
+    parameterSpeed.textContent = `${snake.speed.toFixed(2)}`;
+
+    setTimeout(() => {
+      parameterSpeed.classList.remove("parameter-speed--acceleration");
+    }, 1000);
+
+    clearInterval(gameInterval);
+    gameInterval = setInterval(handleJump, (1 / snake.speed) * 1000);
+  }
+};
+
 const RandInt = ({ min, max }) => {
   min = Math.ceil(min);
   max = Math.floor(max);
   return Math.floor(Math.random() * (max - min + 1)) + min;
+};
+
+const handlePlaceTile = ({ type }) => {
+  const tiles = document.querySelectorAll(".tile");
+  const freeTiles = document.querySelectorAll(".tile:not(.tile--snake)");
+
+  const randTileId = RandInt({ min: 0, max: freeTiles.length - 1 });
+
+  const indexOfFreeTile = Array.from(tiles).indexOf(freeTiles[randTileId]);
+  const tileCoordinates = {
+    x: indexOfFreeTile % boardSize,
+    y: Math.floor(indexOfFreeTile / boardSize),
+  };
+
+  const { x, y } = tileCoordinates;
+
+  // mark food or bonus on the board
+  switch (type) {
+    case "food":
+      food = new Food(x, y);
+
+      board[food.x][food.y].classList.add("tile--food");
+      break;
+    case "bonus":
+      let bonus = new Bonus("bonus", x, y);
+
+      bonuses.push(bonus);
+      break;
+    default:
+      console.error("#ERR! -> Przesłano niepoprawny typ bonusu");
+      break;
+  }
 };
 
 const handleGenerateBoard = () => {
@@ -124,7 +197,13 @@ const handleGenerateBoard = () => {
     }),
   };
 
-  snake = new Snake("top", 3, 1, snakePos.x, snakePos.y);
+  snake = new Snake(
+    "top",
+    Math.round(boardSize / 3),
+    1,
+    snakePos.x,
+    snakePos.y
+  );
   timer = 0;
 
   size.textContent = `Rozmiar planszy: ${boardSize}x${boardSize}`;
@@ -136,6 +215,8 @@ const handleGenerateBoard = () => {
     width: gameBoard.clientWidth / boardSize,
     height: gameBoard.clientHeight / boardSize,
   };
+
+  let tilesQty = 0;
 
   for (let i = 0; i < boardSize; i++) {
     let row = [];
@@ -149,7 +230,9 @@ const handleGenerateBoard = () => {
       gameBoard.appendChild(tile);
       const tileQuery = document.querySelectorAll(".tile");
 
-      row.push(tileQuery[tileQuery.length - 1]);
+      row.push(tileQuery[tilesQty]);
+
+      tilesQty++;
     }
     board.push(row);
   }
@@ -159,22 +242,7 @@ const handleGenerateBoard = () => {
     snakeEl.classList.add("tile--snake");
   }
 
-  const tiles = document.querySelectorAll(".tile");
-  const freeTiles = document.querySelectorAll(".tile:not(.tile--snake)");
-
-  const randTileId = RandInt({ min: 0, max: freeTiles.length - 1 });
-
-  const indexOfFreeTile = Array.from(tiles).indexOf(freeTiles[randTileId]);
-  const tileCoordinates = {
-    x: indexOfFreeTile % boardSize,
-    y: Math.floor(indexOfFreeTile / boardSize),
-  };
-  const { x, y } = tileCoordinates;
-
-  // mark food on the board
-  food = new Food(x, y);
-
-  board[food.x][food.y].classList.add("tile--food");
+  handlePlaceTile({ type: "food" });
 };
 
 const GameOver = () => {
@@ -198,7 +266,7 @@ const handleStartGame = () => {
 
   if (!mute) start.play();
 
-  gameInterval = setInterval(snake.handleJump, 1000);
+  gameInterval = setInterval(handleJump, 1000);
 
   timerInterval = setInterval(() => {
     timer++;
