@@ -6,7 +6,10 @@ class Snake {
     this.x = x;
     this.y = y;
     this.jumps = jumps;
-    this.endOfSnake = this.y + this.length - 1;
+    this.endOfSnake = {
+      x: this.x,
+      y: this.y + this.length - 1,
+    };
   }
 }
 
@@ -72,42 +75,115 @@ while (!boardSize || boardSize < sizeRange.min || boardSize > sizeRange.max) {
   );
 }
 
-handleUpdateSnake = () => {
+const findEndOfSnake = () => {
+  const { x, y } = snake.endOfSnake;
+
+  if (y === boardSize - 1 || x === boardSize - 1)
+    return {
+      x: boardSize - 1 ? 0 : x,
+      y: boardSize - 1 ? 0 : y,
+    };
+
+  if (y === 0 || x === 0)
+    return {
+      x: 0 ? boardSize - 1 : x,
+      y: 0 ? boardSize - 1 : y,
+    };
+
+  if (y < boardSize - 1 && board[y + 1][x].classList.contains("tile--snake"))
+    return {
+      x,
+      y: y + 1,
+    };
+
+  if (y > 0 && board[y - 1][x].classList.contains("tile--snake"))
+    return {
+      x,
+      y: y - 1,
+    };
+
+  if (x < boardSize - 1 && board[y][x + 1].classList.contains("tile--snake"))
+    return {
+      x: x + 1,
+      y,
+    };
+
+  if (x > 0 && board[y][x - 1].classList.contains("tile--snake"))
+    return {
+      x: x - 1,
+      y,
+    };
+};
+
+const handleUpdateSnake = () => {
   if (snake.jumps === 0 && snake.direction === "bottom") {
-    let end = snake.endOfSnake;
-    snake.endOfSnake = snake.y;
+    let end = snake.endOfSnake.y;
+    snake.endOfSnake.y = snake.y;
     snake.y = end;
   }
+
+  let end;
 
   switch (snake.direction) {
     case "top":
       snake.y = snake.y === 0 ? boardSize - 1 : snake.y - 1;
 
-      board[snake.endOfSnake][snake.x].classList.remove("tile--snake");
+      board[snake.endOfSnake.y][snake.endOfSnake.x].classList.remove(
+        "tile--snake"
+      );
       board[snake.y][snake.x].classList.add("tile--snake");
 
-      snake.endOfSnake =
-        snake.endOfSnake === 0 ? boardSize - 1 : snake.endOfSnake - 1;
+      end = findEndOfSnake();
+
+      snake.endOfSnake = {
+        x: end.x,
+        y: end.y,
+      };
       break;
     case "bottom":
       snake.y = snake.y === boardSize - 1 ? 0 : snake.y + 1;
 
-      board[snake.endOfSnake][snake.x].classList.remove("tile--snake");
+      board[snake.endOfSnake.y][snake.endOfSnake.x].classList.remove(
+        "tile--snake"
+      );
       board[snake.y][snake.x].classList.add("tile--snake");
 
-      snake.endOfSnake =
-        snake.endOfSnake === boardSize - 1 ? 0 : snake.endOfSnake + 1;
+      end = findEndOfSnake();
+
+      snake.endOfSnake = {
+        x: end.x,
+        y: end.y,
+      };
       break;
     case "left":
+      snake.x = snake.x === 0 ? boardSize - 1 : snake.x - 1;
+
+      board[snake.endOfSnake.y][snake.endOfSnake.x].classList.remove(
+        "tile--snake"
+      );
+      board[snake.y][snake.x].classList.add("tile--snake");
+
+      end = findEndOfSnake();
+
+      snake.endOfSnake = {
+        x: end.x,
+        y: end.y,
+      };
       break;
     case "right":
       snake.x = snake.x === boardSize - 1 ? 0 : snake.x + 1;
 
-      board[snake.endOfSnake][snake.x].classList.remove("tile--snake");
+      board[snake.endOfSnake.y][snake.endOfSnake.x].classList.remove(
+        "tile--snake"
+      );
       board[snake.y][snake.x].classList.add("tile--snake");
 
-      snake.endOfSnake =
-        snake.endOfSnake === 0 ? boardSize - 1 : snake.endOfSnake - 1;
+      end = findEndOfSnake();
+
+      snake.endOfSnake = {
+        x: end.x,
+        y: end.y,
+      };
       break;
     case "default":
       console.error("#ERR: Nieprawidłowy kierunek!");
@@ -115,7 +191,7 @@ handleUpdateSnake = () => {
   }
 };
 
-handleJump = () => {
+const handleJump = () => {
   if (!mute) {
     jump.src = "./assets/jump.wav";
     jump.play();
