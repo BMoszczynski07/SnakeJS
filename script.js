@@ -15,14 +15,23 @@ class Boost {
     this.x = x;
     this.y = y;
   }
-
-  handleIsEaten = () => {};
 }
 
-class Food extends Boost {}
+class Food extends Boost {
+  handleIsEaten = () => {
+    console.log("handleIsEaten", this.x, this.y, snake.x, snake.y);
+    if (snake.x === this.x && snake.y === this.y) {
+      console.log("eaten");
+      board[this.y][this.x].classList.remove("tile--food");
+      handlePlaceTile({ mode: "food" });
+    }
+  };
+}
 
 class Bonus extends Boost {
   handleTransformBonus = () => {};
+
+  handleIsEaten = () => {};
 }
 
 let board;
@@ -35,7 +44,7 @@ const bonuses = [];
 
 let gameStarted = false;
 
-const snakePositions = [];
+let snakePositions = [];
 
 let timer = 0;
 let mute = false;
@@ -75,16 +84,18 @@ while (!boardSize || boardSize < sizeRange.min || boardSize > sizeRange.max) {
 
 const handleMoveSnake = () => {
   const { x, y } = snakePositions[0];
+
+  food.handleIsEaten();
+
   board[snake.y][snake.x].classList.add("tile--snake");
   snakePositions.push({ x: snake.x, y: snake.y });
   board[y][x].classList.remove("tile--snake");
   snakePositions.shift();
-  console.log(snakePositions);
 };
 
 const handleUpdateSnake = () => {
   if (snake.jumps === 0 && snake.direction === "S") {
-    snakePositions.reverse();
+    snakePositions = snakePositions.reverse();
   }
 
   switch (snake.direction) {
@@ -115,9 +126,9 @@ const handleUpdateSnake = () => {
 };
 
 const handleJump = () => {
-  handleUpdateSnake();
-
   snake.jumps++;
+
+  handleUpdateSnake();
 
   for (const bonus of bonuses) bonus.handleTransformBonus();
 
@@ -149,9 +160,11 @@ const RandInt = ({ min, max }) => {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 };
 
-const handlePlaceTile = ({ type }) => {
+const handlePlaceTile = ({ mode }) => {
   const tiles = document.querySelectorAll(".tile");
-  const freeTiles = document.querySelectorAll(".tile:not(.tile--snake)");
+  const freeTiles = document.querySelectorAll(
+    ".tile:not(.tile--snake):not(.tile--boost)"
+  );
 
   const randTileId = RandInt({ min: 0, max: freeTiles.length - 1 });
 
@@ -161,14 +174,16 @@ const handlePlaceTile = ({ type }) => {
     y: Math.floor(indexOfFreeTile / boardSize),
   };
 
+  // console.log(indexOfFreeTile % boardSize);
+
   const { x, y } = tileCoordinates;
 
   // mark food or bonus on the board
-  switch (type) {
+  switch (mode) {
     case "food":
       food = new Food(x, y);
 
-      board[food.x][food.y].classList.add("tile--food");
+      board[food.y][food.x].classList.add("tile--food");
       break;
     case "bonus":
       let bonus = new Bonus("bonus", x, y);
@@ -207,8 +222,6 @@ const handleGenerateBoard = () => {
     height: gameBoard.clientHeight / boardSize,
   };
 
-  console.log(tileCSS);
-
   let tilesQty = 0;
 
   for (let i = 0; i < boardSize; i++) {
@@ -242,7 +255,7 @@ const handleGenerateBoard = () => {
     snakeEl.classList.add("tile--snake");
   }
 
-  handlePlaceTile({ type: "food" });
+  handlePlaceTile({ mode: "food" });
 };
 
 const GameOver = () => {
@@ -263,6 +276,7 @@ const handleStartGame = () => {
   start.volume = 0.07;
   jump.volume = 0.1;
   snakespeed.volume = 0.3;
+  jump.src = "./assets/jump.wav";
 
   gameStarted = true;
 
@@ -272,15 +286,16 @@ const handleStartGame = () => {
     setTimeout(() => {}, 300);
   }
 
-  // let interval = 750 / (boardSize / sizeRange.max) / snake.speed;
   let interval =
     750 / (boardSize / sizeRange.max) / SPEED_CONSTANT / snake.speed;
-
-  console.log(interval);
 
   gameInterval = setInterval(handleJump, interval);
 
   timerInterval = setInterval(() => {
+    if (!mute) {
+      jump.play();
+    }
+
     timer++;
     time.textContent = `Czas gry: 
     ${
