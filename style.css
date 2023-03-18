@@ -83,11 +83,15 @@ body {
 }
 
 .gameboard {
-  /* background: #efefef; */
   width: 375px;
   height: 375px;
   display: flex;
+  align-items: center;
+  justify-content: center;
   flex-wrap: wrap;
+  margin: 0;
+  padding: 0;
+  background: #e1e1e1;
 }
 
 .themes {
@@ -160,8 +164,8 @@ body {
 }
 
 .tile {
-  /* margin: 1px; */
   background: #efefef;
+  margin: 1px;
 }
 
 .tile--snake {
