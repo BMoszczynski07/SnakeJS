@@ -35,7 +35,7 @@ const bonuses = [];
 
 let gameStarted = false;
 
-let snakePositions = [];
+const snakePositions = [];
 
 let timer = 0;
 let mute = false;
@@ -47,6 +47,8 @@ let preferences = {
   bgTheme: "black",
   snakeColor: "white",
 };
+
+const SPEED_CONSTANT = 4;
 
 const start = new Audio();
 const jump = new Audio();
@@ -113,11 +115,6 @@ const handleUpdateSnake = () => {
 };
 
 const handleJump = () => {
-  if (!mute) {
-    jump.src = "./assets/jump.wav";
-    jump.play();
-  }
-
   handleUpdateSnake();
 
   snake.jumps++;
@@ -138,8 +135,11 @@ const handleJump = () => {
       parameterSpeed.classList.remove("parameter-speed--acceleration");
     }, 1000);
 
+    let interval =
+      750 / (boardSize / sizeRange.max) / SPEED_CONSTANT / snake.speed;
+
     clearInterval(gameInterval);
-    gameInterval = setInterval(handleJump, (1 / snake.speed) * 1000);
+    gameInterval = setInterval(handleJump, interval);
   }
 };
 
@@ -266,9 +266,19 @@ const handleStartGame = () => {
 
   gameStarted = true;
 
-  if (!mute) start.play();
+  if (!mute) {
+    start.play();
 
-  gameInterval = setInterval(handleJump, 750);
+    setTimeout(() => {}, 300);
+  }
+
+  // let interval = 750 / (boardSize / sizeRange.max) / snake.speed;
+  let interval =
+    750 / (boardSize / sizeRange.max) / SPEED_CONSTANT / snake.speed;
+
+  console.log(interval);
+
+  gameInterval = setInterval(handleJump, interval);
 
   timerInterval = setInterval(() => {
     timer++;
