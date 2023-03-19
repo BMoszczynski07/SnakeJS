@@ -21,9 +21,16 @@ class Food extends Boost {
   handleIsEaten = () => {
     console.log("handleIsEaten", this.x, this.y, snake.x, snake.y);
     if (snake.x === this.x && snake.y === this.y) {
+      if (!mute) {
+        point.play();
+      }
+
       console.log("eaten");
       board[this.y][this.x].classList.remove("tile--food");
       handlePlaceTile({ mode: "food" });
+
+      snake.length++;
+      length.textContent = `Długość: ${snake.length}`;
     }
   };
 }
@@ -59,13 +66,19 @@ let preferences = {
 
 const SPEED_CONSTANT = 4;
 
+const POINT_HREF = "./assets/point.mp3";
+
 const start = new Audio();
 const jump = new Audio();
 const snakespeed = new Audio();
+const point = new Audio();
+
+point.src = POINT_HREF;
 
 const time = document.querySelector("[data-parameter=time]");
 const size = document.querySelector("[data-parameter=board-size]");
 const parameterSpeed = document.querySelector("[data-parameter=speed]");
+const length = document.querySelector("[data-parameter=length]");
 
 const topBtn = document.querySelector("[data-direction=top]");
 const bottomBtn = document.querySelector("[data-direction=bottom]");
@@ -126,6 +139,8 @@ const handleUpdateSnake = () => {
 };
 
 const handleJump = () => {
+  snakeDidMove = true;
+
   snake.jumps++;
 
   handleUpdateSnake();
@@ -214,6 +229,7 @@ const handleGenerateBoard = () => {
 
   size.textContent = `Rozmiar planszy: ${boardSize}x${boardSize}`;
   parameterSpeed.textContent = `${snake.speed.toFixed(2)}`;
+  length.textContent = `Długość: ${snake.length}`;
 
   board = [];
 
@@ -275,6 +291,7 @@ const handleStartGame = () => {
 
   start.volume = 0.07;
   jump.volume = 0.1;
+  point.volue = 0.2;
   snakespeed.volume = 0.3;
   jump.src = "./assets/jump.wav";
 
@@ -282,8 +299,6 @@ const handleStartGame = () => {
 
   if (!mute) {
     start.play();
-
-    setTimeout(() => {}, 300);
   }
 
   let interval =
@@ -311,6 +326,8 @@ const handleStartGame = () => {
   }, 1000);
 };
 
+let snakeDidMove = false;
+
 const handleKeyPress = ({ key }) => {
   if (key === "M") {
     mute = !mute;
@@ -326,9 +343,15 @@ const handleKeyPress = ({ key }) => {
   )
     return;
 
-  snake.direction = key;
+  if (!gameStarted) {
+    snake.direction = key;
+    handleStartGame();
+  }
 
-  if (!gameStarted) handleStartGame();
+  if (gameStarted && snakeDidMove) {
+    snakeDidMove = false;
+    snake.direction = key;
+  }
 };
 
 sound.addEventListener("click", () => {
