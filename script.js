@@ -19,7 +19,6 @@ class Boost {
 
 class Food extends Boost {
   handleIsEaten = () => {
-    console.log("handleIsEaten", this.x, this.y, snake.x, snake.y);
     if (snake.x === this.x && snake.y === this.y) {
       if (!mute) {
         point.play();
@@ -29,8 +28,25 @@ class Food extends Boost {
       board[this.y][this.x].classList.remove("tile--food");
       handlePlaceTile({ mode: "food" });
 
+      //TODO: adding new tiles to the end of the snake
+      const { x: firstX, y: firstY } = snakePositions[0];
+      const { x: nextX, y: nextY } = snakePositions[1];
+
+      const subX = nextX - firstX;
+      const subY = nextY - firstY;
+
+      const { newX, newY } = getNewTile(subX, subY, firstX, firstY);
+
       snake.length++;
-      length.textContent = `Długość: ${snake.length}`;
+      length.textContent = snake.length;
+      length.style.color = "#d1d122";
+
+      snakePositions.unshift({ x: newX, y: newY });
+      board[newY][newX].classList.add("tile--snake");
+
+      setTimeout(() => {
+        length.style.color = "#000";
+      }, 300);
     }
   };
 }
@@ -40,6 +56,38 @@ class Bonus extends Boost {
 
   handleIsEaten = () => {};
 }
+
+const getNewTile = (subX, subY, firstX, firstY) => {
+  let x;
+  let y;
+
+  if (subX > 0) {
+    x = firstX - 1 < 0 ? boardSize - 1 : firstX - 1;
+    y = firstY;
+  }
+
+  if (subX < 0) {
+    x = firstX + 1 > boardSize - 1 ? 0 : firstX + 1;
+    y = firstY;
+  }
+
+  if (subY > 0) {
+    x = firstX;
+    y = firstY - 1 < 0 ? boardSize - 1 : firstY - 1;
+  }
+
+  if (subY < 0) {
+    x = firstX;
+    y = firstY + 1 > boardSize - 1 ? 0 : firstY + 1;
+  }
+
+  if (board[y][x].classList.contains("tile--snake")) {
+    //! game over
+    GameOver();
+  }
+
+  return { newX: x, newY: y };
+};
 
 let board;
 let boardSize;
@@ -51,7 +99,7 @@ const bonuses = [];
 
 let gameStarted = false;
 
-let snakePositions = [];
+const snakePositions = [];
 
 let timer = 0;
 let mute = false;
@@ -66,14 +114,17 @@ let preferences = {
 
 const SPEED_CONSTANT = 4;
 
-const POINT_HREF = "./assets/point.mp3";
+const POINT_SRC = "./assets/point.mp3";
+const GAME_OVER_SRC = "./assets/gameover.wav";
 
 const start = new Audio();
 const jump = new Audio();
 const snakespeed = new Audio();
 const point = new Audio();
+const gameOver = new Audio();
 
-point.src = POINT_HREF;
+point.src = POINT_SRC;
+gameOver.src = GAME_OVER_SRC;
 
 const time = document.querySelector("[data-parameter=time]");
 const size = document.querySelector("[data-parameter=board-size]");
@@ -98,18 +149,28 @@ while (!boardSize || boardSize < sizeRange.min || boardSize > sizeRange.max) {
 const handleMoveSnake = () => {
   const { x, y } = snakePositions[0];
 
-  food.handleIsEaten();
+  if (board[snake.y][snake.x].classList.contains("tile--snake")) {
+    GameOver();
+    return;
+  }
 
   board[snake.y][snake.x].classList.add("tile--snake");
   snakePositions.push({ x: snake.x, y: snake.y });
   board[y][x].classList.remove("tile--snake");
   snakePositions.shift();
+
+  food.handleIsEaten();
 };
 
 const handleUpdateSnake = () => {
-  if (snake.jumps === 0 && snake.direction === "S") {
-    snakePositions = snakePositions.reverse();
-  }
+  // if (snake.jumps === 0 && snake.direction === "S") {
+  //   console.log(snakePositions);
+
+  //   const { x: endX, y: endY } = snakePositions[0];
+
+  //   snake.x = endX;
+  //   snake.y = endY;
+  // }
 
   switch (snake.direction) {
     case "W":
@@ -141,9 +202,9 @@ const handleUpdateSnake = () => {
 const handleJump = () => {
   snakeDidMove = true;
 
-  snake.jumps++;
-
   handleUpdateSnake();
+
+  snake.jumps++;
 
   for (const bonus of bonuses) bonus.handleTransformBonus();
 
@@ -229,7 +290,7 @@ const handleGenerateBoard = () => {
 
   size.textContent = `Rozmiar planszy: ${boardSize}x${boardSize}`;
   parameterSpeed.textContent = `${snake.speed.toFixed(2)}`;
-  length.textContent = `Długość: ${snake.length}`;
+  length.textContent = snake.length;
 
   board = [];
 
@@ -277,13 +338,18 @@ const handleGenerateBoard = () => {
 const GameOver = () => {
   const payload = {
     score: snake.length,
-    jumps,
+    jumps: snake.jumps,
     time: {
       hours: Math.floor(timer / 60 / 60),
       minutes: Math.floor(timer / 60) % 60,
       seconds: timer % 60,
     },
   };
+
+  clearInterval(timerInterval);
+  clearInterval(gameInterval);
+
+  gameOver.play();
 };
 
 const handleStartGame = () => {
@@ -345,6 +411,11 @@ const handleKeyPress = ({ key }) => {
 
   if (!gameStarted) {
     snake.direction = key;
+
+    if (key === "S") {
+      console.log(snakePositions);
+    }
+
     handleStartGame();
   }
 
