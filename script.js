@@ -349,7 +349,7 @@ const GameOver = () => {
   clearInterval(timerInterval);
   clearInterval(gameInterval);
 
-  gameOver.play();
+  if (!mute) gameOver.play();
 };
 
 const handleStartGame = () => {
@@ -359,6 +359,7 @@ const handleStartGame = () => {
   jump.volume = 0.1;
   point.volue = 0.2;
   snakespeed.volume = 0.3;
+  gameOver.volume = 0.2;
   jump.src = "./assets/jump.wav";
 
   gameStarted = true;
