@@ -58,28 +58,16 @@ class Bonus extends Boost {
 }
 
 const getNewTile = (subX, subY, firstX, firstY) => {
-  let x;
-  let y;
+  let x = firstX;
+  let y = firstY;
 
-  if (subX > 0) {
-    x = firstX - 1 < 0 ? boardSize - 1 : firstX - 1;
-    y = firstY;
+  if (subX !== 0) {
+    x = (firstX - subX + boardSize) % boardSize;
+  } else if (subY !== 0) {
+    y = (firstY - subY + boardSize) % boardSize;
   }
 
-  if (subX < 0) {
-    x = firstX + 1 > boardSize - 1 ? 0 : firstX + 1;
-    y = firstY;
-  }
-
-  if (subY > 0) {
-    x = firstX;
-    y = firstY - 1 < 0 ? boardSize - 1 : firstY - 1;
-  }
-
-  if (subY < 0) {
-    x = firstX;
-    y = firstY + 1 > boardSize - 1 ? 0 : firstY + 1;
-  }
+  console.log(firstX, firstY, x, y);
 
   if (board[y][x].classList.contains("tile--snake")) {
     //! game over
@@ -89,9 +77,26 @@ const getNewTile = (subX, subY, firstX, firstY) => {
   return { newX: x, newY: y };
 };
 
+const handleValidateBoardSize = () => {
+  let size;
+
+  while (!size || size < sizeRange.min || size > sizeRange.max) {
+    const input = prompt(
+      `Podaj wielkość planszy (minimalna - ${sizeRange.min}, maksymalna - ${sizeRange.max}):`
+    );
+    size = parseInt(input);
+
+    if (!size || size < sizeRange.min || size > sizeRange.max) {
+      alert("Wprowadź poprawną wartość!");
+    }
+  }
+
+  return size;
+};
+
 let board;
-let boardSize;
-const sizeRange = { min: 10, max: 60 };
+const sizeRange = { min: 10, max: 50 };
+const boardSize = handleValidateBoardSize();
 
 let snake;
 let food;
@@ -139,12 +144,6 @@ const rightBtn = document.querySelector("[data-direction=right]");
 const gameBoard = document.querySelector(".gameboard");
 
 const sound = document.querySelector(".sound");
-
-while (!boardSize || boardSize < sizeRange.min || boardSize > sizeRange.max) {
-  boardSize = prompt(
-    "Podaj wielkość planszy (minimalna - 10, maksymalna - 60)"
-  );
-}
 
 const handleMoveSnake = () => {
   const { x, y } = snakePositions[0];
