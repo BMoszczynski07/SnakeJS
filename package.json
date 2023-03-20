@@ -1,0 +1,41 @@
+{
+  "name": "snakejs",
+  "version": "1.0.0",
+  "description": "Snake game written in vanilla js",
+  "main": "script.js",
+  "scripts": {
+    "dev": "webpack-dev-server --config webpack.dev.js",
+    "build": "webpack --config webpack.prod.js"
+  },
+  "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BMoszczynski07/SnakeJS.git"
+  },
+  "keywords": [
+    "snakejs",
+    "plain",
+    "javascript",
+    "webpack",
+    "nodejs",
+    "snake"
+  ],
+  "author": "Bartosz Moszczyński",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/BMoszczynski07/SnakeJS/issues"
+  },
+  "homepage": "https://github.com/BMoszczynski07/SnakeJS#readme",
+  "devDependencies": {
+    "clean-webpack-plugin": "^4.0.0",
+    "html-webpack-plugin": "^5.5.0",
+    "webpack": "^5.76.2",
+    "webpack-cli": "^5.0.1",
+    "webpack-dev-server": "^4.13.1",
+    "webpack-merge": "^5.8.0"
+  },
+  "dependencies": {
+    "css-loader": "^6.7.3",
+    "mini-css-extract-plugin": "^2.7.5"
+  }
+}
