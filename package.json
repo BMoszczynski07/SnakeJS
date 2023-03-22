@@ -4,7 +4,7 @@
   "description": "Snake game written in vanilla js",
   "main": "script.js",
   "scripts": {
-    "dev": "webpack-dev-server --config webpack.dev.js",
+    "dev": "webpack-dev-server --config webpack.dev.js --no-cache",
     "build": "webpack --config webpack.prod.js"
   },
   "type": "module",
@@ -27,6 +27,8 @@
   },
   "homepage": "https://github.com/BMoszczynski07/SnakeJS#readme",
   "devDependencies": {
+    "@babel/core": "^7.21.3",
+    "@babel/preset-env": "^7.20.2",
     "clean-webpack-plugin": "^4.0.0",
     "html-webpack-plugin": "^5.5.0",
     "webpack": "^5.76.2",

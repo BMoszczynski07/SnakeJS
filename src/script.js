@@ -1,7 +1,19 @@
 import handleGenerateBoard from "./script/functions/handleGenerateBoard.js";
 import handleKeyPress from "./script/functions/handleKeyPress.js";
 import { controlBtns, sound } from "./script/global/elements.js";
+import {
+  W,
+  A,
+  S,
+  D,
+  M,
+  topKey,
+  bottomKey,
+  leftKey,
+  rightKey,
+} from "./script/global/keys.js";
 import { mute } from "./script/global/variables.js";
+import "./style.css";
 
 sound.addEventListener("click", () => {
   mute = !mute;

@@ -1,4 +1,7 @@
+import { boardSize, snake } from "../global/variables.js";
 import handleInitializeAudio from "./handleInitializeAudio.js";
+import RandInt from "./RandInt.js";
+import Snake from "../classes/Snake.js";
 
 export const handleAppendBoard = () => {
   let tilesQty = 0;

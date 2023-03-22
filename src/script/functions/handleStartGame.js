@@ -1,3 +1,5 @@
+import { gameInterval, interval, timerInterval } from "../global/variables.js";
+
 const handleStartGame = () => {
   gameStarted = true;
 

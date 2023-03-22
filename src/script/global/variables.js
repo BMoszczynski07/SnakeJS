@@ -3,7 +3,7 @@ import handleValidateBoardSize from "../functions/handleValidateBoardSize.js";
 // board variables
 export const board = [];
 export const sizeRange = { min: 10, max: 50 };
-export const boardSize = handleValidateBoardSize();
+export let boardSize = handleValidateBoardSize();
 
 // classes
 export let snake;
@@ -29,3 +29,7 @@ export const SPEED_CONSTANT = 4;
 
 // checks whether the snake has moved since last set direction
 export let snakeDidMove = false;
+
+const VariableSetter = ({ variable, value }) => {};
+
+export default VariableSetter;

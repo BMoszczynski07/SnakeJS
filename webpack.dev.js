@@ -11,5 +11,8 @@ export default merge(common, {
     hot: true,
     port: 3000,
   },
+  resolve: {
+    extensions: [".js"],
+  },
   devtool: "inline-source-map",
 });

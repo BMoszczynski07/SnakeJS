@@ -1,3 +1,6 @@
+import { gameStarted, snake, snakeDidMove } from "../global/variables.js";
+import handleStartGame from "./handleStartGame.js";
+
 const handleKeyPress = ({ key }) => {
   if (key === "M") {
     mute = !mute;
