@@ -1,9 +1,15 @@
+import { point } from "../functions/handleInitializeAudio.js";
+import handlePlaceTile from "../functions/handlePlaceTile.js";
+import { board, mute, snake, snakePositions } from "../global/variables.js";
 import Boost from "./Boost.js";
+import getNewTile from "../functions/getNewTile.js";
+import { length } from "../global/elements.js";
+import handleDisplay from "../functions/handleDisplay.js";
 
 class Food extends Boost {
   handleIsEaten = () => {
-    if (snake.x === this.x && snake.y === this.y) {
-      if (!mute) {
+    if (snake.class.x === this.x && snake.class.y === this.y) {
+      if (!mute.isMuted) {
         point.play();
       }
 
@@ -19,8 +25,8 @@ class Food extends Boost {
 
       const { newX, newY } = getNewTile(subX, subY, firstX, firstY);
 
-      snake.length++;
-      length.textContent = snake.length;
+      snake.class.length++;
+      handleDisplay({ snakeLength: snake.class.length });
       length.style.color = "#d1d122";
 
       snakePositions.unshift({ x: newX, y: newY });

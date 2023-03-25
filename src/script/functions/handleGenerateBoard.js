@@ -83,7 +83,7 @@ const handleGenerateBoard = () => {
   handleDisplay({
     boardSize,
     speed: snake.class.speed.toFixed(2),
-    length: snake.class.length,
+    snakeLength: snake.class.length,
   });
 
   let tileCSS = getTileCSS();

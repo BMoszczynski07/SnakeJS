@@ -1,5 +1,11 @@
 import { sound } from "../global/elements.js";
-import { gameStarted, mute, snake, snakeDidMove } from "../global/variables.js";
+import {
+  gameStarted,
+  mute,
+  snake,
+  snakeDidMove,
+  snakePositions,
+} from "../global/variables.js";
 import handleStartGame from "./handleStartGame.js";
 
 const handleKeyPress = ({ key }) => {
@@ -18,13 +24,18 @@ const handleKeyPress = ({ key }) => {
     return;
 
   if (!gameStarted.val) {
+    if (key === "S") {
+      snakePositions.reverse();
+      console.log(key);
+    }
+
     snake.class.direction = key;
 
     handleStartGame();
   }
 
   if (gameStarted.val && snakeDidMove.state) {
-    snakeDidMove.toggle();
+    snakeDidMove.set(false);
     snake.class.direction = key;
   }
 };

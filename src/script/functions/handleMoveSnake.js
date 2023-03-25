@@ -1,14 +1,18 @@
+import { board, food, snake, snakePositions } from "../global/variables.js";
+import GameOver from "./GameOver.js";
+
 const handleMoveSnake = () => {
   const { x, y } = snakePositions[0];
-  if (board[snake.y][snake.x].classList.contains("tile--snake")) {
+  if (board[snake.class.y][snake.class.x].classList.contains("tile--snake")) {
     GameOver();
     return;
   }
-  board[snake.y][snake.x].classList.add("tile--snake");
-  snakePositions.push({ x: snake.x, y: snake.y });
+
+  board[snake.class.y][snake.class.x].classList.add("tile--snake");
+  snakePositions.push({ x: snake.class.x, y: snake.class.y });
   board[y][x].classList.remove("tile--snake");
   snakePositions.shift();
-  food.handleIsEaten();
+  food.class.handleIsEaten();
 };
 
 export default handleMoveSnake;

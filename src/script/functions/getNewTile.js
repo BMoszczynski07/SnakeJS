@@ -1,3 +1,6 @@
+import { board, boardSize } from "../global/variables.js";
+import GameOver from "./GameOver.js";
+
 const getNewTile = (subX, subY, firstX, firstY) => {
   let x = firstX;
   let y = firstY;

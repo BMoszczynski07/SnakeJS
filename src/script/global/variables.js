@@ -65,13 +65,13 @@ export let interval = {
 export let gameInterval = {
   interval: "",
   set: (func) => {
-    gameInterval = func;
+    gameInterval.interval = func;
   },
 };
 export let timerInterval = {
   interval: "",
   set: (func) => {
-    timerInterval = func;
+    timerInterval.interval = func;
   },
 };
 
@@ -81,7 +81,7 @@ export const SPEED_CONSTANT = 4;
 // checks whether the snake has moved since last set direction
 export let snakeDidMove = {
   state: false,
-  toggle: () => {
-    snakeDidMove.state = !snakeDidMove.state;
+  set: (state) => {
+    snakeDidMove.state = state;
   },
 };

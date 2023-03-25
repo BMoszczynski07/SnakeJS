@@ -24,7 +24,7 @@ const handleStartGame = () => {
   interval.val =
     750 / (boardSize / sizeRange.max) / SPEED_CONSTANT / snake.class.speed;
 
-  gameInterval.set(setInterval(handleJump, interval));
+  gameInterval.set(setInterval(handleJump, interval.val));
 
   timerInterval.set(
     setInterval(() => {

@@ -1,22 +1,25 @@
+import { boardSize, snake } from "../global/variables.js";
+import handleMoveSnake from "./handleMoveSnake.js";
+
 const handleUpdateSnake = () => {
-  switch (snake.direction) {
+  switch (snake.class.direction) {
     case "W":
-      snake.y = snake.y === 0 ? boardSize - 1 : snake.y - 1;
+      snake.class.y = snake.class.y === 0 ? boardSize - 1 : snake.class.y - 1;
 
       handleMoveSnake();
       break;
     case "S":
-      snake.y = snake.y === boardSize - 1 ? 0 : snake.y + 1;
+      snake.class.y = snake.class.y === boardSize - 1 ? 0 : snake.class.y + 1;
 
       handleMoveSnake();
       break;
     case "A":
-      snake.x = snake.x === 0 ? boardSize - 1 : snake.x - 1;
+      snake.class.x = snake.class.x === 0 ? boardSize - 1 : snake.class.x - 1;
 
       handleMoveSnake();
       break;
     case "D":
-      snake.x = snake.x === boardSize - 1 ? 0 : snake.x + 1;
+      snake.class.x = snake.class.x === boardSize - 1 ? 0 : snake.class.x + 1;
 
       handleMoveSnake();
       break;
