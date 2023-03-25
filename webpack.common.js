@@ -13,7 +13,7 @@ export default {
       template: "./src/index.html",
     }),
     new MiniCssExtractPlugin({
-      filename: "./src/style.css",
+      filename: "./bundle.[contenthash].css",
     }),
   ],
   module: {
@@ -28,11 +28,16 @@ export default {
         exclude: /node_modules/,
       },
       {
-        test: /\.(png|svg|jpg|jpeg|gif|webp|mp4|webm|ogg|mp3|wav|flac|aac)$/i,
-        type: "asset/resource",
-        generator: {
-          filename: "assets/[hash][ext][query]",
-        },
+        test: /\.(wav|mp3|png|jpg)$/i,
+        use: [
+          {
+            loader: "file-loader",
+            options: {
+              name: "[name].[contenthash].[ext]",
+              outputPath: "assets",
+            },
+          },
+        ],
       },
     ],
   },
