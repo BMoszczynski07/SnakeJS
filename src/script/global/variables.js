@@ -49,15 +49,15 @@ export let timer = {
 };
 
 export let mute = {
-  mute: false,
+  isMuted: false,
   toggle: () => {
-    mute.mute = !mute.mute;
+    mute.isMuted = !mute.isMuted;
   },
 };
 export let interval = {
-  interval: 0,
+  val: 0,
   set: (payload) => {
-    interval = payload;
+    interval.val = payload;
   },
 };
 
@@ -79,4 +79,9 @@ export let timerInterval = {
 export const SPEED_CONSTANT = 4;
 
 // checks whether the snake has moved since last set direction
-export let snakeDidMove = false;
+export let snakeDidMove = {
+  state: false,
+  toggle: () => {
+    snakeDidMove.state = !snakeDidMove.state;
+  },
+};

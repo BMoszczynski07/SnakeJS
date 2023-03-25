@@ -4,13 +4,13 @@ import SNAKESPEED_SRC from "../../assets/speed_acceleration.wav";
 import JUMP_SRC from "../../assets/jump.wav";
 import START_SRC from "../../assets/start.wav";
 
-const handleInitializeAudio = () => {
-  const start = new Audio();
-  const jump = new Audio();
-  const snakespeed = new Audio();
-  const point = new Audio();
-  const gameOver = new Audio();
+export const start = new Audio();
+export const jump = new Audio();
+export const snakespeed = new Audio();
+export const point = new Audio();
+export const gameOver = new Audio();
 
+const handleInitializeAudio = () => {
   point.src = POINT_SRC;
   gameOver.src = GAME_OVER_SRC;
   snakespeed.src = SNAKESPEED_SRC;

@@ -16,7 +16,7 @@ import { mute } from "./script/global/variables.js";
 import "./style.css";
 
 sound.addEventListener("click", () => {
-  mute = !mute;
+  mute.isMuted = !mute.isMuted;
   sound.classList.toggle("sound--muted");
 });
 

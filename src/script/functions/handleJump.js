@@ -1,9 +1,12 @@
-import { handleDisplay } from "./handleGenerateBoard";
+import { parameterSpeed } from "../global/elements.js";
+import { boardSize, interval, mute, snake } from "../global/variables.js";
+import handleDisplay from "./handleDisplay.js";
+import { snakespeed } from "./handleInitializeAudio.js";
 
-export const handleIncreaseSnakeSpeed = () => {
-  if (snake.jumps % (Math.floor(boardSize / 10) * 9) === 0) {
-    snake.speed = snake.speed + 0.1;
-    if (!mute) {
+const handleIncreaseSnakeSpeed = () => {
+  if (snake.class.jumps % (Math.floor(boardSize / 10) * 9) === 0) {
+    snake.class.speed = snake.class.speed + 0.1;
+    if (!mute.isMuted) {
       snakespeed.play();
     }
 
@@ -14,7 +17,8 @@ export const handleIncreaseSnakeSpeed = () => {
       parameterSpeed.classList.remove("parameter-speed--acceleration");
     }, 1000);
 
-    interval = 750 / (boardSize / sizeRange.max) / SPEED_CONSTANT / snake.speed;
+    interval.val =
+      750 / (boardSize / sizeRange.max) / SPEED_CONSTANT / snake.speed;
 
     clearInterval(gameInterval);
     gameInterval = setInterval(handleJump, interval);

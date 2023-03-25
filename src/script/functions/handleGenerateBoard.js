@@ -1,7 +1,12 @@
 import handleInitializeAudio from "./handleInitializeAudio.js";
 import RandInt from "./RandInt.js";
 import Snake from "../classes/Snake.js";
-import { board, boardSize, snake } from "../global/variables.js";
+import {
+  board,
+  boardSize,
+  snake,
+  snakePositions,
+} from "../global/variables.js";
 import handleDisplay from "./handleDisplay.js";
 import { gameBoard } from "../global/elements.js";
 import handlePlaceTile from "./handlePlaceTile.js";
@@ -30,15 +35,15 @@ export const handleAppendBoard = (tileCSS) => {
 };
 
 export const handleAppendSnake = () => {
-  for (let i = 0; i < snake.length; i++) {
+  for (let i = 0; i < snake.class.length; i++) {
     let snakePos = {
-      x: snake.x,
-      y: snake.y + i,
+      x: snake.class.x,
+      y: snake.class.y + i,
     };
 
     snakePositions.unshift({ x: snakePos.x, y: snakePos.y });
 
-    let snakeEl = board[snake.y + i][snake.x];
+    let snakeEl = board[snake.class.y + i][snake.class.x];
     snakeEl.classList.add("tile--snake");
   }
 };
@@ -74,8 +79,6 @@ const handleGenerateBoard = () => {
       snakePos.y
     ),
   });
-
-  console.log(snake);
 
   handleDisplay({
     boardSize,

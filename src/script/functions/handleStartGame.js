@@ -1,29 +1,41 @@
 import {
+  boardSize,
   gameInterval,
   gameStarted,
   interval,
+  mute,
+  sizeRange,
+  snake,
+  SPEED_CONSTANT,
+  timer,
   timerInterval,
 } from "../global/variables.js";
+import handleDisplay from "./handleDisplay.js";
+import { jump, start } from "./handleInitializeAudio.js";
+import handleJump from "./handleJump.js";
 
 const handleStartGame = () => {
   gameStarted.val = true;
 
-  if (!mute) {
+  if (!mute.isMuted) {
     start.play();
   }
 
-  interval = 750 / (boardSize / sizeRange.max) / SPEED_CONSTANT / snake.speed;
+  interval.val =
+    750 / (boardSize / sizeRange.max) / SPEED_CONSTANT / snake.class.speed;
 
-  gameInterval = setInterval(handleJump, interval);
+  gameInterval.set(setInterval(handleJump, interval));
 
-  timerInterval = setInterval(() => {
-    if (!mute) {
-      jump.play();
-    }
+  timerInterval.set(
+    setInterval(() => {
+      if (!mute.isMuted) {
+        jump.play();
+      }
 
-    timer++;
-    handleDisplay({ timer });
-  }, 1000);
+      timer.time++;
+      handleDisplay({ timer: timer.time });
+    }, 1000)
+  );
 };
 
 export default handleStartGame;
