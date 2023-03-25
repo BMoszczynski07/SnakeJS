@@ -1,4 +1,4 @@
-import Boost from "./Boost";
+import Boost from "./Boost.js";
 
 class Bonus extends Boost {
   handleTransformBonus = () => {};

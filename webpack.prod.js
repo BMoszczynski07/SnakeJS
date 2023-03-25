@@ -8,6 +8,7 @@ export default merge(common, {
   output: {
     path: path.resolve(__dirname, "src/dist"),
     filename: "bundle.[contenthash].js",
+    assetModuleFilename: "assets/[hash][ext][query]",
   },
   devtool: "source-map",
   plugins: [new CleanWebpackPlugin()],

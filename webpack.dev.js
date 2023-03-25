@@ -12,7 +12,7 @@ export default merge(common, {
     port: 3000,
   },
   resolve: {
-    extensions: [".js"],
+    extensions: [".ts", ".js"],
   },
   devtool: "inline-source-map",
 });

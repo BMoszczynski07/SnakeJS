@@ -1,9 +1,12 @@
-import { boardSize, snake } from "../global/variables.js";
 import handleInitializeAudio from "./handleInitializeAudio.js";
 import RandInt from "./RandInt.js";
 import Snake from "../classes/Snake.js";
+import { board, boardSize, snake } from "../global/variables.js";
+import handleDisplay from "./handleDisplay.js";
+import { gameBoard } from "../global/elements.js";
+import handlePlaceTile from "./handlePlaceTile.js";
 
-export const handleAppendBoard = () => {
+export const handleAppendBoard = (tileCSS) => {
   let tilesQty = 0;
 
   for (let i = 0; i < boardSize; i++) {
@@ -27,7 +30,7 @@ export const handleAppendBoard = () => {
 };
 
 export const handleAppendSnake = () => {
-  for (i = 0; i < snake.length; i++) {
+  for (let i = 0; i < snake.length; i++) {
     let snakePos = {
       x: snake.x,
       y: snake.y + i,
@@ -62,17 +65,27 @@ const handleGenerateBoard = () => {
     }),
   };
 
-  snake = new Snake(null, Math.round(boardSize / 3), 1, snakePos.x, snakePos.y);
+  snake.set({
+    payload: new Snake(
+      null,
+      Math.round(boardSize / 3),
+      1,
+      snakePos.x,
+      snakePos.y
+    ),
+  });
+
+  console.log(snake);
 
   handleDisplay({
     boardSize,
-    speed: snake.speed.toFixed(2),
-    length: snake.length,
+    speed: snake.class.speed.toFixed(2),
+    length: snake.class.length,
   });
 
   let tileCSS = getTileCSS();
 
-  handleAppendBoard();
+  handleAppendBoard(tileCSS);
   handleAppendSnake();
 
   handlePlaceTile({ mode: "food" });

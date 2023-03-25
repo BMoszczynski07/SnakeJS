@@ -1,3 +1,8 @@
+import { board, boardSize, bonuses, food } from "../global/variables.js";
+import RandInt from "./RandInt.js";
+import Food from "../classes/Food.js";
+import Bonus from "../classes/Bonus.js";
+
 const handlePlaceTile = ({ mode }) => {
   const tiles = document.querySelectorAll(".tile");
   const freeTiles = document.querySelectorAll(
@@ -19,9 +24,9 @@ const handlePlaceTile = ({ mode }) => {
   // mark food or bonus on the board
   switch (mode) {
     case "food":
-      food = new Food(x, y);
+      food.class = new Food(x, y);
 
-      board[food.y][food.x].classList.add("tile--food");
+      board[food.class.y][food.class.x].classList.add("tile--food");
       break;
     case "bonus":
       let bonus = new Bonus("bonus", x, y);

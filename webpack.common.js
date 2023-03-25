@@ -22,6 +22,18 @@ export default {
         test: /\.css$/i,
         use: [MiniCssExtractPlugin.loader, "css-loader"],
       },
+      {
+        test: /\.ts$/,
+        use: "ts-loader",
+        exclude: /node_modules/,
+      },
+      {
+        test: /\.(png|svg|jpg|jpeg|gif|webp|mp4|webm|ogg|mp3|wav|flac|aac)$/i,
+        type: "asset/resource",
+        generator: {
+          filename: "assets/[hash][ext][query]",
+        },
+      },
     ],
   },
 };

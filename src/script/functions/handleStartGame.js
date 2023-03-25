@@ -1,7 +1,12 @@
-import { gameInterval, interval, timerInterval } from "../global/variables.js";
+import {
+  gameInterval,
+  gameStarted,
+  interval,
+  timerInterval,
+} from "../global/variables.js";
 
 const handleStartGame = () => {
-  gameStarted = true;
+  gameStarted.val = true;
 
   if (!mute) {
     start.play();

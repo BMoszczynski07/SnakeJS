@@ -1,9 +1,11 @@
+import { length, parameterSpeed, size, time } from "../global/elements.js";
+
 const handleDisplay = ({ snakeLength, speed, timer, boardSize }) => {
-  if (speed) parameterSpeed.textContent = `Prędkość ${speed}`;
-  else if (snakeLength) length.textContent = `Długość: ${snakeLength}`;
-  else if (boardSize)
+  if (speed) parameterSpeed.textContent = `${speed}`;
+  if (snakeLength) length.textContent = `Długość: ${snakeLength}`;
+  if (boardSize)
     size.textContent = `Rozmiar planszy: ${boardSize}x${boardSize}`;
-  else if (time)
+  if (timer)
     time.textContent = `Czas gry: 
     ${
       Math.floor(timer / 60 / 60) < 10
