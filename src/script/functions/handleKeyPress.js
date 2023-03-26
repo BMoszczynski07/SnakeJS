@@ -26,7 +26,10 @@ const handleKeyPress = ({ key }) => {
   if (!gameStarted.val) {
     if (key === "S") {
       snakePositions.reverse();
-      console.log(key);
+      snake.set({
+        attr: "y",
+        payload: snakePositions[snakePositions.length - 1].y,
+      });
     }
 
     snake.class.direction = key;
