@@ -15,8 +15,19 @@ import handleUpdateSnake from "./handleUpdateSnake.js";
 
 const handleIncreaseSnakeSpeed = () => {
   if (snake.class.jumps % (Math.floor(boardSize / 10) * 9) === 0) {
-    snake.class.speed = snake.class.speed + 0.1;
-    if (!mute.isMuted) {
+    snake.class.speed = parseFloat((snake.class.speed + 0.1).toFixed(2));
+
+    let dividedSpeed = parseFloat((snake.class.speed / 10).toFixed(3));
+
+    let speedModulo = snake.class.speed % dividedSpeed;
+    console.log(snake.class.speed, dividedSpeed, speedModulo);
+
+    if (
+      !mute.isMuted &&
+      (snake.class.speed < 2 ||
+        (snake.class.speed >= 2 &&
+          Math.floor(snake.class.speed % (snake.class.speed / 10)) === 0))
+    ) {
       snakespeed.play();
     }
 

@@ -1,4 +1,3 @@
-@import url(https://fonts.googleapis.com/css2?family=Inter+Tight:wght@300;400;500&display=swap);
 body {
   margin: 0 !important;
   padding: 0 !important;
@@ -17,8 +16,9 @@ body {
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
-  font-family: "Inter Tight", sans-serif;
   font-weight: 300 !important;
+  font-family: "Segoe UI", sans-serif;
+  letter-spacing: -1.2px;
   letter-spacing: 0.6px;
 }
 
@@ -201,5 +201,4 @@ body {
   }
 }
 
-
-/*# sourceMappingURL=bundle.a475ec428da85d430847.css.map*/
+/*# sourceMappingURL=bundle.83e80f2dab2beaf27e37.css.map*/

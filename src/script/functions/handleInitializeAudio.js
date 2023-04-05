@@ -19,7 +19,7 @@ const handleInitializeAudio = () => {
 
   start.volume = 0.07;
   jump.volume = 0.1;
-  point.volue = 0.2;
+  point.volue = 0.07;
   snakespeed.volume = 0.3;
   gameOver.volume = 0.3;
 };
