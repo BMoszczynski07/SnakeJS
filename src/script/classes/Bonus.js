@@ -9,20 +9,22 @@ class Bonus extends Boost {
     this.imgPATH = imgPATH;
     this.audioPATH = audioPATH;
 
-    this.boostInterval = setInterval(this.handleBonusTranslate, 1000);
+    this.boostInterval = setInterval(this.handleBonusTranslate, 300);
   }
 
   handleBonusTranslate = () => {
     // TODO: bonus translation, check whether the bonus has reached the bottom of the board, if so - delete this bonus from bonuses using this.bonusID
+    board[this.y][this.x].classList.remove("tile--boost");
     board[this.y][this.x].style.backgroundImage = "";
     this.y++;
 
-    if (this.y > boardSize) {
+    if (this.y == boardSize) {
       clearInterval(this.boostInterval);
       bonuses.filter((bonus) => bonus !== this.bonusID);
       return;
     }
 
+    board[this.y][this.x].classList.add("tile--boost");
     board[this.y][this.x].style.backgroundImage = `url('${
       bonusImgs[this.name]
     }')`;

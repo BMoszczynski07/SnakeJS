@@ -39,6 +39,7 @@ const handlePlaceTile = ({ mode, bonus }) => {
           bonus.audioPATH
         );
 
+      board[0][newBonus.x].classList.add("tile--boost");
       board[0][newBonus.x].style.backgroundImage = `url('${
         bonusImgs[bonus.name]
       }')`;

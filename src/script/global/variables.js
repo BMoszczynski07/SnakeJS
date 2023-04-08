@@ -1,4 +1,3 @@
-import Bonus from "../classes/Bonus.js";
 import handleValidateBoardSize from "../functions/handleValidateBoardSize.js";
 
 // board variables

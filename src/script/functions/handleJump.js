@@ -48,7 +48,7 @@ const handleIncreaseSnakeSpeed = () => {
 };
 
 const handleJump = () => {
-  if (Math.random() < 1 && bonuses.length == 0) handleGenerateBonuses();
+  if (Math.random() < 1 && bonuses.length === 0) handleGenerateBonuses();
 
   handleUpdateSnake();
 
