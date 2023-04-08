@@ -9,6 +9,7 @@ export const jump = new Audio();
 export const snakespeed = new Audio();
 export const point = new Audio();
 export const gameOver = new Audio();
+export const bonus = new Audio();
 
 const handleInitializeAudio = () => {
   point.src = POINT_SRC;
@@ -22,6 +23,7 @@ const handleInitializeAudio = () => {
   point.volue = 0.07;
   snakespeed.volume = 0.3;
   gameOver.volume = 0.3;
+  bonus.volume = 0.3;
 };
 
 export default handleInitializeAudio;
