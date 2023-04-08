@@ -1,7 +1,8 @@
-import { board, boardSize, bonuses, food } from "../global/variables.js";
+import { board, boardSize, food } from "../global/variables.js";
 import RandInt from "./RandInt.js";
 import Food from "../classes/Food.js";
 import Bonus from "../classes/Bonus.js";
+import { bonuses } from "../global/bonuses.js";
 
 const handlePlaceTile = ({ mode, bonus }) => {
   const tiles = document.querySelectorAll(".tile");
@@ -28,7 +29,8 @@ const handlePlaceTile = ({ mode, bonus }) => {
       break;
     case "bonus":
       let newBonus;
-      if (bonus) newBonus = new Bonus(x, 0, bonus.name, `${bonus.name}.jpg`);
+      if (bonus)
+        newBonus = new Bonus(x, 0, bonus.name, bonus.imgPATH, bonus.audioPATH);
 
       bonuses.push(newBonus);
       break;

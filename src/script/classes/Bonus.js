@@ -1,9 +1,10 @@
 import Boost from "./Boost.js";
 
 class Bonus extends Boost {
-  constructor(id, imgPATH) {
+  constructor(id, imgPATH, audioPATH) {
     this.bonusID = id;
     this.imgPATH = imgPATH;
+    this.audioPATH = audioPATH;
 
     this.boostInterval = setInterval(this.handleBonusTranslate, 1000);
   }
