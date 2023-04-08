@@ -2,7 +2,7 @@ import { board, boardSize, food } from "../global/variables.js";
 import RandInt from "./RandInt.js";
 import Food from "../classes/Food.js";
 import Bonus from "../classes/Bonus.js";
-import { bonuses } from "../global/bonuses.js";
+import { bonusImgs, bonuses } from "../global/bonuses.js";
 
 const handlePlaceTile = ({ mode, bonus }) => {
   const tiles = document.querySelectorAll(".tile");
@@ -30,8 +30,19 @@ const handlePlaceTile = ({ mode, bonus }) => {
     case "bonus":
       let newBonus;
       if (bonus)
-        newBonus = new Bonus(x, 0, bonus.name, bonus.imgPATH, bonus.audioPATH);
+        newBonus = new Bonus(
+          x,
+          0,
+          bonus.name,
+          bonuses.length,
+          bonus.imgPATH,
+          bonus.audioPATH
+        );
 
+      board[0][newBonus.x].style.backgroundImage = `url('${
+        bonusImgs[bonus.name]
+      }')`;
+      board[0][newBonus.x].style.backgroundSize = "cover";
       bonuses.push(newBonus);
       break;
     case "bomb":

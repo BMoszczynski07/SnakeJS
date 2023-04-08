@@ -1,3 +1,4 @@
+import { bonuses, handleGenerateBonuses } from "../global/bonuses.js";
 import { parameterSpeed } from "../global/elements.js";
 import {
   boardSize,
@@ -47,6 +48,8 @@ const handleIncreaseSnakeSpeed = () => {
 };
 
 const handleJump = () => {
+  if (Math.random() < 1 && bonuses.length == 0) handleGenerateBonuses();
+
   handleUpdateSnake();
 
   snake.class.jumps++;

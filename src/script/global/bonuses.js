@@ -1,18 +1,40 @@
 import RandInt from "../functions/RandInt.js";
 import handlePlaceTile from "../functions/handlePlaceTile.js";
 
+import speed2X from "../../assets/SPEED2X.png";
+import Freeze from "../../assets/Freeze.png";
+
+export const bonusImgs = { "SPEED 2X": speed2X, Freeze };
+
+export const bombs = [];
+
 export const bonuses = [];
+
+export const handleGenerateBonuses = () => {
+  const rand = RandInt({
+    min: 0,
+    max: 100,
+  });
+
+  const chosenBonuses = [
+    ...bonusesProbabilities.filter((bonus) => bonus.probability > rand),
+  ];
+
+  for (const bonus of chosenBonuses) {
+    handlePlaceTile({ mode: "bonus", bonus });
+  }
+};
 
 export const bonusesProbabilities = [
   {
     name: "SPEED 2X",
-    imgPATH: "../assets/SPEED 2X.jpg",
+    imgPATH: "../../assets/SPEED 2X.png",
     audioPATH: "../assets/SPEED 2X.wav",
     probability: 35,
   },
   {
     name: "SPEED /2X",
-    imgPATH: "../assets/SPEED 2Xlower.jpg",
+    imgPATH: "../assets/SPEED 2X.png",
     audioPATH: "../assets/SPEED 2Xlower.wav",
     probability: 25,
   },
@@ -46,18 +68,3 @@ export const bonusesProbabilities = [
     probability: 45,
   },
 ];
-
-export const generateBonuses = () => {
-  const rand = RandInt({
-    min: 0,
-    max: 100,
-  });
-
-  const chosenBonuses = [
-    ...bonusesProbabilities.filter((bonus) => bonus.probability > rand),
-  ];
-
-  for (const bonus of chosenBonuses) {
-    handlePlaceTile({ mode: "bonus", bonus });
-  }
-};
