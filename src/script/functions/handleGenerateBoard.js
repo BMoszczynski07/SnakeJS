@@ -13,16 +13,6 @@ import handleDisplay from "./handleDisplay.js";
 import { gameBoard } from "../global/elements.js";
 import handlePlaceTile from "./handlePlaceTile.js";
 
-export const handleAppendBonuses = () => {
-  let bonusesQty = 15 * (boardSize / sizeRange.max);
-
-  for (let i = 0; i < bonusesQty; i++) {
-    handlePlaceTile({ mode: "bonus" });
-  }
-
-  console.log(bonuses);
-};
-
 export const handleAppendBoard = (tileCSS) => {
   let tilesQty = 0;
 
@@ -102,7 +92,6 @@ const handleGenerateBoard = () => {
 
   handleAppendBoard(tileCSS);
   handleAppendSnake();
-  handleAppendBonuses();
 
   handlePlaceTile({ mode: "food" });
 };

@@ -1,3 +1,4 @@
+import Bonus from "../classes/Bonus.js";
 import handleValidateBoardSize from "../functions/handleValidateBoardSize.js";
 
 // board variables
@@ -28,7 +29,6 @@ export let food = {
     food.class = payload;
   },
 };
-export const bonuses = [];
 
 // checks whether the game has already started
 export let gameStarted = {

@@ -3,10 +3,10 @@ import RandInt from "./RandInt.js";
 import Food from "../classes/Food.js";
 import Bonus from "../classes/Bonus.js";
 
-const handlePlaceTile = ({ mode }) => {
+const handlePlaceTile = ({ mode, bonus }) => {
   const tiles = document.querySelectorAll(".tile");
   const freeTiles = document.querySelectorAll(
-    ".tile:not(.tile--snake):not(.tile--boost)"
+    ".tile:not(.tile--snake):not(.tile--boost):not(.tile--bomb)"
   );
 
   const randTileId = RandInt({ min: 0, max: freeTiles.length - 1 });
@@ -16,8 +16,6 @@ const handlePlaceTile = ({ mode }) => {
     x: indexOfFreeTile % boardSize,
     y: Math.floor(indexOfFreeTile / boardSize),
   };
-
-  // console.log(indexOfFreeTile % boardSize);
 
   const { x, y } = tileCoordinates;
 
@@ -29,9 +27,12 @@ const handlePlaceTile = ({ mode }) => {
       board[food.class.y][food.class.x].classList.add("tile--food");
       break;
     case "bonus":
-      let bonus = new Bonus("bonus", x, y);
+      let newBonus;
+      if (bonus) newBonus = new Bonus(x, 0, bonus.name, `${bonus.name}.jpg`);
 
-      bonuses.push(bonus);
+      bonuses.push(newBonus);
+      break;
+    case "bomb":
       break;
     default:
       console.error("#ERR! -> Przesłano niepoprawny typ bonusu");
