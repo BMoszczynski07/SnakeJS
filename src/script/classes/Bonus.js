@@ -1,10 +1,11 @@
 import RandInt from "../functions/RandInt.js";
-import handleBonusIsEaten from "../functions/handleBonusIsEaten.js";
+import handleBonus from "../functions/handleBonus.js";
 import { bonus } from "../functions/handleInitializeAudio.js";
 import { bonusFiles, bonuses } from "../global/bonuses.js";
 import {
   board,
   boardSize,
+  gameStarted,
   interval,
   mute,
   snake,
@@ -31,6 +32,10 @@ class Bonus extends Boost {
 
   handleBonusTranslate = () => {
     // TODO: bonus translation, check whether the bonus has reached the bottom of the board, if so - delete this bonus from bonuses using this.bonusID
+    if (!gameStarted.val) {
+      clearInterval(this.boostInterval);
+      return;
+    }
     board[this.y][this.x].classList.remove("tile--boost");
     board[this.y][this.x].style.backgroundImage = "";
     this.y++;
@@ -44,6 +49,8 @@ class Bonus extends Boost {
       );
 
       bonuses.splice(foundBonusID, 1);
+
+      handleBonus({ type: this.name });
 
       if (!mute.isMuted) {
         bonus.src = this.audioPATH;

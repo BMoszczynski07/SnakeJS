@@ -5,6 +5,49 @@ import Bonus from "../classes/Bonus.js";
 import { bonusFiles, bonuses } from "../global/bonuses.js";
 
 const handlePlaceTile = ({ mode, bonus }) => {
+  if (mode === "bonus") {
+    // do something if bonus === 'bonus'
+    let newBonus;
+    if (bonus)
+      newBonus = new Bonus(
+        0,
+        0,
+        bonus.name,
+        bonuses.length,
+        bonus.imgPATH,
+        bonus.audioPATH
+      );
+
+    const freeTiles = [];
+
+    board[0].forEach((bonus, index) => {
+      if (
+        !bonus.classList.contains("tile--boost") &&
+        !bonus.classList.contains("tile--snake")
+      ) {
+        freeTiles.push(index);
+      }
+    });
+
+    if (freeTiles.length === 0) return;
+
+    let rand = RandInt({
+      min: 0,
+      max: freeTiles.length - 1,
+    });
+
+    board[0][freeTiles[rand]].classList.add("tile--boost");
+    board[0][
+      freeTiles[rand]
+    ].style.backgroundImage = `url('${newBonus.imgPATH}')`;
+
+    newBonus.x = freeTiles[rand];
+
+    bonuses.push(newBonus);
+
+    return;
+  }
+
   const tiles = document.querySelectorAll(".tile");
   const freeTiles = document.querySelectorAll(
     ".tile:not(.tile--snake):not(.tile--boost):not(.tile--bomb)"
@@ -26,23 +69,6 @@ const handlePlaceTile = ({ mode, bonus }) => {
       food.class = new Food(x, y);
 
       board[food.class.y][food.class.x].classList.add("tile--food");
-      break;
-    case "bonus":
-      let newBonus;
-      if (bonus)
-        newBonus = new Bonus(
-          x,
-          0,
-          bonus.name,
-          bonuses.length,
-          bonus.imgPATH,
-          bonus.audioPATH
-        );
-
-      board[0][newBonus.x].classList.add("tile--boost");
-      board[0][newBonus.x].style.backgroundImage = `url('${newBonus.imgPATH}')`;
-      board[0][newBonus.x].style.backgroundSize = "cover";
-      bonuses.push(newBonus);
       break;
     case "bomb":
       break;

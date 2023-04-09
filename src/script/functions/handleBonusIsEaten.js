@@ -1,5 +1,6 @@
 import { bonuses } from "../global/bonuses.js";
 import { board, mute, snake } from "../global/variables.js";
+import handleBonus from "./handleBonus.js";
 import { bonus } from "./handleInitializeAudio.js";
 
 const handleBonusIsEaten = () => {
@@ -24,6 +25,8 @@ const handleBonusIsEaten = () => {
     console.log(bonuses);
     bonuses.splice(index, 1);
     console.log(bonuses);
+
+    handleBonus({ type: foundBonus.name });
 
     if (!mute.isMuted) {
       bonus.src = foundBonus.audioPATH;

@@ -1,5 +1,6 @@
 import {
   gameInterval,
+  gameStarted,
   mute,
   snake,
   timer,
@@ -8,6 +9,8 @@ import {
 import { gameOver } from "./handleInitializeAudio.js";
 
 const GameOver = () => {
+  gameStarted.val = false;
+
   const payload = {
     score: snake.class.length,
     jumps: snake.class.jumps,
