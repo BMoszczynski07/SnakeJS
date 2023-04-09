@@ -40,9 +40,7 @@ const handlePlaceTile = ({ mode, bonus }) => {
         );
 
       board[0][newBonus.x].classList.add("tile--boost");
-      board[0][newBonus.x].style.backgroundImage = `url('${
-        bonusFiles[bonus.name].img
-      }')`;
+      board[0][newBonus.x].style.backgroundImage = `url('${newBonus.imgPATH}')`;
       board[0][newBonus.x].style.backgroundSize = "cover";
       bonuses.push(newBonus);
       break;

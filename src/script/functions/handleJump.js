@@ -56,8 +56,6 @@ const handleJump = () => {
 
   snake.class.jumps++;
 
-  handleBonusIsEaten();
-
   // for (const bonus of bonuses) bonus.handleTransformBonus();
 
   handleIncreaseSnakeSpeed();

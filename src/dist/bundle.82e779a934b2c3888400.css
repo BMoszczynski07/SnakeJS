@@ -1,3 +1,4 @@
+@import url(https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500&display=swap);
 body {
   margin: 0 !important;
   padding: 0 !important;
@@ -5,6 +6,9 @@ body {
 }
 
 .parameter {
+  font-family: "DM Sans", sans-serif;
+  /* font-weight: 500; */
+  letter-spacing: -0.2px;
   margin: 15px;
   width: 200px;
   text-align: center;
@@ -82,8 +86,8 @@ body {
 }
 
 .gameboard {
-  width: 375px;
-  height: 375px;
+  width: 450px;
+  height: 450px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -175,6 +179,11 @@ body {
   background: #c4c40a;
 }
 
+.tile--boost {
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
 .parameter-speed--acceleration {
   animation: speed-acceleration 1s;
   animation-timing-function: step-start;
@@ -201,4 +210,5 @@ body {
   }
 }
 
-/*# sourceMappingURL=bundle.83e80f2dab2beaf27e37.css.map*/
+
+/*# sourceMappingURL=bundle.82e779a934b2c3888400.css.map*/

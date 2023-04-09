@@ -5,7 +5,6 @@ const handleUpdateSnake = () => {
   switch (snake.class.direction) {
     case "W":
       snake.class.y = snake.class.y === 0 ? boardSize - 1 : snake.class.y - 1;
-
       handleMoveSnake();
       break;
     case "S":

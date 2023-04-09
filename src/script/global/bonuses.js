@@ -3,6 +3,8 @@ import handlePlaceTile from "../functions/handlePlaceTile.js";
 
 import speed2XImg from "../../assets/SPEED2X.png";
 import speed2XAudio from "../../assets/SPEED2X.wav";
+import speed2XImgLower from "../../assets/SPEED 2Xlower.png";
+import speed2XAudioLower from "../../assets/SPEED 2Xlower.wav";
 import FreezeImg from "../../assets/Freeze.png";
 import FreezeAudio from "../../assets/Freeze.mp3";
 import BombsImg from "../../assets/Bombs.png";
@@ -20,8 +22,8 @@ export const bonusFiles = {
     audio: speed2XAudio,
   },
   "SPEED /2X": {
-    img: speed2XImg,
-    audio: speed2XAudio,
+    img: speed2XImgLower,
+    audio: speed2XAudioLower,
   },
   Freeze: {
     img: FreezeImg,
@@ -56,41 +58,48 @@ export const handleGenerateBonuses = () => {
   });
 
   const chosenBonuses = [
-    ...bonusesProbabilities.filter((bonus) => bonus.probability > rand),
+    ...bonusesProbabilities.filter((bonus) => bonus.probability >= rand),
   ];
 
   for (const bonus of chosenBonuses) {
-    handlePlaceTile({ mode: "bonus", bonus });
+    handlePlaceTile({
+      mode: "bonus",
+      bonus: {
+        name: bonus.name,
+        imgPATH: bonusFiles[bonus.name].img,
+        audioPATH: bonusFiles[bonus.name].audio,
+      },
+    });
   }
 };
 
 export const bonusesProbabilities = [
   {
     name: "SPEED 2X",
-    probability: 35,
+    probability: 100,
   },
   {
     name: "SPEED /2X",
-    probability: 25,
+    probability: 100,
   },
   {
     name: "Freeze",
-    probability: 50,
+    probability: 100,
   },
   {
     name: "Bombs",
-    probability: 20,
+    probability: 100,
   },
   {
     name: "Nystagmus",
-    probability: 5,
+    probability: 100,
   },
   {
     name: "+5 points",
-    probability: 40,
+    probability: 100,
   },
   {
     name: "-5 points",
-    probability: 45,
+    probability: 100,
   },
 ];

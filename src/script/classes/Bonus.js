@@ -1,7 +1,14 @@
 import RandInt from "../functions/RandInt.js";
 import handleBonusIsEaten from "../functions/handleBonusIsEaten.js";
+import { bonus } from "../functions/handleInitializeAudio.js";
 import { bonusFiles, bonuses } from "../global/bonuses.js";
-import { board, boardSize, interval } from "../global/variables.js";
+import {
+  board,
+  boardSize,
+  interval,
+  mute,
+  snake,
+} from "../global/variables.js";
 import Boost from "./Boost.js";
 
 class Bonus extends Boost {
@@ -11,15 +18,15 @@ class Bonus extends Boost {
     this.imgPATH = imgPATH;
     this.audioPATH = audioPATH;
 
-    this.boostInterval = setInterval(
-      this.handleBonusTranslate,
+    const intervalRange =
       (interval.val *
         RandInt({
-          min: 25,
+          min: 10,
           max: 200,
         })) /
-        100
-    );
+      100;
+
+    this.boostInterval = setInterval(this.handleBonusTranslate, intervalRange);
   }
 
   handleBonusTranslate = () => {
@@ -28,14 +35,31 @@ class Bonus extends Boost {
     board[this.y][this.x].style.backgroundImage = "";
     this.y++;
 
-    if (this.y == boardSize) {
+    if (this.x === snake.class.x && this.y === snake.class.y) {
       clearInterval(this.boostInterval);
-      bonuses.filter((bonus) => bonus !== this.bonusID);
+      console.log("eaten -> bonus ate snake");
+
+      const foundBonusID = bonuses.findIndex(
+        (bns) => bns.bonusID === this.bonusID
+      );
+
+      bonuses.splice(foundBonusID, 1);
+
+      if (!mute.isMuted) {
+        bonus.src = this.audioPATH;
+        bonus.play();
+      }
       return;
     }
-    const isEaten = handleBonusIsEaten();
 
-    if (isEaten) return;
+    if (this.y === boardSize) {
+      const foundBonusID = bonuses.findIndex(
+        (bns) => bns.bonusID === this.bonusID
+      );
+      clearInterval(this.boostInterval);
+      bonuses.splice(foundBonusID, 1);
+      return;
+    }
 
     board[this.y][this.x].classList.add("tile--boost");
     board[this.y][this.x].style.backgroundImage = `url('${

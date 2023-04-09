@@ -1,8 +1,10 @@
 import { board, food, snake, snakePositions } from "../global/variables.js";
 import GameOver from "./GameOver.js";
+import handleBonusIsEaten from "./handleBonusIsEaten.js";
 
 const handleMoveSnake = () => {
   food.class.handleIsEaten();
+  handleBonusIsEaten();
 
   const { x, y } = snakePositions[0];
 
