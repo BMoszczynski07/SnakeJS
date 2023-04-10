@@ -1,5 +1,7 @@
+import Preferences from "./script/classes/Preferences.js";
 import handleGenerateBoard from "./script/functions/handleGenerateBoard.js";
 import handleKeyPress from "./script/functions/handleKeyPress.js";
+import { currentTheme } from "./script/global/CSSroot.js";
 import { controlBtns, sound } from "./script/global/elements.js";
 import {
   W,
@@ -12,6 +14,7 @@ import {
   leftKey,
   rightKey,
 } from "./script/global/keys.js";
+import preferences from "./script/global/preferences.js";
 import { mute } from "./script/global/variables.js";
 import "./style.css";
 
@@ -106,4 +109,16 @@ document.addEventListener("keyup", (e) => {
   handleKeyPress({ key });
 });
 
-document.addEventListener("DOMContentLoaded", handleGenerateBoard);
+document.addEventListener("DOMContentLoaded", () => {
+  preferences.set({
+    payload: new Preferences({
+      boardColor: currentTheme.boardColor,
+      textColor: currentTheme.textColor,
+      tileColor: currentTheme.tileColor,
+      foodColor: currentTheme.foodColor,
+      background: currentTheme.background,
+      snakeColor: currentTheme.snakeColor,
+    }),
+  });
+  handleGenerateBoard();
+});

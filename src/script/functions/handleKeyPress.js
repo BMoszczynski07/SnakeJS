@@ -23,7 +23,7 @@ const handleKeyPress = ({ key }) => {
   )
     return;
 
-  if (!gameStarted.val) {
+  if (!gameStarted.val && snake.class.jumps === 0) {
     if (key === "S") {
       snakePositions.reverse();
       snake.set({

@@ -1,50 +1,39 @@
-import { gameBoard } from "./elements.js";
-
 export const boardThemesList = {
-  default: {
-    boardTheme: "#dbdbdb",
-    snakeColor: "#666666",
+  light: {
+    boardColor: "#dbdbdb",
+    tileColor: "#efefef",
+    snakeColor: "#444444",
     foodColor: "#c4c415",
-    backgroundColor: "#fff",
-    glow: false,
+    background: "#fff",
+    textColor: "#000",
+  },
+  dark: {
+    boardTheme: "#000",
+    tileColor: "#202020",
+    snakeColor: "#ececec",
+    foodColor: "#120f31",
+    background: "#262222",
+    textColor: "#cecece",
+  },
+  beige: {
+    boardTheme: "#abac77",
+    tileColor: "#c7c799",
+    snakeColor: "#cec87e",
+    foodColor: "#74714e",
+    background: "#e6e6c4",
+    textColor: "#3e3e2c",
   },
 };
 
 let preferences = {
-  board: {
-    boardTheme: localStorage.getItem("board-theme") || "#dbdbdb",
-    snakeColor: localStorage.getItem("snake-color") || "#666666",
-    foodColor: localStorage.getItem("food-color") || "#c4c415",
-    background: localStorage.getItem("background") || "#fff",
-    glow: localStorage.getItem("glow") || false,
+  class: "",
+  set: ({ payload, attr }) => {
+    if (attr) {
+      preferences.class[attr] = payload;
+      return;
+    }
 
-    handlePickTheme: ({ theme }) => {},
-
-    handleNystagmus: () => {
-      let nystagmusInterval;
-      let state = false;
-      let snake = document.querySelectorAll(".tile--snake");
-
-      nystagmusInterval = setInterval(() => {
-        state = !state;
-
-        gameBoard.style.backgroundColor = state ? "#000" : "#fff";
-        snake.style.backgroundColor = state ? "#fff" : "#000";
-      });
-
-      setTimeout(() => {
-        gameBoard.style.backgroundColor = preferences.board.boardTheme;
-        snake.style.backgroundColor = preferences.board.snakeColor;
-
-        clearInterval(nystagmusInterval);
-      }, 2000);
-    },
-  },
-  muted: {
-    isMuted: localStorage.getItem("game-muted") || false,
-    toggle: () => {
-      preferences.muted.isMuted = !preferences.muted.isMuted;
-    },
+    preferences.class = payload;
   },
 };
 

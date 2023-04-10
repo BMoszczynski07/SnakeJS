@@ -1,9 +1,19 @@
 @import url("https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500&display=swap");
 
+:root {
+  --background: #fff;
+  --board-color: #e1e1e1;
+  --tile-color: #efefef;
+  --food-color: #c4c40a;
+  --snake-color: #444444;
+  --text-color: #000;
+}
+
 body {
   margin: 0 !important;
   padding: 0 !important;
   box-sizing: border-box;
+  background: var(--background);
 }
 
 .parameter {
@@ -95,7 +105,7 @@ body {
   flex-wrap: wrap;
   margin: 0;
   padding: 0;
-  background: #e1e1e1;
+  background: var(--board-color);
 }
 
 .themes {
@@ -168,16 +178,16 @@ body {
 }
 
 .tile {
-  background: #efefef;
+  background: var(--tile-color);
   margin: 1px;
 }
 
 .tile--snake {
-  background: #444444;
+  background: var(--snake-color);
 }
 
 .tile--food {
-  background: #c4c40a;
+  background: var(--food-color);
 }
 
 .tile--boost {

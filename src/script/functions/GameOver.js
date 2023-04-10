@@ -9,6 +9,9 @@ import {
 import { gameOver } from "./handleInitializeAudio.js";
 
 const GameOver = () => {
+  clearInterval(timerInterval.interval);
+  clearInterval(gameInterval.interval);
+
   gameStarted.val = false;
 
   const payload = {
@@ -20,9 +23,6 @@ const GameOver = () => {
       seconds: timer.time % 60,
     },
   };
-
-  clearInterval(timerInterval.interval);
-  clearInterval(gameInterval.interval);
 
   if (!mute.isMuted) gameOver.play();
 };

@@ -3,7 +3,7 @@ import preferences from "../global/preferences.js";
 const handleBonus = ({ type }) => {
   switch (type) {
     case "Nystagmus":
-      preferences.board.handleNystagmus();
+      preferences.class.handleNystagmus();
       break;
     default:
       console.error("#ERR -> Nieznany typ bonusu!");
