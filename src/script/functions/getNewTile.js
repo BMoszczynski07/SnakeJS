@@ -14,6 +14,7 @@ const getNewTile = (subX, subY, firstX, firstY) => {
   if (board[y][x].classList.contains("tile--snake")) {
     //! game over
     GameOver();
+    return { newX: x, newY: y };
   }
 
   return { newX: x, newY: y };

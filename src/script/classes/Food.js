@@ -1,10 +1,16 @@
 import { point } from "../functions/handleInitializeAudio.js";
 import handlePlaceTile from "../functions/handlePlaceTile.js";
-import { board, mute, snake, snakePositions } from "../global/variables.js";
+import {
+  board,
+  gameStarted,
+  mute,
+  snake,
+  snakePositions,
+} from "../global/variables.js";
 import Boost from "./Boost.js";
-import getNewTile from "../functions/getNewTile.js";
 import { length } from "../global/elements.js";
 import handleDisplay from "../functions/handleDisplay.js";
+import handleFoodEaten from "../functions/handleFoodEaten.js";
 
 class Food extends Boost {
   handleIsEaten = () => {
@@ -16,14 +22,9 @@ class Food extends Boost {
       board[this.y][this.x].classList.remove("tile--food");
       handlePlaceTile({ mode: "food" });
 
-      //TODO: adding new tiles to the end of the snake
-      const { x: firstX, y: firstY } = snakePositions[0];
-      const { x: nextX, y: nextY } = snakePositions[1];
+      const { newX, newY } = handleFoodEaten();
 
-      const subX = nextX - firstX;
-      const subY = nextY - firstY;
-
-      const { newX, newY } = getNewTile(subX, subY, firstX, firstY);
+      if (!gameStarted.val) return;
 
       snake.class.length++;
       handleDisplay({ snakeLength: snake.class.length });

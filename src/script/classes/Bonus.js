@@ -1,6 +1,5 @@
 import RandInt from "../functions/RandInt.js";
 import handleBonus from "../functions/handleBonus.js";
-import { bonus } from "../functions/handleInitializeAudio.js";
 import { bonusFiles, bonuses } from "../global/bonuses.js";
 import {
   board,
@@ -53,6 +52,7 @@ class Bonus extends Boost {
       handleBonus({ type: this.name });
 
       if (!mute.isMuted) {
+        const bonus = new Audio();
         bonus.src = this.audioPATH;
         bonus.play();
       }

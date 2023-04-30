@@ -1,7 +1,6 @@
 import { bonuses } from "../global/bonuses.js";
 import { board, mute, snake } from "../global/variables.js";
 import handleBonus from "./handleBonus.js";
-import { bonus } from "./handleInitializeAudio.js";
 
 const handleBonusIsEaten = () => {
   let selectedBonus;
@@ -29,14 +28,10 @@ const handleBonusIsEaten = () => {
     handleBonus({ type: foundBonus.name });
 
     if (!mute.isMuted) {
+      const bonus = new Audio();
       bonus.src = foundBonus.audioPATH;
       bonus.play();
     }
-
-    // TODO: react to picking up a bonus for example adding  bombs or increasing speed
-
-    if (foundBonus) return true;
-    return false;
   }
 };
 

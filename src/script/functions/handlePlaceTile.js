@@ -49,9 +49,7 @@ const handlePlaceTile = ({ mode, bonus }) => {
   }
 
   const tiles = document.querySelectorAll(".tile");
-  const freeTiles = document.querySelectorAll(
-    ".tile:not(.tile--snake):not(.tile--boost):not(.tile--bomb)"
-  );
+  const freeTiles = document.querySelectorAll(".tile:not(.tile--snake)");
 
   const randTileId = RandInt({ min: 0, max: freeTiles.length - 1 });
 

@@ -1,9 +1,9 @@
 import { bonuses, handleGenerateBonuses } from "../global/bonuses.js";
 import { parameterSpeed } from "../global/elements.js";
 import {
-  board,
   boardSize,
   gameInterval,
+  gameStarted,
   interval,
   mute,
   sizeRange,
@@ -11,7 +11,6 @@ import {
   snakeDidMove,
   SPEED_CONSTANT,
 } from "../global/variables.js";
-import handleBonusIsEaten from "./handleBonusIsEaten.js";
 import handleDisplay from "./handleDisplay.js";
 import { snakespeed } from "./handleInitializeAudio.js";
 import handleUpdateSnake from "./handleUpdateSnake.js";
@@ -54,6 +53,8 @@ const handleJump = () => {
 
   handleUpdateSnake();
 
+  if (!gameStarted.val) return;
+  
   snake.class.jumps++;
 
   // for (const bonus of bonuses) bonus.handleTransformBonus();

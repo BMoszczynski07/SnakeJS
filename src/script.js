@@ -24,6 +24,18 @@ sound.addEventListener("click", () => {
 });
 
 controlBtns.forEach((control, index) => {
+  control.addEventListener("touchstart", () => {
+    control.classList.add("control--pressed");
+  });
+
+  control.addEventListener("touchend", () => {
+    const controls = ["W", "S", "A", "D"];
+
+    control.classList.remove("control--pressed");
+
+    handleKeyPress({ key: controls[index] });
+  });
+
   control.addEventListener("mousedown", () => {
     control.classList.add("control--pressed");
   });

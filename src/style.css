@@ -186,6 +186,10 @@ body {
   background: var(--snake-color);
 }
 
+.tile--snake--removed {
+  background: #f00;
+}
+
 .tile--food {
   background: var(--food-color);
 }
@@ -193,6 +197,14 @@ body {
 .tile--boost {
   background-size: cover;
   background-repeat: no-repeat;
+}
+
+.tile--snake-added-point {
+  background: #0bcf05;
+}
+
+.tile--snake-subtracted-point {
+  background: #c20d0d;
 }
 
 .parameter-speed--acceleration {
