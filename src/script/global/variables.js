@@ -3,7 +3,7 @@ import handleValidateBoardSize from "../functions/handleValidateBoardSize.js";
 // board variables
 export const board = [];
 export const sizeRange = { min: 10, max: 40 };
-export let boardSize = handleValidateBoardSize();
+export let boardSize = 20;
 
 // classes
 export let snake = {

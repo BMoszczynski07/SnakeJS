@@ -2,6 +2,7 @@ import { root } from "../global/CSSroot.js";
 import preferences from "../global/preferences.js";
 import {
   board,
+  boardSize,
   gameStarted,
   snake,
   snakePositions,
@@ -88,6 +89,7 @@ const handleBonus = ({ type }) => {
       }
       break;
     case "Bombs":
+      navigator.vibrate(100);
       if (bombsInterval.val === "")
         bombsInterval.set({
           payload: setInterval(() => {
@@ -101,7 +103,7 @@ const handleBonus = ({ type }) => {
             );
           }, 250),
         });
-      for (let i = 0; i < 8; i++) {
+      for (let i = 0; i < Math.floor(boardSize * (2 / 5)); i++) {
         handlePlaceTile({ mode: "bomb" });
       }
       break;

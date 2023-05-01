@@ -1,4 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@200;400;500;600&display=swap");
 
 :root {
   /* board */
@@ -18,6 +19,11 @@ body {
   padding: 0 !important;
   box-sizing: border-box;
   background: var(--background);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  min-height: 100vh;
 }
 
 .parameter {
@@ -39,6 +45,7 @@ body {
   font-family: "Segoe UI", sans-serif;
   letter-spacing: -1.2px;
   letter-spacing: 0.6px;
+  /* background: #f00; */
 }
 
 .theme {
@@ -91,16 +98,16 @@ body {
 } */
 
 .game-box {
-  height: 350px;
   margin: 35px auto;
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 35px;
+  gap: 25px;
   flex-wrap: wrap;
 }
 
 .gameboard {
+  position: relative;
   width: 450px;
   height: 450px;
   display: flex;
@@ -218,6 +225,176 @@ body {
 .parameter-speed--acceleration {
   animation: speed-acceleration 1s;
   animation-timing-function: step-start;
+}
+
+.game-over {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 3;
+  background: rgba(48, 48, 48, 0.416);
+  backdrop-filter: blur(10px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.container {
+  position: relative;
+  width: 270px;
+  height: 400px;
+  background: rgba(80, 80, 80, 0.632);
+  border-radius: 15px;
+  display: flex;
+  flex-direction: column;
+}
+
+.leaderboard {
+  width: 320px;
+  height: 450px;
+  background: rgb(35, 35, 35);
+  border-radius: 10px;
+}
+
+.play-again {
+  position: absolute;
+  bottom: 12px;
+  left: 12px;
+  width: calc(100% - 24px);
+  padding: 6px 0;
+  font-size: 14px;
+  border-radius: 3px;
+  border: none;
+  background: #000;
+  color: #fff;
+  font-family: "Inter", sans-serif;
+  font-weight: 500;
+  letter-spacing: -0.15px;
+  cursor: pointer;
+  transition: 0.25s;
+}
+
+.play-again:hover {
+  background: #292929;
+}
+
+.gameover-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 12px;
+  color: #f18989;
+  font-family: "DM Sans", sans-serif;
+  font-weight: 400;
+  /* background: #f00; */
+}
+
+.gameover-title {
+  font-size: 28px;
+  letter-spacing: -0.2px;
+  margin: 0 !important;
+}
+
+.gameover-icon {
+  font-size: 20px;
+}
+
+.statistics-header {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  /* background: #0f0; */
+  gap: 6px;
+  font-family: "Inter", sans-serif;
+  letter-spacing: -0.25px;
+  font-size: 18px;
+  color: #d4d4d4;
+}
+
+.statistics {
+  margin-top: 5px;
+  margin-left: 12px;
+  padding: 0;
+}
+
+.label {
+  margin: 0;
+}
+
+.statistic {
+  margin-top: 2px;
+  margin-bottom: 5px;
+  min-width: 100px !important;
+  font-family: "Inter", sans-serif;
+  font-size: 13px;
+  padding: 6px 0;
+  border-radius: 3px;
+  margin-right: 5px;
+  text-align: center;
+  cursor: default;
+  background: #212121;
+  color: #d5d5d5;
+  font-weight: 500;
+  position: relative;
+}
+
+.statistic:first-child {
+  margin-left: 2px;
+  background: rgb(60, 5, 86);
+  background: linear-gradient(
+    138deg,
+    rgba(60, 5, 86, 1) 0%,
+    rgba(82, 3, 3, 1) 100%
+  );
+}
+
+.statistic:first-child::after {
+  /* content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: calc(100% + 4px);
+  height: calc(100% + 4px);
+  transform: translate(-2px, -2px);
+  background: rgb(131, 7, 192);
+  background: linear-gradient(
+    138deg,
+    rgba(131, 7, 192, 1) 0%,
+    rgba(137, 3, 3, 1) 100%
+  );
+  border-radius: 5px;
+  z-index: -1; */
+}
+
+.all-statistics {
+  /* background: #00f; */
+  margin-top: 3px;
+  width: calc(100% - 12px);
+  overflow-x: scroll;
+  display: flex;
+}
+
+/* width */
+::-webkit-scrollbar {
+  height: 2px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #818181;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #484848;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #212121;
 }
 
 @keyframes speed-acceleration {

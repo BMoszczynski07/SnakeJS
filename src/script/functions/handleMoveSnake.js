@@ -24,6 +24,10 @@ const handleMoveSnake = () => {
   }
 
   const lastElem = board[y][x];
+  console.log(
+    lastElem,
+    lastElem.classList.contains("tile--snake-subtracted-point")
+  );
 
   if (lastElem.classList.contains("tile--snake-added-point")) {
     for (let i = 0; i < snakePositions.length; i++) {
