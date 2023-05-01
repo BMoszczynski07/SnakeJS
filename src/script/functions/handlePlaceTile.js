@@ -3,6 +3,7 @@ import RandInt from "./RandInt.js";
 import Food from "../classes/Food.js";
 import Bonus from "../classes/Bonus.js";
 import { bonusFiles, bonuses } from "../global/bonuses.js";
+import Bomb from "../classes/Bomb.js";
 
 const handlePlaceTile = ({ mode, bonus }) => {
   if (mode === "bonus") {
@@ -69,6 +70,14 @@ const handlePlaceTile = ({ mode, bonus }) => {
       board[food.class.y][food.class.x].classList.add("tile--food");
       break;
     case "bomb":
+      let rand = RandInt({
+        min: 0,
+        max: boardSize - 1,
+      });
+
+      board[rand][boardSize - 1].classList.add("tile--bomb");
+
+      new Bomb(boardSize - 1, rand);
       break;
     default:
       console.error("#ERR! -> Przesłano niepoprawny typ bonusu");

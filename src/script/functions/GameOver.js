@@ -24,6 +24,10 @@ const GameOver = () => {
     },
   };
 
+  setTimeout(() => {
+    navigator.vibrate([200, 100, 300]);
+  }, 150);
+
   if (!mute.isMuted) gameOver.play();
 };
 

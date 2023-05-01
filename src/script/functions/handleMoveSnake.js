@@ -1,3 +1,4 @@
+import { bombs } from "../global/bombs.js";
 import {
   board,
   food,
@@ -11,6 +12,7 @@ import handleBonusIsEaten from "./handleBonusIsEaten.js";
 const handleMoveSnake = () => {
   food.class.handleIsEaten();
   handleBonusIsEaten();
+  for (const bomb of bombs) bomb.handleBombCollide();
 
   if (!gameStarted.val) return;
 

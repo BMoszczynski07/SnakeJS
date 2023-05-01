@@ -1,11 +1,15 @@
 @import url(https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500&display=swap);
 :root {
+  /* board */
   --background: #fff;
   --board-color: #e1e1e1;
   --tile-color: #efefef;
   --food-color: #c4c40a;
   --snake-color: #444444;
   --text-color: #000;
+
+  /* bombs */
+  --bomb-color: #000;
 }
 
 body {
@@ -206,6 +210,10 @@ body {
   background: #c20d0d;
 }
 
+.tile--bomb {
+  background-color: var(--bomb-color);
+}
+
 .parameter-speed--acceleration {
   animation: speed-acceleration 1s;
   animation-timing-function: step-start;
@@ -233,4 +241,4 @@ body {
 }
 
 
-/*# sourceMappingURL=bundle.a80a5e57a789fcb9ba67.css.map*/
+/*# sourceMappingURL=bundle.ddda04bbb68db028b25d.css.map*/

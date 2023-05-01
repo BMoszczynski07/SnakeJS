@@ -54,7 +54,7 @@ const handleJump = () => {
   handleUpdateSnake();
 
   if (!gameStarted.val) return;
-  
+
   snake.class.jumps++;
 
   // for (const bonus of bonuses) bonus.handleTransformBonus();

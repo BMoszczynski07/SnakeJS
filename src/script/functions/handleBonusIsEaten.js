@@ -21,9 +21,7 @@ const handleBonusIsEaten = () => {
     foundTile.classList.remove("tile--boost");
     foundTile.style.backgroundImage = "";
 
-    console.log(bonuses);
     bonuses.splice(index, 1);
-    console.log(bonuses);
 
     handleBonus({ type: foundBonus.name });
 

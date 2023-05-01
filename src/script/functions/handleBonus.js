@@ -1,3 +1,4 @@
+import { root } from "../global/CSSroot.js";
 import preferences from "../global/preferences.js";
 import {
   board,
@@ -7,6 +8,8 @@ import {
 } from "../global/variables.js";
 import handleDisplay from "./handleDisplay.js";
 import handleFoodEaten from "./handleFoodEaten.js";
+import handlePlaceTile from "./handlePlaceTile.js";
+import { bombs, bombsInterval, bombsState } from "../global/bombs.js";
 
 const handleBonus = ({ type }) => {
   let snakePosLen;
@@ -82,6 +85,24 @@ const handleBonus = ({ type }) => {
           else
             board[nextY][nextX].classList.add("tile--snake-subtracted-point");
         }
+      }
+      break;
+    case "Bombs":
+      if (bombsInterval.val === "")
+        bombsInterval.set({
+          payload: setInterval(() => {
+            bombsState.toggle();
+
+            console.log("interval");
+
+            root.style.setProperty(
+              "--bomb-color",
+              bombsState.state ? "#000" : "#f00"
+            );
+          }, 250),
+        });
+      for (let i = 0; i < 8; i++) {
+        handlePlaceTile({ mode: "bomb" });
       }
       break;
     default:
