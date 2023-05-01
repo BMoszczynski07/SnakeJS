@@ -21,9 +21,9 @@ const handleMoveSnake = () => {
     return;
   }
 
-  const firstElem = board[y][x];
+  const lastElem = board[y][x];
 
-  if (firstElem.classList.contains("tile--snake-added-point")) {
+  if (lastElem.classList.contains("tile--snake-added-point")) {
     for (let i = 0; i < snakePositions.length; i++) {
       const { x: nextX, y: nextY } = snakePositions[i];
       const newElem = board[nextY][nextX];
@@ -34,8 +34,8 @@ const handleMoveSnake = () => {
       }
     }
 
-    firstElem.classList.remove("tile--snake-added-point");
-  } else if (firstElem.classList.contains("tile--snake-subtracted-point")) {
+    lastElem.classList.remove("tile--snake-added-point");
+  } else if (lastElem.classList.contains("tile--snake-subtracted-point")) {
     for (let i = 0; i < snakePositions.length; i++) {
       const { x: nextX, y: nextY } = snakePositions[i];
       const newElem = board[nextY][nextX];
@@ -46,7 +46,7 @@ const handleMoveSnake = () => {
       }
     }
 
-    firstElem.classList.remove("tile--snake-subtracted-point");
+    lastElem.classList.remove("tile--snake-subtracted-point");
   }
 
   board[y][x].classList.remove("tile--snake");

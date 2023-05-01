@@ -9,13 +9,16 @@ import handleDisplay from "./handleDisplay.js";
 import handleFoodEaten from "./handleFoodEaten.js";
 
 const handleBonus = ({ type }) => {
+  let snakePosLen;
+
   switch (type) {
     case "Nystagmus":
       preferences.class.handleNystagmus();
       break;
     case "+5 points":
       setTimeout(() => {
-        for (let i = 0; i < 5; i++) {
+        let snakePosLen = snakePositions.length;
+        for (let i = 0; i < snakePosLen; i++) {
           let { x, y } = snakePositions[i];
           if (board[y][x].classList.contains("tile--snake-added-point"))
             board[y][x].classList.remove("tile--snake-added-point");
@@ -23,7 +26,9 @@ const handleBonus = ({ type }) => {
         }
       }, 500);
 
-      for (let i = 0; i < 5; i++) {
+      snakePosLen = snakePositions.length;
+
+      for (let i = 0; i < snakePosLen; i++) {
         const { x: nextX, y: nextY } = snakePositions[0];
         const nextElem = board[nextY][nextX];
         if (nextElem.classList.contains("tile--snake-subtracted-point")) {
@@ -52,7 +57,8 @@ const handleBonus = ({ type }) => {
       break;
     case "-5 points":
       setTimeout(() => {
-        for (let i = 0; i < 5; i++) {
+        let snakePosLen = snakePositions.length;
+        for (let i = 0; i < snakePosLen; i++) {
           const { x: nextX, y: nextY } = snakePositions[0];
           const nextElem = board[nextY][nextX];
           if (nextElem.classList.contains("tile--snake-subtracted-point")) {

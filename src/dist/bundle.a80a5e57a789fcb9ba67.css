@@ -198,6 +198,14 @@ body {
   background-repeat: no-repeat;
 }
 
+.tile--snake-added-point {
+  background: #0bcf05;
+}
+
+.tile--snake-subtracted-point {
+  background: #c20d0d;
+}
+
 .parameter-speed--acceleration {
   animation: speed-acceleration 1s;
   animation-timing-function: step-start;
@@ -225,4 +233,4 @@ body {
 }
 
 
-/*# sourceMappingURL=bundle.7f0cd5a15641e0ccfba4.css.map*/
+/*# sourceMappingURL=bundle.a80a5e57a789fcb9ba67.css.map*/
