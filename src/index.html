@@ -37,17 +37,69 @@
               </header>
 
               <div class="all-statistics">
-                <div class="statistic">1564 Punkty</div>
-                <div class="statistic">1.50 Prędkość</div>
-                <div class="statistic">7 Długość</div>
-                <div class="statistic">20x20 Rozmiar</div>
-                <div class="statistic">00:00 Czas gry</div>
+                <div class="statistic" data-points>1564 Punkty</div>
+                <div class="statistic" data-speed>1.50 Prędkość</div>
+                <div class="statistic" data-length>7 Długość</div>
+                <div class="statistic" data-boardSize>20x20 Rozmiar</div>
+                <div class="statistic" data-timer>00:00 Czas gry</div>
               </div>
             </section>
 
-            <section class="rank-position"></section>
+            <section class="rank-position">
+              <div class="position-container">
+                <img src="" data-trophy class="trophy" alt="puchar" />
 
-            <section class="share"></section>
+                <h5 class="position-label">
+                  Zająłeś(-aś)
+                  <span class="position--highlight">1 miejsce</span> z 2356
+                  miejsc!
+                </h5>
+              </div>
+            </section>
+
+            <section class="share">
+              <form class="gameover-form">
+                <div class="player-profile">
+                  <label for="file-input" style="cursor: pointer">
+                    <div class="overlay">
+                      <i class="fa-solid fa-pencil"></i>
+                    </div>
+                  </label>
+                  <img
+                    src="https://scontent-waw1-1.xx.fbcdn.net/v/t39.30808-6/328487852_3541377299427965_7390935178544338481_n.jpg?_nc_cat=106&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=AaVZcJ8hk7MAX_TX1Z1&_nc_ht=scontent-waw1-1.xx&oh=00_AfBrEMEg53NeAatKTDibb6h8Q6LlGOxEN7fHcOk116-_Qw&oe=6457445C"
+                    alt="profilowe"
+                    class="profile-img"
+                  />
+                </div>
+
+                <div class="data">
+                  <div class="username">
+                    <input
+                      type="text"
+                      class="form-input"
+                      data-username-input
+                      placeholder="Nazwa gracza"
+                    />
+                    <i class="fa-solid fa-pencil pencil"></i>
+                  </div>
+                  <div class="message">
+                    <i class="fa-regular fa-message message"></i>
+                    <input
+                      type="text"
+                      class="form-input"
+                      data-message-input
+                      placeholder="Napisz krótką wiadomość"
+                    />
+                  </div>
+                  <button type="submit" class="share-btn">
+                    <i class="fa-solid fa-share"></i>
+                    <span class="share">Udostępnij</span>
+                  </button>
+
+                  <input type="file" id="file-input" style="display: none" />
+                </div>
+              </form>
+            </section>
 
             <button class="play-again">Zagraj ponownie</button>
           </div>

@@ -31,28 +31,32 @@ class Food extends Boost {
       const { x: firstX, y: firstY } = snakePositions[0];
       const firstElem = board[firstY][firstX];
 
-      if (firstElem.classList.contains("tile--snake-added-point")) {
-        // remove added points
+      if (firstElem) {
+        if (firstElem.classList.contains("tile--snake-added-point")) {
+          // remove added points
 
-        for (let i = 0; i < snakePosLen; i++) {
-          const { x: nextX, y: nextY } = snakePositions[i];
-          const nextElem = board[nextY][nextX];
+          for (let i = 0; i < snakePosLen; i++) {
+            const { x: nextX, y: nextY } = snakePositions[i];
+            const nextElem = board[nextY][nextX];
 
-          nextElem.classList.remove("tile--snake-added-point");
-        }
-      } else if (firstElem.classList.contains("tile--snake-subtracted-point")) {
-        // remove subtracted points
+            nextElem.classList.remove("tile--snake-added-point");
+          }
+        } else if (
+          firstElem.classList.contains("tile--snake-subtracted-point")
+        ) {
+          // remove subtracted points
 
-        for (let i = 0; i < snakePosLen; i++) {
-          const { x: nextX, y: nextY } = snakePositions[0];
-          const nextElem = board[nextY][nextX];
+          for (let i = 0; i < snakePosLen; i++) {
+            const { x: nextX, y: nextY } = snakePositions[0];
+            const nextElem = board[nextY][nextX];
 
-          if (nextElem.classList.contains("tile--snake-subtracted-point")) {
-            nextElem.classList.remove("tile--snake-subtracted-point");
-            nextElem.classList.remove("tile--snake");
-            snakePositions.shift();
-            snake.class.length--;
-          } else break;
+            if (nextElem.classList.contains("tile--snake-subtracted-point")) {
+              nextElem.classList.remove("tile--snake-subtracted-point");
+              nextElem.classList.remove("tile--snake");
+              snakePositions.shift();
+              snake.class.length--;
+            } else break;
+          }
         }
       }
 

@@ -42,8 +42,6 @@ class Bomb extends Boost {
       bombs.splice(foundIdOfBomb, 1);
       console.log(bombs);
 
-      console.log(bombsInterval);
-
       if (bombs.length === 0) {
         clearInterval(bombsInterval.val);
         bombsInterval.set({ payload: "" });
@@ -63,8 +61,10 @@ class Bomb extends Boost {
       if (!mute.isMuted) bomb.play();
 
       board[this.y][this.x].classList.remove("tile--bomb");
+      clearInterval(this.bombInterval);
 
       GameOver();
+      return;
     }
   };
 }

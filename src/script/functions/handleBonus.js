@@ -10,7 +10,7 @@ import {
 import handleDisplay from "./handleDisplay.js";
 import handleFoodEaten from "./handleFoodEaten.js";
 import handlePlaceTile from "./handlePlaceTile.js";
-import { bombs, bombsInterval, bombsState } from "../global/bombs.js";
+import { bombsInterval, bombsState } from "../global/bombs.js";
 
 const handleBonus = ({ type }) => {
   let snakePosLen;
@@ -21,8 +21,7 @@ const handleBonus = ({ type }) => {
       break;
     case "+5 points":
       setTimeout(() => {
-        let snakePosLen = snakePositions.length;
-        for (let i = 0; i < snakePosLen; i++) {
+        for (let i = 0; i < snakePositions.length; i++) {
           let { x, y } = snakePositions[i];
           if (board[y][x].classList.contains("tile--snake-added-point"))
             board[y][x].classList.remove("tile--snake-added-point");

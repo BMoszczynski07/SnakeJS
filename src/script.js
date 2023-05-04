@@ -17,6 +17,7 @@ import {
 import preferences from "./script/global/preferences.js";
 import { mute } from "./script/global/variables.js";
 import "./style.css";
+import TROPHY_SRC from "./assets/1st-place.png";
 
 sound.addEventListener("click", () => {
   mute.isMuted = !mute.isMuted;
@@ -52,6 +53,8 @@ controlBtns.forEach((control, index) => {
 let key;
 
 document.addEventListener("keydown", (e) => {
+  if (document.activeElement.tagName === "INPUT") return;
+
   let keyCode = e.keyCode || e.key || e.keyIdentifier;
 
   switch (keyCode) {
@@ -81,6 +84,8 @@ document.addEventListener("keydown", (e) => {
 });
 
 document.addEventListener("keyup", (e) => {
+  if (document.activeElement.tagName === "INPUT") return;
+
   let keyCode = e.keyCode || e.key || e.keyIdentifier;
 
   controlBtns.forEach((control) =>
@@ -115,13 +120,17 @@ document.addEventListener("keyup", (e) => {
 
     default:
       return;
-      break;
   }
 
   handleKeyPress({ key });
 });
 
+const trophy = document.querySelector("[data-trophy]");
+
 document.addEventListener("DOMContentLoaded", () => {
+  // TODO: fetch records using handleLoadRecords() function, push the records into the table and then generate the leaderboard
+
+  trophy.src = TROPHY_SRC;
   preferences.set({
     payload: new Preferences({
       boardColor: currentTheme.boardColor,

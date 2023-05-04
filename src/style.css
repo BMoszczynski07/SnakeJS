@@ -98,6 +98,7 @@ body {
 } */
 
 .game-box {
+  position: relative;
   margin: 35px auto;
   display: flex;
   justify-content: center;
@@ -236,7 +237,7 @@ body {
   z-index: 3;
   background: rgba(48, 48, 48, 0.416);
   backdrop-filter: blur(10px);
-  display: flex;
+  display: none;
   align-items: center;
   justify-content: center;
 }
@@ -244,11 +245,14 @@ body {
 .container {
   position: relative;
   width: 270px;
-  height: 400px;
+  height: 410px;
   background: rgba(80, 80, 80, 0.632);
   border-radius: 15px;
-  display: flex;
+  display: none;
   flex-direction: column;
+  transform: scale(0.9);
+  opacity: 0;
+  animation: item-in 0.1s ease-in forwards;
 }
 
 .leaderboard {
@@ -274,6 +278,8 @@ body {
   letter-spacing: -0.15px;
   cursor: pointer;
   transition: 0.25s;
+  opacity: 0;
+  animation: item-in 0.1s ease-in 0.7s forwards;
 }
 
 .play-again:hover {
@@ -290,6 +296,9 @@ body {
   font-family: "DM Sans", sans-serif;
   font-weight: 400;
   /* background: #f00; */
+  opacity: 0;
+  animation: item-in 0.1s ease-in 0.1s forwards;
+  padding-top: 10px;
 }
 
 .gameover-title {
@@ -311,7 +320,9 @@ body {
   font-family: "Inter", sans-serif;
   letter-spacing: -0.25px;
   font-size: 18px;
-  color: #d4d4d4;
+  color: #f4f4f4;
+  opacity: 0;
+  animation: item-in 0.1s ease-in 0.1s forwards;
 }
 
 .statistics {
@@ -327,10 +338,12 @@ body {
 .statistic {
   margin-top: 2px;
   margin-bottom: 5px;
-  min-width: 100px !important;
+  min-width: 100px;
+
+  flex-shrink: 0;
   font-family: "Inter", sans-serif;
   font-size: 13px;
-  padding: 6px 0;
+  padding: 6px 5px;
   border-radius: 3px;
   margin-right: 5px;
   text-align: center;
@@ -338,35 +351,34 @@ body {
   background: #212121;
   color: #d5d5d5;
   font-weight: 500;
+  opacity: 0;
   position: relative;
+}
+
+.statistic:nth-child(1) {
+  animation: item-in 0.1s ease-in calc(0.15s + 1 * 0.05s) forwards;
+}
+.statistic:nth-child(2) {
+  animation: item-in 0.1s ease-in calc(0.15s + 2 * 0.05s) forwards;
+}
+.statistic:nth-child(3) {
+  animation: item-in 0.1s ease-in calc(0.15s + 3 * 0.05s) forwards;
+}
+.statistic:nth-child(4) {
+  animation: item-in 0.1s ease-in calc(0.15s + 4 * 0.05s) forwards;
+}
+.statistic:nth-child(5) {
+  animation: item-in 0.1s ease-in calc(0.15s + 5 * 0.05s) forwards;
 }
 
 .statistic:first-child {
   margin-left: 2px;
-  background: rgb(60, 5, 86);
+  background: rgb(92, 10, 131);
   background: linear-gradient(
     138deg,
-    rgba(60, 5, 86, 1) 0%,
-    rgba(82, 3, 3, 1) 100%
+    rgba(92, 10, 131, 1) 0%,
+    rgba(128, 11, 11, 1) 100%
   );
-}
-
-.statistic:first-child::after {
-  /* content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: calc(100% + 4px);
-  height: calc(100% + 4px);
-  transform: translate(-2px, -2px);
-  background: rgb(131, 7, 192);
-  background: linear-gradient(
-    138deg,
-    rgba(131, 7, 192, 1) 0%,
-    rgba(137, 3, 3, 1) 100%
-  );
-  border-radius: 5px;
-  z-index: -1; */
 }
 
 .all-statistics {
@@ -376,6 +388,209 @@ body {
   overflow-x: scroll;
   display: flex;
 }
+
+.position-container {
+  /* background: #f00; */
+  margin: 0 12px;
+  margin-top: 8px;
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  justify-content: center;
+}
+
+.position-label {
+  font-family: "Inter", sans-serif;
+  font-size: 15px;
+  color: #e4e4e4;
+  /* background: #0f0; */
+  width: 170px;
+  text-align: center;
+  opacity: 0;
+  animation: item-in 0.1s ease-in 0.4s forwards;
+}
+
+.position--highlight {
+  color: #c9b626;
+}
+
+.trophy {
+  width: 65px;
+  /* background: #00f; */
+  opacity: 0;
+  animation: item-in 0.1s ease-in 0.35s forwards;
+}
+
+.gameover-form {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 8px;
+  margin-top: 60px;
+  margin-left: 12px;
+  margin-right: 12px;
+}
+
+.player-profile {
+  position: relative;
+  width: 42px;
+  height: 42px;
+  overflow: hidden;
+  border-radius: 50%;
+  border: 3px solid #e4e4e4;
+  cursor: pointer;
+  opacity: 0;
+  animation: item-in 0.1s ease-in 0.45s forwards;
+}
+
+.profile-img {
+  width: 100%;
+}
+
+.player-profile:hover .overlay {
+  opacity: 1;
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(39, 39, 39, 0.626);
+  backdrop-filter: blur(7px);
+  color: #afafaf;
+  transition: 0.1s;
+  opacity: 0;
+}
+
+.username {
+  opacity: 0;
+  animation: item-in 0.1s ease-in 0.5s forwards;
+}
+
+.message {
+  opacity: 0;
+  animation: item-in 0.1s ease-in 0.55s forwards;
+}
+
+.form-input {
+  width: 160px;
+  overflow: hidden;
+  border: none;
+  background: transparent;
+  outline: none;
+  color: #e4e4e4;
+}
+
+[data-username-input] {
+  font-size: 19px;
+  font-family: "DM Sans", sans-serif;
+  font-weight: 500;
+  letter-spacing: -0.2px;
+}
+
+[data-username-input]::placeholder {
+  color: #dbdbdb;
+}
+
+.pencil {
+  color: #e3e3e3;
+  cursor: pointer;
+}
+
+.pencil:hover {
+  color: #d2d2d2;
+}
+
+.share-btn {
+  width: 100%;
+  margin-top: 8px;
+  padding: 3px 0;
+  outline: none;
+  border: none;
+  background: #0e98c2;
+  color: #ebebeb;
+  border-radius: 3px;
+  font-family: "Inter", sans-serif;
+  font-weight: 600;
+  letter-spacing: -0.35px;
+  cursor: pointer;
+  transition: 0.1s;
+  opacity: 0;
+  animation: item-in 0.1s ease-in 0.6s forwards;
+}
+
+.share-btn:hover {
+  background: #0f83a3;
+}
+
+.message {
+  color: #b4b4b4;
+}
+
+[data-message-input] {
+  font-family: "Inter", sans-serif;
+  letter-spacing: -0.45px;
+  color: #b4b4b4;
+}
+
+[data-message-input]::placeholder {
+  color: #b4b4b4;
+}
+
+@keyframes item-in {
+  0% {
+    transform: scale(0.9);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* <section class="share">
+              <form class="gameover-form">
+                <div class="player-profile">
+                  <div class="overlay">
+                    <i class="fa-solid fa-pencil"></i>
+                  </div>
+                  <img
+                    src="https://scontent-waw1-1.xx.fbcdn.net/v/t39.30808-6/328487852_3541377299427965_7390935178544338481_n.jpg?_nc_cat=106&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=AaVZcJ8hk7MAX_TX1Z1&_nc_ht=scontent-waw1-1.xx&oh=00_AfBrEMEg53NeAatKTDibb6h8Q6LlGOxEN7fHcOk116-_Qw&oe=6457445C"
+                    alt="profilowe"
+                  />
+                </div>
+
+                <div class="data">
+                  <div class="username">
+                    <input
+                      type="text"
+                      class="form-input"
+                      data-username-input
+                      placeholder="Nazwa gracza"
+                    />
+                    <i class="fa-solid fa-pencil"></i>
+                  </div>
+                  <div class="message">
+                    <i class="fa-regular fa-message"></i>
+                    <input
+                      type="text"
+                      class="form-input"
+                      data-message-input
+                      placeholder="Napisz krótką wiadomość"
+                    />
+                  </div>
+                  <button type="submit" class="share-btn">
+                    <i class="fa-solid fa-share"></i>
+                    <span class="share">Udostępnij</span>
+                  </button>
+                </div>
+              </form>
+            </section> */
 
 /* width */
 ::-webkit-scrollbar {

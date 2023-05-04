@@ -24,35 +24,33 @@ const handleMoveSnake = () => {
   }
 
   const lastElem = board[y][x];
-  console.log(
-    lastElem,
-    lastElem.classList.contains("tile--snake-subtracted-point")
-  );
 
-  if (lastElem.classList.contains("tile--snake-added-point")) {
-    for (let i = 0; i < snakePositions.length; i++) {
-      const { x: nextX, y: nextY } = snakePositions[i];
-      const newElem = board[nextY][nextX];
+  if (lastElem) {
+    if (lastElem.classList.contains("tile--snake-added-point")) {
+      for (let i = 0; i < snakePositions.length; i++) {
+        const { x: nextX, y: nextY } = snakePositions[i];
+        const newElem = board[nextY][nextX];
 
-      if (!newElem.classList.contains("tile--snake-added-point")) {
-        newElem.classList.add("tile--snake-added-point");
-        break;
+        if (!newElem.classList.contains("tile--snake-added-point")) {
+          newElem.classList.add("tile--snake-added-point");
+          break;
+        }
       }
-    }
 
-    lastElem.classList.remove("tile--snake-added-point");
-  } else if (lastElem.classList.contains("tile--snake-subtracted-point")) {
-    for (let i = 0; i < snakePositions.length; i++) {
-      const { x: nextX, y: nextY } = snakePositions[i];
-      const newElem = board[nextY][nextX];
+      lastElem.classList.remove("tile--snake-added-point");
+    } else if (lastElem.classList.contains("tile--snake-subtracted-point")) {
+      for (let i = 0; i < snakePositions.length; i++) {
+        const { x: nextX, y: nextY } = snakePositions[i];
+        const newElem = board[nextY][nextX];
 
-      if (!newElem.classList.contains("tile--snake-subtracted-point")) {
-        newElem.classList.add("tile--snake-subtracted-point");
-        break;
+        if (!newElem.classList.contains("tile--snake-subtracted-point")) {
+          newElem.classList.add("tile--snake-subtracted-point");
+          break;
+        }
       }
-    }
 
-    lastElem.classList.remove("tile--snake-subtracted-point");
+      lastElem.classList.remove("tile--snake-subtracted-point");
+    }
   }
 
   board[y][x].classList.remove("tile--snake");

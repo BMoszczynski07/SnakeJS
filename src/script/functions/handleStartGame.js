@@ -32,7 +32,7 @@ const handleStartGame = () => {
         jump.play();
       }
 
-      timer.time++;
+      timer.increment();
       handleDisplay({ timer: timer.time });
     }, 1000)
   );

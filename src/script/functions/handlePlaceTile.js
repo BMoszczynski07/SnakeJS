@@ -4,6 +4,7 @@ import Food from "../classes/Food.js";
 import Bonus from "../classes/Bonus.js";
 import { bonusFiles, bonuses } from "../global/bonuses.js";
 import Bomb from "../classes/Bomb.js";
+import GameOver from "./GameOver.js";
 
 const handlePlaceTile = ({ mode, bonus }) => {
   if (mode === "bonus") {
@@ -22,10 +23,7 @@ const handlePlaceTile = ({ mode, bonus }) => {
     const freeTiles = [];
 
     board[0].forEach((bonus, index) => {
-      if (
-        !bonus.classList.contains("tile--boost") &&
-        !bonus.classList.contains("tile--snake")
-      ) {
+      if (!bonus.classList.contains("tile--boost")) {
         freeTiles.push(index);
       }
     });
@@ -51,6 +49,11 @@ const handlePlaceTile = ({ mode, bonus }) => {
 
   const tiles = document.querySelectorAll(".tile");
   const freeTiles = document.querySelectorAll(".tile:not(.tile--snake)");
+
+  if (freeTiles.length === 0) {
+    GameOver();
+    return;
+  }
 
   const randTileId = RandInt({ min: 0, max: freeTiles.length - 1 });
 

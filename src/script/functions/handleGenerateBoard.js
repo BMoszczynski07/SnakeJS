@@ -4,10 +4,9 @@ import Snake from "../classes/Snake.js";
 import {
   board,
   boardSize,
-  bonuses,
-  sizeRange,
   snake,
   snakePositions,
+  timer,
 } from "../global/variables.js";
 import handleDisplay from "./handleDisplay.js";
 import { gameBoard } from "../global/elements.js";
@@ -82,10 +81,13 @@ const handleGenerateBoard = () => {
     ),
   });
 
+  timer.set({ payload: 0 });
+
   handleDisplay({
     boardSize,
     speed: snake.class.speed.toFixed(2),
     snakeLength: snake.class.length,
+    timer: `${timer.time}`,
   });
 
   let tileCSS = getTileCSS();

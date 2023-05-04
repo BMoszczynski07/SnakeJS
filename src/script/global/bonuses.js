@@ -76,30 +76,37 @@ export const handleGenerateBonuses = () => {
 export const bonusesProbabilities = [
   {
     name: "SPEED 2X",
-    probability: 70,
+    // probability: 70,
+    probability: 100,
   },
   {
     name: "SPEED /2X",
-    probability: 20,
+    // probability: 20,
+    probability: 100,
   },
   {
     name: "Freeze",
-    probability: 60,
+    // probability: 60,
+    probability: 100,
   },
   {
     name: "Bombs",
+    // probability: 100,
     probability: 100,
   },
   {
     name: "Nystagmus",
-    probability: 15,
+    // probability: 15,
+    probability: 100,
   },
   {
     name: "+5 points",
-    probability: 25,
+    // probability: 25,
+    probability: 100,
   },
   {
     name: "-5 points",
-    probability: 80,
+    // probability: 80,
+    probability: 100,
   },
 ];
