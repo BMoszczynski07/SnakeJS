@@ -1,6 +1,5 @@
-@import url("https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@200;400;500;600&display=swap");
-
+@import url(https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500&display=swap);
+@import url(https://fonts.googleapis.com/css2?family=Inter:wght@200;400;500;600&display=swap);
 :root {
   /* board */
   --background: #fff;
@@ -252,6 +251,13 @@ body {
   transform: scale(0.9);
   opacity: 0;
   animation: item-in 0.1s ease-in forwards;
+}
+
+.leaderboard {
+  width: 320px;
+  height: calc(450px - 8px);
+  border-radius: 10px;
+  border: 4px solid #dbdbdb;
 }
 
 .play-again {
@@ -545,338 +551,47 @@ body {
   }
 }
 
-.leaderboard {
-  width: 320px;
-  height: calc(450px - 8px);
-  border-radius: 10px;
-  border: 4px solid #dbdbdb;
-  position: relative;
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-}
+/* <section class="share">
+              <form class="gameover-form">
+                <div class="player-profile">
+                  <div class="overlay">
+                    <i class="fa-solid fa-pencil"></i>
+                  </div>
+                  <img
+                    src="https://scontent-waw1-1.xx.fbcdn.net/v/t39.30808-6/328487852_3541377299427965_7390935178544338481_n.jpg?_nc_cat=106&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=AaVZcJ8hk7MAX_TX1Z1&_nc_ht=scontent-waw1-1.xx&oh=00_AfBrEMEg53NeAatKTDibb6h8Q6LlGOxEN7fHcOk116-_Qw&oe=6457445C"
+                    alt="profilowe"
+                  />
+                </div>
 
-.leaderboard::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(50, 50, 50, 0.505);
-  z-index: 0;
-}
-
-.leaderboard-snake {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 200px;
-}
-
-.leaderboard-header {
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  gap: 35px;
-  padding: 0 15px;
-  height: 65px;
-  z-index: 1;
-}
-
-.leaderboard-title {
-  margin: 0;
-  font-size: 25px;
-  color: #6ae561;
-  font-family: "DM Sans", sans-serif;
-  letter-spacing: 0.3px;
-}
-
-.leaderboard-title--highlighted {
-  color: #14820f;
-}
-
-.leaderboard-subtitle {
-  color: #f3f3f3;
-  font-size: 17px;
-  font-family: "Inter", sans-serif;
-  font-weight: 400;
-  letter-spacing: 0.3px;
-}
-
-.leaderboard-top {
-  z-index: 1;
-  /* background: #f00; */
-  height: 315px;
-  width: 95%;
-  margin: 0 auto;
-  overflow-y: scroll;
-  overflow-x: hidden;
-}
-
-.leaderboard-record:first-child .leaderboard-position,
-.leaderboard-record:nth-child(2) .leaderboard-position,
-.leaderboard-record:nth-child(3) .leaderboard-position {
-  display: none;
-}
-
-.leaderboard-record:nth-child(3) .leaderboard-username {
-  color: #c2c2c2;
-}
-
-.leaderboard-record:nth-child(3) .leaderboard-message {
-  color: #9c9c9c;
-}
-
-.leaderboard-position {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  font-size: 16px;
-  color: #d8d8d8;
-  font-family: "DM Sans", sans-serif;
-  font-weight: 600;
-}
-
-.leaderboard-record-trophy {
-  position: relative;
-}
-
-.leaderboard-trophy-img {
-  width: 42px;
-}
-
-.leaderboard-profile-img {
-  width: 28px;
-  border-radius: 50%;
-  /* border: 2px solid #dbdbdb; */
-}
-
-.leaderboard-last-records {
-  position: absolute;
-  bottom: 5px;
-  left: 0;
-  display: flex;
-  width: 100%;
-  align-items: center;
-  justify-content: center;
-  z-index: 1;
-  gap: 10px;
-}
-
-.leaderboard-last-records-title {
-  font-size: 15px;
-  color: #e3e3e3;
-  font-family: "DM Sans", sans-serif;
-  font-weight: 400;
-  letter-spacing: -0.1px;
-}
-
-.leaderboard-selection {
-  padding: 8px;
-  outline: none;
-  border: none;
-  border-radius: 5px;
-  background: #323232;
-  color: #bebebe;
-  font-family: "Inter", sans-serif;
-  font-weight: 400;
-}
-
-.leaderboard-record {
-  background: rgba(232, 232, 232, 0.824);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 5px;
-  border-radius: 5px;
-  gap: 8px;
-  padding: 8px;
-  margin-top: 0;
-  opacity: 0;
-  transform: scale(0.9);
-  animation: item-in 0.2s ease-in var(--record-animation-delay) forwards;
-}
-
-.leaderboard-record:first-child {
-  background: #e6c34fce;
-}
-
-.leaderboard-record:nth-child(2) {
-  background: #f4f4f4a4;
-}
-
-.leaderboard-record:nth-child(3) {
-  background: #511d1dc7;
-}
-
-.leaderboard-profile {
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  gap: 5px;
-  letter-spacing: -0.15px;
-}
-
-.leaderboard-username {
-  font-size: 16px;
-  font-family: "DM Sans", sans-serif;
-  font-weight: 600;
-  margin: 0;
-}
-
-.leaderboard-message {
-  /* background: #f00; */
-  margin-top: 5px;
-  display: flex;
-  align-items: flex-start;
-  justify-self: flex-start;
-  gap: 5px;
-  color: #626262;
-  font-size: 14px;
-}
-
-.leaderboard-message-content {
-  font-family: "Inter", sans-serif;
-  margin: 0;
-}
-
-.leaderboard-statistics {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  /* background: #0f0; */
-  margin-top: 5px;
-  font-family: "DM Sans", sans-serif;
-  font-size: 12px;
-  letter-spacing: -0.5px;
-  font-weight: 600;
-  color: #db4343;
-}
-
-.leaderboard-statistic {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-right: 4px;
-}
-
-.statistic-icon {
-  margin-right: 1.5px;
-}
-
-/* <div
-        class="leaderboard"
-        style="background-image: url('./assets/leaderboard-pattern.png')"
-      >
-        <img src="./assets/snake.png" alt="wąż" class="leaderboard-snake" />
-
-        <header class="leaderboard-header">
-          <h1 class="leaderboard-title">
-            Snake<span class="leaderboard-title--highlighted">JS</span>
-          </h1>
-          <h2 class="leaderboard-subtitle">Ranking graczy</h2>
-        </header>
-
-        <section class="leaderboard-top">
-          <div class="leaderboard-record">
-            <div class="leaderboard-record-trophy">
-              <img src="" alt="" class="leaderboard-trophy-img" /><img
-                src=""
-                alt=""
-                class="leaderboard-position"
-              />
-            </div>
-            <div class="leaderboard-info">
-              <div class="leaderboard-profile">
-                <img src="" alt="" class="leaderboard-profile-img" />
-              </div>
-              <i class="leaderboard-icon-message"></i>
-              <h5 class="leaderboard-message"></h5>
-              <div class="leaderboard-statistics">
-                <div class="leaderboard-statistic"></div>
-                <div class="leaderboard-statistic"></div>
-                <div class="leaderboard-statistic"></div>
-                <div class="leaderboard-statistic"></div>
-              </div>
-            </div>
-          </div>
-          <div class="leaderboard-record">
-            <div class="leaderboard-record-trophy">
-              <img src="" alt="" class="leaderboard-trophy-img" /><img
-                src=""
-                alt=""
-                class="leaderboard-position"
-              />
-            </div>
-            <div class="leaderboard-info">
-              <div class="leaderboard-profile">
-                <img src="" alt="" class="leaderboard-profile-img" />
-              </div>
-              <i class="leaderboard-icon-message"></i>
-              <h5 class="leaderboard-message"></h5>
-              <div class="leaderboard-statistics">
-                <div class="leaderboard-statistic"></div>
-                <div class="leaderboard-statistic"></div>
-                <div class="leaderboard-statistic"></div>
-                <div class="leaderboard-statistic"></div>
-              </div>
-            </div>
-          </div>
-          <div class="leaderboard-record">
-            <div class="leaderboard-record-trophy">
-              <img src="" alt="" class="leaderboard-trophy-img" /><img
-                src=""
-                alt=""
-                class="leaderboard-position"
-              />
-            </div>
-            <div class="leaderboard-info">
-              <div class="leaderboard-profile">
-                <img src="" alt="" class="leaderboard-profile-img" />
-              </div>
-              <i class="leaderboard-icon-message"></i>
-              <h5 class="leaderboard-message"></h5>
-              <div class="leaderboard-statistics">
-                <div class="leaderboard-statistic"></div>
-                <div class="leaderboard-statistic"></div>
-                <div class="leaderboard-statistic"></div>
-                <div class="leaderboard-statistic"></div>
-              </div>
-            </div>
-          </div>
-          <div class="leaderboard-record">
-            <div class="leaderboard-record-trophy">
-              <img src="" alt="" class="leaderboard-trophy-img" /><img
-                src=""
-                alt=""
-                class="leaderboard-position"
-              />
-            </div>
-            <div class="leaderboard-info">
-              <div class="leaderboard-profile">
-                <img src="" alt="" class="leaderboard-profile-img" />
-              </div>
-              <i class="leaderboard-icon-message"></i>
-              <h5 class="leaderboard-message"></h5>
-              <div class="leaderboard-statistics">
-                <div class="leaderboard-statistic"></div>
-                <div class="leaderboard-statistic"></div>
-                <div class="leaderboard-statistic"></div>
-                <div class="leaderboard-statistic"></div>
-              </div>
-            </div>
-          </div>
-        </section>
-      </div> */
+                <div class="data">
+                  <div class="username">
+                    <input
+                      type="text"
+                      class="form-input"
+                      data-username-input
+                      placeholder="Nazwa gracza"
+                    />
+                    <i class="fa-solid fa-pencil"></i>
+                  </div>
+                  <div class="message">
+                    <i class="fa-regular fa-message"></i>
+                    <input
+                      type="text"
+                      class="form-input"
+                      data-message-input
+                      placeholder="Napisz krótką wiadomość"
+                    />
+                  </div>
+                  <button type="submit" class="share-btn">
+                    <i class="fa-solid fa-share"></i>
+                    <span class="share">Udostępnij</span>
+                  </button>
+                </div>
+              </form>
+            </section> */
 
 /* width */
 ::-webkit-scrollbar {
-  width: 4px;
   height: 2px;
 }
 
@@ -915,3 +630,6 @@ body {
     color: #000000;
   }
 }
+
+
+/*# sourceMappingURL=bundle.5955232191731b2e84e3.css.map*/

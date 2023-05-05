@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>SnakeJS</title>
-    <link rel="icon" href="/assets/snake.png" />
+    <link rel="icon" href="./assets/snake.png" />
   </head>
   <body>
     <div class="parameters">
@@ -21,7 +21,76 @@
     </div>
 
     <div class="game-box">
-      <div class="leaderboard"></div>
+      <div
+        class="leaderboard"
+        style="background-image: url('./assets/leaderboard-pattern.png')"
+      >
+        <img src="./assets/snake.png" alt="wąż" class="leaderboard-snake" />
+
+        <header class="leaderboard-header">
+          <h1 class="leaderboard-title">
+            Snake<span class="leaderboard-title--highlighted">JS</span>
+          </h1>
+          <h2 class="leaderboard-subtitle">Ranking graczy</h2>
+        </header>
+
+        <section class="leaderboard-top">
+          <!-- <div class="leaderboard-record" style="--record-animation-delay: 0s">
+            <div class="leaderboard-record-trophy">
+              <img
+                src="./assets/1st-place.png"
+                alt="trophy"
+                class="leaderboard-trophy-img"
+              /><span class="leaderboard-position">1342</span>
+            </div>
+            <div class="leaderboard-info">
+              <div class="leaderboard-profile">
+                <img
+                  src="https://tiny.pl/wzmff"
+                  alt="profile-pic"
+                  class="leaderboard-profile-img"
+                />
+                <h1 class="leaderboard-username">Bartosz Moszczyński</h1>
+              </div>
+              <div class="leaderboard-message">
+                <i class="fa-regular fa-message"></i>
+                <h5 class="leaderboard-message-content">
+                  lorem ipsum dolor sit amet consectetur
+                </h5>
+              </div>
+              <div class="leaderboard-statistics">
+                <div class="leaderboard-statistic">
+                  <i class="fa-solid fa-star statistic-icon"></i>
+                  <span class="points">161000</span>
+                </div>
+                <div class="leaderboard-statistic">
+                  <i class="fa-solid fa-gauge-high statistic-icon"></i>
+                  <span class="snake-speed">2.40</span>
+                </div>
+                <div class="leaderboard-statistic">
+                  <i class="fa-solid fa-maximize statistic-icon"></i>
+                  <span class="border-size">40x40</span>
+                </div>
+                <div class="leaderboard-statistic">
+                  <i class="fa-solid fa-clock statistic-icon"></i>
+                  <span class="time">00:00:00</span>
+                </div>
+              </div>
+            </div>
+          </div> -->
+        </section>
+
+        <div class="leaderboard-last-records">
+          <h1 class="leaderboard-last-records-title">Wyświetl wyniki:</h1>
+          <select class="leaderboard-selection">
+            <option data-all-records>Z całego okresu</option>
+            <option data-this-month>Z ostatniego miesiąca</option>
+            <option data-this-week>Z ostatnich 7 dni</option>
+            <option data-this-day>Z tego dnia</option>
+          </select>
+        </div>
+      </div>
+
       <div class="gameboard">
         <div class="game-over">
           <div class="container">

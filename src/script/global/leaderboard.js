@@ -1,6 +1,7 @@
 export const topPlayers = [
   {
     username: "Bartosz Moszczyński",
+    message: "łatwa gierka ez",
     imgURL: "https://tiny.pl/wzmff",
     statistics: {
       points: 68400,
@@ -13,6 +14,53 @@ export const topPlayers = [
         seconds: 36,
       },
     },
+    published: {
+      year: 2023,
+      month: 5,
+      day: 1,
+    },
+  },
+  {
+    username: "Bartosz Moszczyński",
+    message: "hihihiha",
+    imgURL: "https://tiny.pl/wzmff",
+    statistics: {
+      points: 65400,
+      speed: 3,
+      boardSize: 40,
+      length: 60,
+      time: {
+        hours: 0,
+        minutes: 3,
+        seconds: 24,
+      },
+    },
+    published: {
+      year: 2023,
+      month: 4,
+      day: 29,
+    },
+  },
+  {
+    username: "Bartosz Moszczyński",
+    message: "",
+    imgURL: "https://tiny.pl/wzmff",
+    statistics: {
+      points: 62400,
+      speed: 2,
+      boardSize: 20,
+      length: 40,
+      time: {
+        hours: 0,
+        minutes: 3,
+        seconds: 24,
+      },
+    },
+    published: {
+      year: 2023,
+      month: 5,
+      day: 2,
+    },
   },
 ];
 
@@ -21,7 +69,7 @@ export const handleLoadRecords = () => {
 };
 
 export const calculatePos = () => {
-  // TODO: map through all the records and return the position of the player
+  // TODO: fetch the position of the player from the API using endpoint '/api/user/get-pos'
 };
 
 export const sharePos = (e) => {

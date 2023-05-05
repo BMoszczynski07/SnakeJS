@@ -23,7 +23,7 @@ const handleMoveSnake = () => {
     return;
   }
 
-  const lastElem = board[y][x];
+  const lastElem = board[y][x] ? board[y][x] : undefined;
 
   if (lastElem) {
     if (lastElem.classList.contains("tile--snake-added-point")) {

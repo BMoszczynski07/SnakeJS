@@ -29,7 +29,9 @@ class Food extends Boost {
       let snakePosLen = snakePositions.length;
 
       const { x: firstX, y: firstY } = snakePositions[0];
-      const firstElem = board[firstY][firstX];
+      const firstElem = board[firstY][firstX]
+        ? board[firstY][firstX]
+        : undefined;
 
       if (firstElem) {
         if (firstElem.classList.contains("tile--snake-added-point")) {

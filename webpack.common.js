@@ -16,6 +16,9 @@ export default {
       filename: "./bundle.[contenthash].css",
     }),
   ],
+  resolve: {
+    extensions: [".ts", ".js"],
+  },
   module: {
     rules: [
       {
@@ -28,12 +31,12 @@ export default {
         exclude: /node_modules/,
       },
       {
-        test: /\.(wav|mp3|png|jpg)$/i,
+        test: /\.(png|wav|mp3|svg)$/i,
         use: [
           {
             loader: "file-loader",
             options: {
-              name: "[name].[contenthash].[ext]",
+              name: "[name].[ext]",
               outputPath: "assets",
             },
           },

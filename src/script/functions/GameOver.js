@@ -51,6 +51,7 @@ const handlePlayAgain = () => {
   }
 
   clearInterval(bombsInterval.val);
+  bombsInterval.val = "";
 
   let bombsLen = bombs.length;
 
