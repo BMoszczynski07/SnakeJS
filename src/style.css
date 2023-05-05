@@ -634,7 +634,7 @@ body {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  font-size: 16px;
+  font-size: 18px;
   color: #d8d8d8;
   font-family: "DM Sans", sans-serif;
   font-weight: 600;
@@ -642,10 +642,11 @@ body {
 
 .leaderboard-record-trophy {
   position: relative;
+  /* background: #f00; */
 }
 
 .leaderboard-trophy-img {
-  width: 42px;
+  width: 50px;
 }
 
 .leaderboard-profile-img {
@@ -689,9 +690,9 @@ body {
   background: rgba(232, 232, 232, 0.824);
   display: flex;
   align-items: center;
-  justify-content: center;
-  margin: 5px;
-  border-radius: 5px;
+  justify-content: flex-start;
+  margin: 8px;
+  border-radius: 10px;
   gap: 8px;
   padding: 8px;
   margin-top: 0;
@@ -725,6 +726,9 @@ body {
   font-family: "DM Sans", sans-serif;
   font-weight: 600;
   margin: 0;
+  overflow-wrap: break-word;
+  width: 175px;
+  /* background: #0f0; */
 }
 
 .leaderboard-message {
@@ -741,13 +745,16 @@ body {
 .leaderboard-message-content {
   font-family: "Inter", sans-serif;
   margin: 0;
+  overflow-wrap: break-word;
+  /* background: #f00; */
+  width: 180px;
 }
 
 .leaderboard-statistics {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   width: 100%;
   /* background: #0f0; */
   margin-top: 5px;
@@ -767,6 +774,11 @@ body {
 
 .statistic-icon {
   margin-right: 1.5px;
+}
+
+.leaderboard-info {
+  /* background: #00f; */
+  width: 225px;
 }
 
 /* <div

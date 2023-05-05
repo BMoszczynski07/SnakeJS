@@ -18,6 +18,7 @@ import preferences from "./script/global/preferences.js";
 import { mute } from "./script/global/variables.js";
 import "./style.css";
 import TROPHY_SRC from "./assets/1st-place.png";
+import { handleFetchRecords } from "./script/global/leaderboard.js";
 
 sound.addEventListener("click", () => {
   mute.isMuted = !mute.isMuted;
@@ -128,7 +129,9 @@ document.addEventListener("keyup", (e) => {
 const trophy = document.querySelector("[data-trophy]");
 
 document.addEventListener("DOMContentLoaded", () => {
-  // TODO: fetch records using handleLoadRecords() function, push the records into the table and then generate the leaderboard
+  // TODO: fetch records using handleFetchRecords() function, push the records into the table and then generate the leaderboard
+
+  handleFetchRecords({ from: 0 });
 
   trophy.src = TROPHY_SRC;
   preferences.set({
