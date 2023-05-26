@@ -1,7 +1,8 @@
 export const topPlayers = [
   {
     username: "Bartosz Moszczyński",
-    message: "łatwa gierka ez",
+    message:
+      "lorem ipsum dolor sit amet consectetur adipiscing elit sed diam nonumy euismod tempor",
     imgURL: "https://tiny.pl/wzmff",
     statistics: {
       points: 68400,
@@ -22,7 +23,7 @@ export const topPlayers = [
   },
   {
     username: "Bartosz Moszczyński",
-    message: "hihihiha",
+    message: "lorem ipsum dolor sit amet",
     imgURL: "https://tiny.pl/wzmff",
     statistics: {
       points: 65400,
@@ -43,7 +44,7 @@ export const topPlayers = [
   },
   {
     username: "Bartosz Moszczyński",
-    message: "huehuehuehuehuehuehuehhuehuehuehuehueheuheuheuheu",
+    message: "lorem ipsum dolor sit amet",
     imgURL: "https://tiny.pl/wzmff",
     statistics: {
       points: 62400,
@@ -209,7 +210,7 @@ const handleCreateElement = (index, record) => {
       break;
   }
 
-  leaderboardRecord.style = `--record-animation-delay: ${0.3 + index * 0.1}s`;
+  leaderboardRecord.style = `--record-animation-delay: ${index * 0.1}s`;
 
   return leaderboardRecord;
 };

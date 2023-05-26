@@ -413,12 +413,15 @@ body {
   animation: item-in 0.1s ease-in 0.35s forwards;
 }
 
+.share {
+  margin-top: 60px;
+}
+
 .gameover-form {
   display: flex;
   align-items: center;
   justify-content: flex-start;
   gap: 8px;
-  margin-top: 60px;
   margin-left: 12px;
   margin-right: 12px;
 }
