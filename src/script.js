@@ -21,6 +21,7 @@ import TROPHY_SRC from "./assets/1st-place.png";
 import { handleFetchRecords } from "./script/global/leaderboard.js";
 
 sound.addEventListener("click", () => {
+  console.log("hello");
   mute.isMuted = !mute.isMuted;
   sound.classList.toggle("sound--muted");
 });
