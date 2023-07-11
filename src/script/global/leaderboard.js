@@ -1,8 +1,11 @@
-export const topPlayers = [
+import GUEST_SRC from "../../assets/guest.png";
+
+export let topPlayers = [
   {
     username: "Bartosz Moszczyński",
     message: "łatwa gierka ez",
-    imgURL: "https://tiny.pl/wzmff",
+    imgURL:
+      "https://scontent-waw1-1.xx.fbcdn.net/v/t39.30808-6/348638404_561194402880530_1313259155838271113_n.jpg?_nc_cat=103&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=N2mRFPqX2Z8AX_aw-pc&_nc_ht=scontent-waw1-1.xx&oh=00_AfCIOZlcgacsw3yuNse3mZXh1hHzTfZeXgUvCZep4TQIOQ&oe=6487F664",
     statistics: {
       points: 68400,
       speed: 1,
@@ -23,7 +26,8 @@ export const topPlayers = [
   {
     username: "Bartosz Moszczyński",
     message: "hihihiha",
-    imgURL: "https://tiny.pl/wzmff",
+    imgURL:
+      "https://scontent-waw1-1.xx.fbcdn.net/v/t39.30808-6/348638404_561194402880530_1313259155838271113_n.jpg?_nc_cat=103&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=N2mRFPqX2Z8AX_aw-pc&_nc_ht=scontent-waw1-1.xx&oh=00_AfCIOZlcgacsw3yuNse3mZXh1hHzTfZeXgUvCZep4TQIOQ&oe=6487F664",
     statistics: {
       points: 65400,
       speed: 3,
@@ -44,7 +48,7 @@ export const topPlayers = [
   {
     username: "Bartosz Moszczyński",
     message: "huehuehuehuehuehuehuehhuehuehuehuehueheuheuheuheu",
-    imgURL: "https://tiny.pl/wzmff",
+    imgURL: "",
     statistics: {
       points: 62400,
       speed: 2,
@@ -80,7 +84,161 @@ export const topPlayers = [
     },
     published: {
       year: 2023,
+      month: 6,
+      day: 8,
+    },
+  },
+  {
+    username: "Hu Tao",
+    message:
+      '"Hu" as in: "Who put me in this coffin?", and Tao as in: "I cant get TAOt!" :D',
+    imgURL: "https://wallpapercave.com/wp/wp11693252.jpg",
+    statistics: {
+      points: 62400,
+      speed: 2,
+      boardSize: 20,
+      length: 40,
+      time: {
+        hours: 0,
+        minutes: 3,
+        seconds: 24,
+      },
+    },
+    published: {
+      year: 2023,
       month: 5,
+      day: 28,
+    },
+  },
+  {
+    username: "Hu Tao",
+    message:
+      '"Hu" as in: "Who put me in this coffin?", and Tao as in: "I cant get TAOt!" :D',
+    imgURL: "https://wallpapercave.com/wp/wp11693252.jpg",
+    statistics: {
+      points: 62400,
+      speed: 2,
+      boardSize: 20,
+      length: 40,
+      time: {
+        hours: 0,
+        minutes: 3,
+        seconds: 24,
+      },
+    },
+    published: {
+      year: 2023,
+      month: 5,
+      day: 20,
+    },
+  },
+  {
+    username: "Hu Tao",
+    message:
+      '"Hu" as in: "Who put me in this coffin?", and Tao as in: "I cant get TAOt!" :D',
+    imgURL: "https://wallpapercave.com/wp/wp11693252.jpg",
+    statistics: {
+      points: 62400,
+      speed: 2,
+      boardSize: 20,
+      length: 40,
+      time: {
+        hours: 0,
+        minutes: 3,
+        seconds: 24,
+      },
+    },
+    published: {
+      year: 2023,
+      month: 5,
+      day: 30,
+    },
+  },
+  {
+    username: "Hu Tao",
+    message:
+      '"Hu" as in: "Who put me in this coffin?", and Tao as in: "I cant get TAOt!" :D',
+    imgURL: "https://wallpapercave.com/wp/wp11693252.jpg",
+    statistics: {
+      points: 62400,
+      speed: 2,
+      boardSize: 20,
+      length: 40,
+      time: {
+        hours: 0,
+        minutes: 3,
+        seconds: 24,
+      },
+    },
+    published: {
+      year: 2023,
+      month: 9,
+      day: 6,
+    },
+  },
+  {
+    username: "Hu Tao",
+    message:
+      '"Hu" as in: "Who put me in this coffin?", and Tao as in: "I cant get TAOt!" :D',
+    imgURL: "https://wallpapercave.com/wp/wp11693252.jpg",
+    statistics: {
+      points: 62400,
+      speed: 2,
+      boardSize: 20,
+      length: 40,
+      time: {
+        hours: 0,
+        minutes: 3,
+        seconds: 24,
+      },
+    },
+    published: {
+      year: 2023,
+      month: 6,
+      day: 9,
+    },
+  },
+  {
+    username: "Hu Tao",
+    message:
+      '"Hu" as in: "Who put me in this coffin?", and Tao as in: "I cant get TAOt!" :D',
+    imgURL: "https://wallpapercave.com/wp/wp11693252.jpg",
+    statistics: {
+      points: 62400,
+      speed: 2,
+      boardSize: 20,
+      length: 40,
+      time: {
+        hours: 0,
+        minutes: 3,
+        seconds: 24,
+      },
+    },
+    published: {
+      year: 2023,
+      month: 6,
+      day: 4,
+    },
+  },
+  {
+    username: "Hu Tao",
+    message:
+      '"Hu" as in: "Who put me in this coffin?", and Tao as in: "I cant get TAOt!" :D',
+    imgURL: "https://wallpapercave.com/wp/wp11693252.jpg",
+    statistics: {
+      points: 62400,
+      speed: 2,
+      boardSize: 20,
+      length: 40,
+      time: {
+        hours: 0,
+        minutes: 3,
+        seconds: 24,
+      },
+    },
+    published: {
+      year: 2023,
+      month: 6,
       day: 2,
     },
   },
@@ -192,7 +350,17 @@ const handleCreateElement = (index, record) => {
 
   leaderboardProfileImg.src = profile_src;
 
-  if (index > 2) playerPos.textContent = index + 1;
+  leaderboardProfileImg.addEventListener("error", () => {
+    leaderboardProfileImg.src = GUEST_SRC;
+  });
+
+  if (index > 2) {
+    const FONT_SIZE = `${20 * 0.65 - index.toString().length}px`;
+    playerPos.textContent = index + 1;
+    playerPos.style.fontSize = FONT_SIZE;
+
+    console.log(FONT_SIZE, playerPos.style.fontSize);
+  }
 
   switch (index) {
     case 0:
@@ -209,18 +377,26 @@ const handleCreateElement = (index, record) => {
       break;
   }
 
-  leaderboardRecord.style = `--record-animation-delay: ${0.3 + index * 0.1}s`;
+  leaderboardRecord.style = `--record-animation-delay: ${index * 0.1}s`;
 
   return leaderboardRecord;
 };
 
-export const handleFetchRecords = ({ from, to }) => {
+export let mode = localStorage.getItem("leaderboard-mode") || "all-records";
+
+export let setMode = (payload) => {
+  mode = payload;
+};
+
+export const handleFetchRecords = ({ from, to = 50 }) => {
   // TODO: fetch some records from the API and store them into topPlayers[] array
   // fetching records from the API...
 
   // map through the records and store them in the leaderboard
-  for (const [index, record] of topPlayers.entries()) {
-    const recordElem = handleCreateElement(index, record);
+  for (let i = from; i < to; i++) {
+    if (i == topPlayers.length) break;
+
+    const recordElem = handleCreateElement(i, topPlayers[i]);
 
     leaderboardTop.appendChild(recordElem);
   }

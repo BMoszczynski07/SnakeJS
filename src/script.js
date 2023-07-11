@@ -18,7 +18,11 @@ import preferences from "./script/global/preferences.js";
 import { mute } from "./script/global/variables.js";
 import "./style.css";
 import TROPHY_SRC from "./assets/1st-place.png";
-import { handleFetchRecords } from "./script/global/leaderboard.js";
+import {
+  handleFetchRecords,
+  mode,
+  setMode,
+} from "./script/global/leaderboard.js";
 
 sound.addEventListener("click", () => {
   console.log("hello");
@@ -127,12 +131,29 @@ document.addEventListener("keyup", (e) => {
   handleKeyPress({ key });
 });
 
+const selection = document.querySelector(".leaderboard-selection");
+
+selection.addEventListener("change", (e) => {
+  setMode(e.target.value);
+  localStorage.setItem("leaderboard-mode", e.target.value);
+  handleFetchRecords({ from: 0 });
+});
+
 const trophy = document.querySelector("[data-trophy]");
 
 document.addEventListener("DOMContentLoaded", () => {
   // TODO: fetch records using handleFetchRecords() function, push the records into the table and then generate the leaderboard
 
   handleFetchRecords({ from: 0 });
+
+  const options = selection.options;
+  for (let i = 0; i < options.length; i++) {
+    const option = options[i];
+    if (option.textContent === mode) {
+      option.selected = true;
+      break;
+    }
+  }
 
   trophy.src = TROPHY_SRC;
   preferences.set({
