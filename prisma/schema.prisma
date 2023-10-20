@@ -1,0 +1,28 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model Player {
+  id        Int     @id @map("_id")
+  username  String
+  message   String?
+  imgURL    String  @default("http://localhost:8000/assets/images/guest.png")
+  points    Int
+  speed     Int
+  boardSize Int
+  length    Int
+  hours     Int
+  minutes   Int
+  seconds   Int
+  year      Int
+  month     Int
+  day       Int
+}
