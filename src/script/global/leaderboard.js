@@ -388,7 +388,7 @@ export let setMode = (payload) => {
   mode = payload;
 };
 
-export const handleFetchRecords = ({ from, to = 50 }) => {
+export const handleFetchRecords = ({ from = 0, to = 50 }) => {
   // TODO: fetch some records from the API and store them into topPlayers[] array
   // fetching records from the API...
 

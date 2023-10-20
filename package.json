@@ -4,7 +4,7 @@
   "description": "Snake game written in vanilla js",
   "main": "script.js",
   "scripts": {
-    "dev": "webpack-dev-server --config webpack.dev.js --no-cache",
+    "start": "webpack-dev-server --config webpack.dev.js --no-cache",
     "build": "webpack --config webpack.prod.js"
   },
   "type": "module",
