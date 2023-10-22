@@ -6,11 +6,16 @@ import Player from 'src/shared/Player';
 export class PlayerController {
   constructor(private readonly playerService: PlayerService) {}
 
-  @Get('players')
-  handleGetUsers(
-    @Query('from') from: number,
-    @Query('to') to: number,
-  ): Player[] {
-    return this.playerService.getUsers(from, to);
+  //   @Get('players')
+  //   handleFetchUsers(
+  //     @Query('from') from: number,
+  //     @Query('to') to: number,
+  //   ): Player[] {
+  //     return this.playerService.getUsers(from, to);
+  //   }
+
+  @Get(':datediff')
+  handleSearchUsers(@Query('datediff') dateDiff: number): Promise<Player[]> {
+    return this.playerService.searchUsers(dateDiff);
   }
 }

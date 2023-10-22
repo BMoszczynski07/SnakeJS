@@ -10,9 +10,7 @@ type Player = {
   hours: number;
   minutes: number;
   seconds: number;
-  year: number;
-  month: number;
-  day: number;
+  published: Date;
 };
 
 export default Player;

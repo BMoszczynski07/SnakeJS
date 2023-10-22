@@ -3,7 +3,6 @@ import { AppModule } from './app.module';
 import * as express from 'express';
 import { join } from 'path';
 import { PrismaClient } from '@prisma/client';
-import Player from './shared/Player';
 
 const prisma = new PrismaClient();
 
@@ -16,3 +15,5 @@ async function bootstrap() {
 }
 
 bootstrap();
+
+export default prisma;
