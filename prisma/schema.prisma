@@ -6,17 +6,17 @@ generator client {
 }
 
 datasource db {
-  provider = "mongodb"
+  provider = "mysql"
   url      = env("DATABASE_URL")
 }
 
-model Player {
-  id        Int     @id @map("_id")
+model Players {
+  id        Int    @id
   username  String
-  message   String?
-  imgURL    String  @default("http://localhost:8000/assets/images/guest.png")
+  message   String @default("")
+  imgURL    String @default("http://localhost:8000/assets/images/guest.png")
   points    Int
-  speed     Int
+  speed     Float
   boardSize Int
   length    Int
   hours     Int

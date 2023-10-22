@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 
 @Injectable()
 export class AppService {
-  handleTest(): string {
-    return 'Backend application is working properly!';
+  handleHome(): string {
+    return 'Backend application for SnakeJS is working properly!';
   }
 }
