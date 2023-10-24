@@ -1,22 +1,36 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, HttpCode } from '@nestjs/common';
 import prisma from 'src/main';
 import Player from 'src/shared/Player';
 
 @Injectable()
 export class PlayerService {
-  //  getUsers(from: number, to: number): Player[] {}
+  getUsers = async (from: number, to: number): Promise<Player[]> => {
+    const fetchUsers = await prisma.players.findMany({
+      where: {
+        id: {
+          gte: from,
+          lte: to,
+        },
+      },
+    });
 
-  searchUsers = async (dayDiff: number): Promise<Player[]> => {
-    const currentDate = new Date().getDate();
-    const searchFromDate = new Date().getDate() - dayDiff;
+    return fetchUsers;
+  };
+
+  searchUsers = async (dateDiff: number): Promise<Player[]> => {
+    const curDate = new Date();
+
+    curDate.setDate(curDate.getDate() - dateDiff);
 
     let searchPlayers: Player[];
 
-    try {
-      searchPlayers = await prisma.players.findMany();
-    } catch (e) {
-      console.error(e);
-    }
+    searchPlayers = await prisma.players.findMany({
+      where: {
+        published: {
+          gte: curDate,
+        },
+      },
+    });
 
     return searchPlayers;
   };

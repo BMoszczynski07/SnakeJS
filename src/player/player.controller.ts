@@ -1,21 +1,22 @@
-import { Controller, Get, Query } from '@nestjs/common';
+import { Controller, Get } from '@nestjs/common';
 import { PlayerService } from './player.service';
+import { Param } from '@nestjs/common/decorators';
 import Player from 'src/shared/Player';
 
 @Controller('player')
 export class PlayerController {
   constructor(private readonly playerService: PlayerService) {}
 
-  //   @Get('players')
-  //   handleFetchUsers(
-  //     @Query('from') from: number,
-  //     @Query('to') to: number,
-  //   ): Player[] {
-  //     return this.playerService.getUsers(from, to);
-  //   }
+  @Get('players/:from/:to')
+  handleFetchUsers(
+    @Param('from') from: number,
+    @Param('to') to: number,
+  ): Promise<Player[]> {
+    return this.playerService.getUsers(from, to);
+  }
 
   @Get(':datediff')
-  handleSearchUsers(@Query('datediff') dateDiff: number): Promise<Player[]> {
+  handleSearchUsers(@Param('datediff') dateDiff: number): Promise<Player[]> {
     return this.playerService.searchUsers(dateDiff);
   }
 }

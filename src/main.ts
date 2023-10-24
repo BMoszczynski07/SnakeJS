@@ -11,6 +11,14 @@ async function bootstrap() {
 
   app.use('/assets', express.static(join(__dirname, '..', 'assets')));
 
+  try {
+    prisma.$connect();
+  } catch (err) {
+    throw new Error(`Wykryto błąd! ${err.message}`);
+  } finally {
+    prisma.$disconnect();
+  }
+
   await app.listen(8000);
 }
 
