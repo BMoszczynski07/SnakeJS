@@ -4,12 +4,12 @@ import Player from 'src/shared/Player';
 
 @Injectable()
 export class PlayerService {
-  getUsers = async (from: number, to: number): Promise<Player[]> => {
+  getUsers = async (from: string, to: string): Promise<Player[]> => {
     const fetchUsers = await prisma.players.findMany({
       where: {
         id: {
-          gte: from,
-          lte: to,
+          gte: parseInt(from),
+          lte: parseInt(to),
         },
       },
     });
