@@ -3,13 +3,16 @@ import { AppModule } from './app.module';
 import * as express from 'express';
 import { join } from 'path';
 import { PrismaClient } from '@prisma/client';
+import { NestExpressApplication } from '@nestjs/platform-express';
 
 const prisma = new PrismaClient();
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
+  const app = await NestFactory.create<NestExpressApplication>(AppModule, {
+    rawBody: true,
+  });
 
-  app.use('/assets', express.static(join(__dirname, '..', 'assets')));
+  app.use('/uploads', express.static(join(__dirname, '..', 'uploads')));
 
   try {
     prisma.$connect();

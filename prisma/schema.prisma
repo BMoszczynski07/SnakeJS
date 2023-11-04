@@ -10,11 +10,11 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Players {
-  id        Int      @id
+model Player {
+  id        Int      @id @default(autoincrement())
   username  String
   message   String   @default("")
-  imgURL    String   @default("http://localhost:8000/assets/images/guest.png")
+  imgURL    String   @default("http://localhost:8000/uploads/guest.png")
   points    Int
   speed     Float
   boardSize Int
@@ -23,4 +23,5 @@ model Players {
   minutes   Int
   seconds   Int
   published DateTime
+  approved  Boolean
 }
