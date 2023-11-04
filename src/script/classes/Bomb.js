@@ -7,11 +7,13 @@ import { board, gameStarted, mute, snake } from "../global/variables.js";
 import Boost from "./Boost.js";
 
 class Bomb extends Boost {
+  bombs = [];
+
   constructor(x, y) {
     super(x, y);
-    this.bombId = bombs.length;
+    this.bombId = this.bombs.length;
 
-    bombs.push(this);
+    this.bombs.push(this);
 
     const BOMB_INTERVAL_RANGE = RandInt({
       min: 50,
@@ -25,26 +27,26 @@ class Bomb extends Boost {
   }
 
   handleBombTranslate = () => {
-    if (!gameStarted.val) {
+    if (!this.gameStarted) {
       clearInterval(this.bombInterval);
       return;
     }
-    board[this.y][this.x].classList.remove("tile--bomb");
+    this.board[this.y][this.x].classList.remove("tile--bomb");
 
     if (this.x === 0) {
       clearInterval(this.bombInterval);
 
-      const foundIdOfBomb = bombs.findIndex(
+      const foundIdOfBomb = this.bombs.findIndex(
         (bomb) => bomb.bombId === this.bombId
       );
 
-      console.log(bombs);
-      bombs.splice(foundIdOfBomb, 1);
-      console.log(bombs);
+      console.log(this.bombs);
+      this.bombs.splice(foundIdOfBomb, 1);
+      console.log(this.bombs);
 
-      if (bombs.length === 0) {
-        clearInterval(bombsInterval.val);
-        bombsInterval.set({ payload: "" });
+      if (this.bombs.length === 0) {
+        clearInterval(this.bombsInterval);
+        this.bombsInterval = "";
       }
 
       return;
@@ -52,18 +54,18 @@ class Bomb extends Boost {
 
     this.x--;
 
-    board[this.y][this.x].classList.add("tile--bomb");
+    this.board[this.y][this.x].classList.add("tile--bomb");
     this.handleBombCollide();
   };
 
   handleBombCollide = () => {
-    if (this.x === snake.class.x && this.y === snake.class.y) {
-      if (!mute.isMuted) bomb.play();
+    if (this.x === this.snake.x && this.y === this.snake.y) {
+      if (!this.audio.mute) this.bomb.play();
 
-      board[this.y][this.x].classList.remove("tile--bomb");
+      this.board[this.y][this.x].classList.remove("tile--bomb");
       clearInterval(this.bombInterval);
 
-      GameOver();
+      this.gameOver();
       return;
     }
   };

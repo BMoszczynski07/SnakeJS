@@ -382,12 +382,6 @@ const handleCreateElement = (index, record) => {
   return leaderboardRecord;
 };
 
-export let mode = localStorage.getItem("leaderboard-mode") || "all-records";
-
-export let setMode = (payload) => {
-  mode = payload;
-};
-
 export const handleFetchRecords = ({ from = 0, to = 50 }) => {
   // TODO: fetch some records from the API and store them into topPlayers[] array
   // fetching records from the API...
@@ -407,6 +401,6 @@ export const calculatePos = () => {
 };
 
 export const sharePos = (e) => {
-  // TODO: add position to the DOM and a table, and then do PATCH request to the API (this will be form submit function)
+  // TODO: add position to the DOM and a table, and then do POST request to the API (this will be form submit function)
   e.preventDefault();
 };

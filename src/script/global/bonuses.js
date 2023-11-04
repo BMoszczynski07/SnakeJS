@@ -49,8 +49,6 @@ export const bonusFiles = {
 
 export const bombs = [];
 
-export const bonuses = [];
-
 export const handleGenerateBonuses = () => {
   const rand = RandInt({
     min: 0,

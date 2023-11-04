@@ -1,7 +1,6 @@
 import Preferences from "./script/classes/Preferences.js";
 import handleGenerateBoard from "./script/functions/handleGenerateBoard.js";
 import handleKeyPress from "./script/functions/handleKeyPress.js";
-import { currentTheme } from "./script/global/CSSroot.js";
 import { controlBtns, sound } from "./script/global/elements.js";
 import {
   W,
@@ -23,6 +22,7 @@ import {
   mode,
   setMode,
 } from "./script/global/leaderboard.js";
+import Game from "./script/classes/Game.js";
 
 sound.addEventListener("click", () => {
   console.log("hello");
@@ -131,8 +131,6 @@ document.addEventListener("keyup", (e) => {
   handleKeyPress({ key });
 });
 
-const selection = document.querySelector(".leaderboard-selection");
-
 selection.addEventListener("change", (e) => {
   setMode(e.target.value);
   localStorage.setItem("leaderboard-mode", e.target.value);
@@ -146,25 +144,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
   handleFetchRecords({ from: 0 });
 
-  const options = selection.options;
-  for (let i = 0; i < options.length; i++) {
-    const option = options[i];
-    if (option.textContent === mode) {
-      option.selected = true;
-      break;
-    }
-  }
+  const game = new Game();
 
   trophy.src = TROPHY_SRC;
-  preferences.set({
-    payload: new Preferences({
-      boardColor: currentTheme.boardColor,
-      textColor: currentTheme.textColor,
-      tileColor: currentTheme.tileColor,
-      foodColor: currentTheme.foodColor,
-      background: currentTheme.background,
-      snakeColor: currentTheme.snakeColor,
-    }),
-  });
   handleGenerateBoard();
 });

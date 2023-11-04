@@ -1,15 +1,33 @@
-import { root } from "../global/CSSroot.js";
+import Game from "./Game.js";
 
-class Preferences {
-  constructor(board) {
-    this.board = board;
+class Preferences extends Game {
+  root = document.querySelector(":root");
+  rs = getComputedStyle(root);
 
-    root.style.setProperty("--board-color", this.board.boardColor);
-    root.style.setProperty("--text-color", this.board.textColor);
-    root.style.setProperty("--snake-color", this.board.snakeColor);
-    root.style.setProperty("--background", this.board.background);
-    root.style.setProperty("--food-color", this.board.foodColor);
-    root.style.setProperty("--tile-color", this.board.tileColor);
+  CSS = {
+    "--board-color": rs.getPropertyValue("--board-color"),
+    "--snake-color": rs.getPropertyValue("--snake-color"),
+    "--tile-color": rs.getPropertyValue("--tile-color"),
+    "--background": rs.getPropertyValue("--background"),
+    "--food-color": rs.getPropertyValue("--food-color"),
+    "--text-color": rs.getPropertyValue("--text-color"),
+  };
+
+  currentTheme = {
+    boardColor: localStorage.getItem("board-theme") || CSS["--board-color"],
+    snakeColor: localStorage.getItem("snake-color") || CSS["--snake-color"],
+    tileColor: localStorage.getItem("tile-color") || CSS["--tile-color"],
+    foodColor: localStorage.getItem("food-color") || CSS["--food-color"],
+    background: localStorage.getItem("background") || CSS["--background"],
+  };
+
+  constructor() {
+    this.root.style.setProperty("--board-color", currentTheme.boardColor);
+    this.root.style.setProperty("--text-color", currentTheme.textColor);
+    this.root.style.setProperty("--snake-color", currentTheme.snakeColor);
+    this.root.style.setProperty("--background", currentTheme.background);
+    this.root.style.setProperty("--food-color", currentTheme.foodColor);
+    this.root.style.setProperty("--tile-color", currentTheme.tileColor);
   }
 
   handlePickTheme = ({ theme }) => {
@@ -22,12 +40,12 @@ class Preferences {
       snakeColor,
     } = theme;
 
-    root.style.setProperty("--board-color", boardColor);
-    root.style.setProperty("--text-color", textColor);
-    root.style.setProperty("--snake-color", snakeColor);
-    root.style.setProperty("--background", background);
-    root.style.setProperty("--food-color", foodColor);
-    root.style.setProperty("--tile-color", tileColor);
+    this.root.style.setProperty("--board-color", boardColor);
+    this.root.style.setProperty("--text-color", textColor);
+    this.root.style.setProperty("--snake-color", snakeColor);
+    this.root.style.setProperty("--background", background);
+    this.root.style.setProperty("--food-color", foodColor);
+    this.root.style.setProperty("--tile-color", tileColor);
     localStorage.setItem("--board-color", boardColor);
     localStorage.setItem("--text-color", textColor);
     localStorage.setItem("--snake-color", snakeColor);
@@ -43,15 +61,18 @@ class Preferences {
     nystagmusInterval = setInterval(() => {
       state = !state;
 
-      root.style.setProperty("--tile-color", `${state ? "#fff" : "#000"}`);
-      root.style.setProperty("--snake-color", `${state ? "#000" : "#fff"}`);
-      root.style.setProperty("--food-color", `${state ? "#f00" : "#00f"}`);
+      this.root.style.setProperty("--tile-color", `${state ? "#fff" : "#000"}`);
+      this.root.style.setProperty(
+        "--snake-color",
+        `${state ? "#000" : "#fff"}`
+      );
+      this.root.style.setProperty("--food-color", `${state ? "#f00" : "#00f"}`);
     }, 50);
 
     setTimeout(() => {
-      root.style.setProperty("--snake-color", this.board.snakeColor);
-      root.style.setProperty("--tile-color", this.board.tileColor);
-      root.style.setProperty("--food-color", this.board.foodColor);
+      this.root.style.setProperty("--snake-color", currentTheme.snakeColor);
+      this.root.style.setProperty("--tile-color", currentTheme.tileColor);
+      this.root.style.setProperty("--food-color", currentTheme.foodColor);
       clearInterval(nystagmusInterval);
     }, 4000);
   };

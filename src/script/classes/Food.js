@@ -1,36 +1,43 @@
-import { point } from "../functions/handleInitializeAudio.js";
-import handlePlaceTile from "../functions/handlePlaceTile.js";
-import {
-  board,
-  gameStarted,
-  mute,
-  snake,
-  snakePositions,
-} from "../global/variables.js";
 import Boost from "./Boost.js";
-import { length } from "../global/elements.js";
-import handleDisplay from "../functions/handleDisplay.js";
-import handleFoodEaten from "../functions/handleFoodEaten.js";
 
 class Food extends Boost {
+  getNewTile = (subX, subY, firstX, firstY) => {
+    let x = firstX;
+    let y = firstY;
+
+    if (subX !== 0) {
+      x = (firstX - subX + this.boardSize) % this.boardSize;
+    } else if (subY !== 0) {
+      y = (firstY - subY + this.boardSize) % this.boardSize;
+    }
+
+    if (this.board[y][x].classList.contains("tile--snake")) {
+      //! game over
+      this.gameOver();
+      return { newX: x, newY: y };
+    }
+
+    return { newX: x, newY: y };
+  };
+
   handleIsEaten = () => {
-    if (snake.class.x === this.x && snake.class.y === this.y) {
-      if (!mute.isMuted) {
-        point.play();
+    if (this.snake === this.x && this.snake.y === this.y) {
+      if (!this.audio.mute) {
+        this.audio.point.play();
       }
 
-      board[this.y][this.x].classList.remove("tile--food");
-      handlePlaceTile({ mode: "food" });
+      this.board[this.y][this.x].classList.remove("tile--food");
+      this.handlePlaceTile({ mode: "food" });
 
-      const { newX, newY } = handleFoodEaten();
+      const { newX, newY } = this.handleFoodEaten();
 
-      if (!gameStarted.val) return;
+      if (!this.gameStarted) return;
 
-      let snakePosLen = snakePositions.length;
+      let snakePosLen = this.snakePositions.length;
 
-      const { x: firstX, y: firstY } = snakePositions[0];
-      const firstElem = board[firstY][firstX]
-        ? board[firstY][firstX]
+      const { x: firstX, y: firstY } = this.snakePositions[0];
+      const firstElem = this.board[firstY][firstX]
+        ? this.board[firstY][firstX]
         : undefined;
 
       if (firstElem) {
@@ -38,8 +45,8 @@ class Food extends Boost {
           // remove added points
 
           for (let i = 0; i < snakePosLen; i++) {
-            const { x: nextX, y: nextY } = snakePositions[i];
-            const nextElem = board[nextY][nextX];
+            const { x: nextX, y: nextY } = this.snakePositions[i];
+            const nextElem = this.board[nextY][nextX];
 
             nextElem.classList.remove("tile--snake-added-point");
           }
@@ -49,28 +56,28 @@ class Food extends Boost {
           // remove subtracted points
 
           for (let i = 0; i < snakePosLen; i++) {
-            const { x: nextX, y: nextY } = snakePositions[0];
-            const nextElem = board[nextY][nextX];
+            const { x: nextX, y: nextY } = this.snakePositions[0];
+            const nextElem = this.board[nextY][nextX];
 
             if (nextElem.classList.contains("tile--snake-subtracted-point")) {
               nextElem.classList.remove("tile--snake-subtracted-point");
               nextElem.classList.remove("tile--snake");
-              snakePositions.shift();
-              snake.class.length--;
+              this.snakePositions.shift();
+              this.snake.length--;
             } else break;
           }
         }
       }
 
-      snake.class.length++;
-      handleDisplay({ snakeLength: snake.class.length });
-      length.style.color = "#d1d122";
+      this.snake.length++;
+      this.handleDisplay({ snakeLength: this.snake.length });
+      this.length.style.color = "#d1d122";
 
-      snakePositions.unshift({ x: newX, y: newY });
-      board[newY][newX].classList.add("tile--snake");
+      this.snakePositions.unshift({ x: newX, y: newY });
+      this.board[newY][newX].classList.add("tile--snake");
 
       setTimeout(() => {
-        length.style.color = "#000";
+        this.length.style.color = "#000";
       }, 300);
     }
   };

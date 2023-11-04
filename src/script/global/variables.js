@@ -1,14 +1,3 @@
-import handleValidateBoardSize from "../functions/handleValidateBoardSize.js";
-
-// board variables
-export const board = [];
-export const sizeRange = { min: 10, max: 40 };
-export let boardSize = 20;
-
-export const handleSetBoardSize = () => {
-  boardSize = handleValidateBoardSize();
-};
-
 // classes
 export let snake = {
   class: "",
@@ -54,12 +43,6 @@ export let timer = {
   },
 };
 
-export let mute = {
-  isMuted: false,
-  toggle: () => {
-    mute.isMuted = !mute.isMuted;
-  },
-};
 export let interval = {
   val: 0,
   set: (payload) => {

@@ -1,4 +1,6 @@
-class Snake {
+import Board from "./Board.js";
+
+class Snake extends Board {
   constructor(direction, length, speed, x, y, jumps = 0) {
     this.direction = direction;
     this.length = length;
