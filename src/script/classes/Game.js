@@ -7,6 +7,8 @@ class Game {
   selection = document.querySelector(".leaderboard-selection");
   mode = localStorage.getItem("leaderboard-mode") || "all-records";
 
+  gameStarted = false;
+
   audio = "";
   preferences = "";
   leaderboard = "";

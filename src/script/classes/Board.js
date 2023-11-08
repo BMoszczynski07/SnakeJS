@@ -29,9 +29,70 @@ class Board extends Game {
 
   bombsInterval = "";
 
-  handlePlayAgain = () => {
-    const resultform = new ResultForm();
+  resultForm = "";
 
+  gameOver = () => {
+    this.resultForm = new ResultForm();
+
+    resultForm.show();
+
+    gameover.style.display = "flex";
+    container.style.display = "flex";
+
+    clearInterval(timerInterval.interval);
+    clearInterval(gameInterval.interval);
+
+    this.gameStarted = false;
+
+    const { speed, length } = this.snake;
+
+    const POINTS_CONSTANT = 15;
+
+    const totalPoints = Math.round(
+      length * speed * boardSize * POINTS_CONSTANT
+    );
+
+    const payload = {
+      totalPoints,
+      speed,
+      this.boardSize,
+      length,
+      time: {
+        hours: Math.floor(this.timer / 60 / 60),
+        minutes: Math.floor(this.timer / 60) % 60,
+        seconds: this.timer % 60,
+      },
+    };
+
+    pointsEl.textContent = `${payload.totalPoints} Punkty`;
+    speedEl.textContent = `${payload.speed.toFixed(2)} Prędkość`;
+    lengthEl.textContent = `${payload.length} Długość`;
+    boardSizeEl.textContent = `${payload.boardSize}x${payload.boardSize} Rozmiar`;
+    timerEl.textContent = `${
+      payload.time.hours > 10 ? payload.time.hours : "0" + payload.time.hours
+    }:${
+      payload.time.minutes > 10
+        ? payload.time.minutes
+        : "0" + payload.time.minutes
+    }:${
+      payload.time.seconds > 10
+        ? payload.time.seconds
+        : "0" + payload.time.seconds
+    } Czas gry`;
+
+    playAgain.addEventListener("click", this.handlePlayAgain);
+    pencil.addEventListener("click", this.usernameInputFocus);
+
+    shareForm.addEventListener("submit", sharePos);
+
+    setTimeout(() => {
+      navigator.vibrate([200, 100, 300]);
+    }, 150);
+
+    if (!mute.isMuted) gameOver.play();
+  };
+
+  handlePlayAgain = () => {
     gameover = document.querySelector(".game-over");
     container = document.querySelector(".container");
 
