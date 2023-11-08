@@ -1,5 +1,6 @@
 import AudioComponent from "./AudioComponent.js";
 import Board from "./Board.js";
+import Leaderboard from "./LeaderBoard.js";
 import Preferences from "./Preferences.js";
 
 class Game {
@@ -8,11 +9,14 @@ class Game {
 
   audio = "";
   preferences = "";
+  leaderboard = "";
 
   constructor() {
     const board = new Board();
     this.audio = new AudioComponent();
+
     this.preferences = new Preferences();
+    this.leaderboard = new Leaderboard();
 
     board.handleSetBoardSize();
 

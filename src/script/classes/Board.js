@@ -2,6 +2,7 @@ import RandInt from "../functions/RandInt.js";
 import Bonus from "./Bonus.js";
 import Food from "./Food.js";
 import Game from "./Game.js";
+import ResultForm from "./ResultForm.js";
 import Snake from "./Snake.js";
 
 class Board extends Game {
@@ -10,6 +11,7 @@ class Board extends Game {
   boardSize = 20;
   gameBoard = document.querySelector(".gameboard");
 
+  // zmienna przechowująca koordynaty (x,y) wszystkich "kafelków" węża
   snakePositions = [];
 
   timer = 0;
@@ -23,6 +25,56 @@ class Board extends Game {
   food = "";
 
   bonuses = [];
+  bombs = [];
+
+  bombsInterval = "";
+
+  handlePlayAgain = () => {
+    const resultform = new ResultForm();
+
+    gameover = document.querySelector(".game-over");
+    container = document.querySelector(".container");
+
+    gameover.style.display = "none";
+    container.style.display = "none";
+
+    document.querySelectorAll(".tile").forEach((tile) => tile.remove());
+    let snakePosLen = this.snakePositions.length;
+    for (let i = 0; i < snakePosLen; i++) {
+      this.snakePositions.shift();
+    }
+
+    for (let i = 0; i < boardSize; i++) {
+      this.board.pop();
+    }
+
+    let bonusesLen = this.bonuses.length;
+
+    for (let i = 0; i < bonusesLen; i++) {
+      clearInterval(this.bonuses[0].boostInterval);
+      bonuses.shift();
+    }
+
+    clearInterval(this.bombsInterval);
+    this.bombsInterval = "";
+
+    let bombsLen = this.bombs.length;
+
+    for (let i = 0; i < bombsLen; i++) {
+      clearInterval(this.bombs[0].bombInterval);
+      this.bombs.shift();
+    }
+
+    const playAgain = document.querySelector(".play-again");
+    const pencil = document.querySelector(".pencil");
+
+    playAgain.removeEventListener("click", this.handlePlayAgain);
+    pencil.removeEventListener("click", usernameInputFocus);
+
+    handleSetBoardSize();
+
+    handleGenerateBoard();
+  };
 
   handleSetBoardSize = () => {
     this.boardSize = handleValidateBoardSize();

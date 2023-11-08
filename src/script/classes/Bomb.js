@@ -1,9 +1,4 @@
-import GameOver from "../functions/GameOver.js";
 import RandInt from "../functions/RandInt.js";
-import { bomb } from "../functions/handleInitializeAudio.js";
-import { bombsInterval } from "../global/bombs.js";
-import { bombs } from "../global/bombs.js";
-import { board, gameStarted, mute, snake } from "../global/variables.js";
 import Boost from "./Boost.js";
 
 class Bomb extends Boost {
