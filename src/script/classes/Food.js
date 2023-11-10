@@ -1,25 +1,6 @@
 import Boost from "./Boost.js";
 
 class Food extends Boost {
-  getNewTile = (subX, subY, firstX, firstY) => {
-    let x = firstX;
-    let y = firstY;
-
-    if (subX !== 0) {
-      x = (firstX - subX + this.boardSize) % this.boardSize;
-    } else if (subY !== 0) {
-      y = (firstY - subY + this.boardSize) % this.boardSize;
-    }
-
-    if (this.board[y][x].classList.contains("tile--snake")) {
-      //! game over
-      this.gameOver();
-      return { newX: x, newY: y };
-    }
-
-    return { newX: x, newY: y };
-  };
-
   handleIsEaten = () => {
     if (this.snake === this.x && this.snake.y === this.y) {
       if (!this.audio.mute) {

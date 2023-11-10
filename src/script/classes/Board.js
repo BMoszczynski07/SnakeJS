@@ -31,18 +31,188 @@ class Board extends Game {
 
   resultForm = "";
 
+  timerInterval = "";
+
+  gameInterval = "";
+  interval = 0;
+
+  payload = "";
+
+  getNewTile = (subX, subY, firstX, firstY) => {
+    let x = firstX;
+    let y = firstY;
+
+    if (subX !== 0) {
+      x = (firstX - subX + this.boardSize) % this.boardSize;
+    } else if (subY !== 0) {
+      y = (firstY - subY + this.boardSize) % this.boardSize;
+    }
+
+    if (this.board[y][x].classList.contains("tile--snake")) {
+      //! game over
+      this.gameOver();
+      return { newX: x, newY: y };
+    }
+
+    return { newX: x, newY: y };
+  };
+
+  handleFoodEaten = () => {
+    //TODO: adding new tiles to the end of the snake
+    const { x: firstX, y: firstY } = this.snakePositions[0];
+    const { x: nextX, y: nextY } = this.snakePositions[1]
+      ? this.snakePositions[1]
+      : { x: undefined, y: undefined };
+
+    if (!nextX || !nextY) {
+      let newTile = { x: 0, y: 0 };
+
+      switch (this.snake.direction) {
+        case "W":
+          newTile.x = firstX;
+          newTile.y = firstY + 1;
+          break;
+        case "S":
+          newTile.x = firstX;
+          newTile.y = firstY - 1;
+          break;
+        case "A":
+          newTile.x = firstX + 1;
+          newTile.y = firstY;
+          break;
+        case "D":
+          newTile.x = firstX - 1;
+          newTile.y = firstY;
+          break;
+      }
+
+      return { newX: newTile.x, newY: newTile.y };
+    }
+
+    const subX = nextX - firstX;
+    const subY = nextY - firstY;
+
+    return this.getNewTile(subX, subY, firstX, firstY);
+  };
+
+  handleBonus = ({ type }) => {
+    let snakePosLen;
+
+    switch (type) {
+      case "Nystagmus":
+        this.preferences.handleNystagmus();
+        break;
+      case "+5 points":
+        setTimeout(() => {
+          for (let i = 0; i < this.snakePositions.length; i++) {
+            let { x, y } = this.snakePositions[i];
+            if (this.board[y][x].classList.contains("tile--snake-added-point"))
+              this.board[y][x].classList.remove("tile--snake-added-point");
+            else break;
+          }
+        }, 500);
+
+        snakePosLen = this.snakePositions.length;
+
+        for (let i = 0; i < snakePosLen; i++) {
+          const { x: nextX, y: nextY } = this.snakePositions[0];
+          const nextElem = this.board[nextY][nextX];
+          if (nextElem.classList.contains("tile--snake-subtracted-point")) {
+            nextElem.classList.remove("tile--snake-subtracted-point");
+            nextElem.classList.remove("tile--snake");
+            this.snakePositions.shift();
+            this.snake.length--;
+          } else break;
+        }
+
+        for (let i = 0; i < 5; i++) {
+          const newCoordinates = this.handleFoodEaten();
+
+          if (!this.gameStarted) return;
+
+          if (newCoordinates) {
+            const { newX, newY } = newCoordinates;
+
+            this.snake.length++;
+            this.handleDisplay({ snakeLength: this.snake.length });
+            this.snakePositions.unshift({ x: newX, y: newY });
+            this.board[newY][newX].classList.add("tile--snake");
+            this.board[newY][newX].classList.add("tile--snake-added-point");
+          }
+        }
+        break;
+      case "-5 points":
+        setTimeout(() => {
+          let snakePosLen = this.snakePositions.length;
+          for (let i = 0; i < snakePosLen; i++) {
+            const { x: nextX, y: nextY } = this.snakePositions[0];
+            const nextElem = this.board[nextY][nextX];
+            if (nextElem.classList.contains("tile--snake-subtracted-point")) {
+              nextElem.classList.remove("tile--snake-subtracted-point");
+              nextElem.classList.remove("tile--snake");
+              this.snakePositions.shift();
+              this.snake.length--;
+              this.handleDisplay({ snakeLength: snake.class.length });
+            } else break;
+          }
+        }, 500);
+
+        for (let i = 0; i < 5; i++) {
+          const { x: nextX, y: nextY } = this.snakePositions[i];
+
+          if (
+            this.board[nextY][nextX].classList.contains(
+              "tile--snake-added-point"
+            )
+          ) {
+            this.board[nextY][nextX].classList.remove(
+              "tile--snake-added-point"
+            );
+            this.board[nextY][nextX].classList.add(
+              "tile--snake-subtracted-point"
+            );
+          } else {
+            if (i === this.snakePositions.length - 1) break;
+            else
+              this.board[nextY][nextX].classList.add(
+                "tile--snake-subtracted-point"
+              );
+          }
+        }
+        break;
+      case "Bombs":
+        navigator.vibrate(100);
+        if (this.bombsInterval === "")
+          this.bombsInterval = setInterval(() => {
+            this.bombsState = !this.bombsState;
+
+            console.log("interval");
+
+            this.preferences.root.style.setProperty(
+              "--bomb-color",
+              this.bombsState ? "#000" : "#f00"
+            );
+          }, 250);
+
+        for (let i = 0; i < Math.floor(this.boardSize * (2 / 5)); i++) {
+          this.handlePlaceTile({ mode: "bomb" });
+        }
+        break;
+      default:
+        console.error("#ERR -> Nieznany typ bonusu!");
+        break;
+    }
+  };
+
   gameOver = () => {
+    this.gameStarted = false;
+
     this.resultForm = new ResultForm();
 
     resultForm.show();
 
-    gameover.style.display = "flex";
-    container.style.display = "flex";
-
-    clearInterval(timerInterval.interval);
-    clearInterval(gameInterval.interval);
-
-    this.gameStarted = false;
+    clearInterval(this.timerInterval);
+    clearInterval(this.gameInterval);
 
     const { speed, length } = this.snake;
 
@@ -52,10 +222,10 @@ class Board extends Game {
       length * speed * boardSize * POINTS_CONSTANT
     );
 
-    const payload = {
+    this.payload = {
       totalPoints,
       speed,
-      this.boardSize,
+      boardSize: this.boardSize,
       length,
       time: {
         hours: Math.floor(this.timer / 60 / 60),
@@ -64,41 +234,14 @@ class Board extends Game {
       },
     };
 
-    pointsEl.textContent = `${payload.totalPoints} Punkty`;
-    speedEl.textContent = `${payload.speed.toFixed(2)} Prędkość`;
-    lengthEl.textContent = `${payload.length} Długość`;
-    boardSizeEl.textContent = `${payload.boardSize}x${payload.boardSize} Rozmiar`;
-    timerEl.textContent = `${
-      payload.time.hours > 10 ? payload.time.hours : "0" + payload.time.hours
-    }:${
-      payload.time.minutes > 10
-        ? payload.time.minutes
-        : "0" + payload.time.minutes
-    }:${
-      payload.time.seconds > 10
-        ? payload.time.seconds
-        : "0" + payload.time.seconds
-    } Czas gry`;
-
-    playAgain.addEventListener("click", this.handlePlayAgain);
-    pencil.addEventListener("click", this.usernameInputFocus);
-
-    shareForm.addEventListener("submit", sharePos);
-
     setTimeout(() => {
       navigator.vibrate([200, 100, 300]);
     }, 150);
 
-    if (!mute.isMuted) gameOver.play();
+    if (!mute.isMuted) this.audio.gameOver.play();
   };
 
   handlePlayAgain = () => {
-    gameover = document.querySelector(".game-over");
-    container = document.querySelector(".container");
-
-    gameover.style.display = "none";
-    container.style.display = "none";
-
     document.querySelectorAll(".tile").forEach((tile) => tile.remove());
     let snakePosLen = this.snakePositions.length;
     for (let i = 0; i < snakePosLen; i++) {
@@ -117,6 +260,7 @@ class Board extends Game {
     }
 
     clearInterval(this.bombsInterval);
+
     this.bombsInterval = "";
 
     let bombsLen = this.bombs.length;
@@ -126,19 +270,30 @@ class Board extends Game {
       this.bombs.shift();
     }
 
-    const playAgain = document.querySelector(".play-again");
-    const pencil = document.querySelector(".pencil");
+    this.handleSetBoardSize();
 
-    playAgain.removeEventListener("click", this.handlePlayAgain);
-    pencil.removeEventListener("click", usernameInputFocus);
+    this.handleGenerateBoard();
+  };
 
-    handleSetBoardSize();
+  handleValidateBoardSize = () => {
+    let size;
 
-    handleGenerateBoard();
+    while (!size || size < this.sizeRange.min || size > this.sizeRange.max) {
+      const input = prompt(
+        `Podaj wielkość planszy (minimalna - ${this.sizeRange.min}, maksymalna - ${this.sizeRange.max}):`
+      );
+      size = parseInt(input);
+
+      if (!size || size < this.sizeRange.min || size > this.sizeRange.max) {
+        alert("Wprowadź poprawną wartość!");
+      }
+    }
+
+    return size;
   };
 
   handleSetBoardSize = () => {
-    this.boardSize = handleValidateBoardSize();
+    this.boardSize = this.handleValidateBoardSize();
   };
 
   handleAppendBoard = (tileCSS) => {

@@ -4,32 +4,25 @@ import Leaderboard from "./LeaderBoard.js";
 import Preferences from "./Preferences.js";
 
 class Game {
-  selection = document.querySelector(".leaderboard-selection");
-  mode = localStorage.getItem("leaderboard-mode") || "all-records";
-
   gameStarted = false;
 
   audio = "";
   preferences = "";
+
   leaderboard = "";
+  board = "";
 
   constructor() {
-    const board = new Board();
     this.audio = new AudioComponent();
 
     this.preferences = new Preferences();
+
     this.leaderboard = new Leaderboard();
+    this.board = new Board();
 
-    board.handleSetBoardSize();
+    this.leaderboard.initSelector();
 
-    const options = selection.options;
-    for (let i = 0; i < options.length; i++) {
-      const option = options[i];
-      if (option.textContent === mode) {
-        option.selected = true;
-        break;
-      }
-    }
+    this.board.handleSetBoardSize();
   }
 }
 

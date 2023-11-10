@@ -1,7 +1,13 @@
+import Game from "./Game";
+
 class Leaderboard extends Game {
   topPlayers = [];
 
+  selection = document.querySelector(".leaderboard-selection");
+
   leaderboardTop = document.querySelector(".leaderboard-top");
+
+  mode = localStorage.getItem("leaderboard-mode") || "all-records";
 
   handleFetchRecords = async ({ from = 0, to = 50 }) => {
     // TODO: fetch some records from the API and store them into topPlayers[] array
@@ -19,7 +25,20 @@ class Leaderboard extends Game {
 
   calculatePos = async () => {};
 
-  insertResult = async () => {};
+  insertResult = async (e) => {
+    e.preventDefault();
+  };
+
+  initSelector = () => {
+    const options = this.selection.options;
+    for (let i = 0; i < options.length; i++) {
+      const option = options[i];
+      if (option.textContent === this.mode) {
+        option.selected = true;
+        break;
+      }
+    }
+  };
 
   constructor() {}
 }
