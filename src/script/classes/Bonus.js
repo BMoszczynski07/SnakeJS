@@ -1,4 +1,3 @@
-import RandInt from "../functions/RandInt.js";
 import Boost from "./Boost.js";
 
 class Bonus extends Boost {
@@ -12,7 +11,7 @@ class Bonus extends Boost {
 
     const intervalRange =
       (interval.val *
-        RandInt({
+        this.Rand.GetInteger({
           min: 10,
           max: 200,
         })) /

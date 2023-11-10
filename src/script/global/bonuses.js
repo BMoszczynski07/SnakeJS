@@ -1,4 +1,3 @@
-import RandInt from "../functions/RandInt.js";
 import handlePlaceTile from "../functions/handlePlaceTile.js";
 
 import speed2XImg from "../../assets/SPEED2X.png";
@@ -50,7 +49,7 @@ export const bonusFiles = {
 export const bombs = [];
 
 export const handleGenerateBonuses = () => {
-  const rand = RandInt({
+  const rand = this.Rand.GetInteger({
     min: 0,
     max: 100,
   });

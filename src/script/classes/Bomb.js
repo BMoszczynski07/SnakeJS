@@ -1,4 +1,3 @@
-import RandInt from "../functions/RandInt.js";
 import Boost from "./Boost.js";
 
 class Bomb extends Boost {
@@ -10,7 +9,7 @@ class Bomb extends Boost {
 
     this.bombs.push(this);
 
-    const BOMB_INTERVAL_RANGE = RandInt({
+    const BOMB_INTERVAL_RANGE = this.Rand.GetInteger({
       min: 50,
       max: 250,
     });

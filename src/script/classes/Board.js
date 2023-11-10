@@ -1,4 +1,3 @@
-import RandInt from "../functions/RandInt.js";
 import Bonus from "./Bonus.js";
 import Food from "./Food.js";
 import Game from "./Game.js";
@@ -37,6 +36,8 @@ class Board extends Game {
   interval = 0;
 
   payload = "";
+
+  SPEED_CONSTANT = 4;
 
   getNewTile = (subX, subY, firstX, firstY) => {
     let x = firstX;
@@ -364,11 +365,11 @@ class Board extends Game {
 
     // TODO: generowanie planszy
     let snakePos = {
-      x: RandInt({
+      x: this.Rand.GetInteger({
         min: Math.floor(this.boardSize / 2) - 3,
         max: Math.floor(this.boardSize / 2) + 3,
       }),
-      y: RandInt({
+      y: this.Rand.GetInteger({
         min: Math.floor(this.boardSize / 2) - 1,
         max: Math.floor(this.boardSize / 2) + 1,
       }),
@@ -423,7 +424,7 @@ class Board extends Game {
 
       if (freeTiles.length === 0) return;
 
-      let rand = RandInt({
+      let rand = this.Rand.GetInteger({
         min: 0,
         max: freeTiles.length - 1,
       });
@@ -466,7 +467,7 @@ class Board extends Game {
         board[this.food.y][this.food.x].classList.add("tile--food");
         break;
       case "bomb":
-        let rand = RandInt({
+        let rand = this.Rand.GetInteger({
           min: 0,
           max: this.boardSize - 1,
         });
