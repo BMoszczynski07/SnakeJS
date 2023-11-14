@@ -1,4 +1,4 @@
-import Board from "./Board";
+import Board from "./Board.js";
 
 class ResultForm extends Board {
   gameover = document.querySelector(".game-over");
@@ -61,7 +61,7 @@ class ResultForm extends Board {
   };
 
   usernameInputFocus = () => {
-    usernameInput.focus();
+    this.usernameInput.focus();
   };
 }
 

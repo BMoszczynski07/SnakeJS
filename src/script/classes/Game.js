@@ -1,5 +1,6 @@
 import AudioComponent from "./AudioComponent.js";
 import Board from "./Board.js";
+import BonusFiles from "./BonusFiles.js";
 import Leaderboard from "./LeaderBoard.js";
 import Preferences from "./Preferences.js";
 import Random from "./Random.js";
@@ -8,6 +9,8 @@ class Game {
   gameStarted = false;
 
   audio = new AudioComponent();
+  bonusFiles = new BonusFiles();
+
   preferences = new Preferences();
 
   leaderboard = new Leaderboard();
@@ -21,6 +24,8 @@ class Game {
     this.leaderboard.initSelector();
 
     this.board.handleSetBoardSize();
+
+    this.board.handleGenerateBoard();
   }
 
   handleStartGame = () => {

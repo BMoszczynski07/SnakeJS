@@ -20,6 +20,8 @@ class Board extends Game {
   parameterSpeed = document.querySelector("[data-parameter=speed]");
   length = document.querySelector("[data-parameter=length]");
 
+  bombsState = "";
+
   snake = "";
   food = "";
 
@@ -479,6 +481,30 @@ class Board extends Game {
       default:
         console.error("#ERR! -> Przesłano niepoprawny typ bonusu");
         break;
+    }
+  };
+
+  handleGenerateBonuses = () => {
+    const rand = this.Rand.GetInteger({
+      min: 0,
+      max: 100,
+    });
+
+    const chosenBonuses = [
+      ...this.bonusFiles.bonusesProbabilities.filter(
+        (bonus) => bonus.probability >= rand
+      ),
+    ];
+
+    for (const bonus of chosenBonuses) {
+      this.board.handlePlaceTile({
+        mode: "bonus",
+        bonus: {
+          name: bonus.name,
+          imgPATH: this.bonusFiles.refs[bonus.name].img,
+          audioPATH: this.bonusFiles.refs[bonus.name].audio,
+        },
+      });
     }
   };
 
